@@ -204,10 +204,14 @@ async function onSubmit(e) {
 
 .form {
   position: relative;
-  padding: 0;
+  padding: 1.5rem 1.35rem 1.65rem;
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--text);
+  border-radius: 14px;
   opacity: 0;
   transform: translateY(10px);
   transition:
@@ -218,6 +222,12 @@ async function onSubmit(e) {
 .form.is-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (min-width: 720px) {
+  .form {
+    padding: 1.75rem 1.5rem 2rem;
+  }
 }
 
 .field {
@@ -235,20 +245,22 @@ async function onSubmit(e) {
   font: inherit;
   font-size: 1.0625rem;
   font-weight: 400;
-  padding: 0.65rem 0;
-  border: none;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--text);
+  border-radius: 8px;
+  background: #fff;
   color: var(--text);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-bottom-color: var(--text);
+  border-color: var(--text);
+  box-shadow: 0 0 0 2px rgba(29, 29, 31, 0.12);
 }
 
 .field textarea {
@@ -291,7 +303,8 @@ async function onSubmit(e) {
   margin: 0;
   font-size: 0.75rem;
   line-height: 1.45;
-  color: var(--muted);
+  color: var(--text);
+  opacity: 0.72;
   max-width: 28rem;
 }
 
@@ -312,12 +325,14 @@ async function onSubmit(e) {
   padding: 0.75rem 0.85rem;
   font-size: 0.875rem;
   line-height: 1.4;
-  border: 1px solid var(--line);
+  border: 1px solid var(--text);
+  border-radius: 8px;
+  background: #fff;
 }
 
 .toast--ok {
   color: var(--text);
-  background: var(--bg-subtle);
+  background: #fff;
 }
 
 .toast--err {
