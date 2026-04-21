@@ -86,13 +86,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
     :style="{ '--path-draw-ms': `${PATH_MS}ms` }"
     aria-labelledby="routes-heading"
   >
-    <div class="routes__head">
-      <h2 id="routes-heading" class="routes__title">Контур поставок</h2>
-      <p class="routes__lead">
-        Запад → восток: Европа, Россия, Корея и Япония. Упрощённая схема; реальный маршрут — по порту, перевозчику и VIN.
-      </p>
-      <div class="routes__rule" aria-hidden="true" />
-    </div>
+    
 
     <div class="routes__stage" aria-hidden="true">
       <!-- Общая коробка: ширина SVG = ширина слоя с точками (иначе при max-height линия «уезжает») -->
@@ -169,7 +163,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
       </div>
     </div>
 
-    <p class="routes__foot">Импорт в РФ · один контур документов и отчётности по сделке</p>
+
   </section>
 </template>
 

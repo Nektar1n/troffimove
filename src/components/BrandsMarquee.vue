@@ -59,12 +59,21 @@ const row = computed(() => {
   }
 }
 
+/* iOS часто включает «Уменьшить движение» — вместо анимации даём горизонтальный свайп, без «простыни» иконок */
 @media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
   .marquee__track {
     animation: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
+    flex-wrap: nowrap;
+    width: max-content;
+    align-self: flex-start;
   }
 }
 </style>
