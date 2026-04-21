@@ -28,18 +28,25 @@ jobs:
           node-version: '22'
           cache: npm
 
+      # Один секрет DOTENV = весь текст локального .env (имя «.env» для секрета в GitHub нельзя).
+      # Vite подхватит файл при npm run build.
+      - name: Собрать .env из секрета DOTENV
+        env:
+          DOTENV: ${{ secrets.DOTENV }}
+        run: |
+          if [ -n "$DOTENV" ]; then
+            printf '%s\n' "$DOTENV" > .env
+            echo "OK: записан .env из секрета DOTENV"
+          else
+            echo "Секрет DOTENV пуст — сборка без переменных из .env (как локально без файла)"
+          fi
+
       - name: Install and build
         run: |
           npm ci
           npm run build
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
-          VITE_FORM_SUBMIT_EMAIL: ${{ secrets.VITE_FORM_SUBMIT_EMAIL }}
-          VITE_SOCIAL_AVITO: ${{ secrets.VITE_SOCIAL_AVITO }}
-          VITE_SOCIAL_INSTAGRAM: ${{ secrets.VITE_SOCIAL_INSTAGRAM }}
-          VITE_SOCIAL_TELEGRAM: ${{ secrets.VITE_SOCIAL_TELEGRAM }}
-          VITE_SOCIAL_VK: ${{ secrets.VITE_SOCIAL_VK }}
-          VITE_REVIEWS_TELEGRAM_URL: ${{ secrets.VITE_REVIEWS_TELEGRAM_URL }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
