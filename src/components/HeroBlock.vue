@@ -16,7 +16,9 @@ onMounted(() => {
     <div class="hero__layout">
       <div class="hero__primary">
         <p class="hero__eyebrow" :class="{ 'is-in': mounted }">Troffimove Auto · Корея · Европа · Япония</p>
-        <h1 class="hero__title" :class="{ 'is-in': mounted }">Подбор, выкуп и привоз авто под ключ</h1>
+        <h1 class="hero__title" :class="{ 'is-in': mounted }">
+          Подбор, выкуп и привоз авто <span class="hero__title-em">под ключ</span>
+        </h1>
         <p class="hero__lead" :class="{ 'is-in': mounted }">
           Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
           организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную сумму
@@ -162,6 +164,11 @@ onMounted(() => {
 .hero__title.is-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+.hero__title-em {
+  font-weight: 700;
+  font-style: italic;
 }
 
 .hero__lead {

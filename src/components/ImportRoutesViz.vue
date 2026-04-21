@@ -175,7 +175,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   max-width: 100%;
   margin-left: calc(50% - 50vw);
   padding-top: max(2.25rem, env(safe-area-inset-top, 0px));
-  padding-bottom: max(2.75rem, calc(1rem + env(safe-area-inset-bottom, 0px)));
+  padding-bottom: max(1.65rem, calc(0.45rem + env(safe-area-inset-bottom, 0px)));
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
   border-top: 1px solid var(--line-light);
@@ -243,13 +243,15 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   max-width: min(1120px, 100%);
   margin: 0 auto;
   padding-inline: clamp(0.35rem, 2.5vw, 1.25rem);
-  padding-bottom: 0.35rem;
-  min-height: clamp(200px, 42vw, 360px);
+  /* Без жёсткого min-height на телефоне — иначе под схемой остаётся пустая полоса */
+  min-height: 0;
+  padding-bottom: 0.5rem;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 720px) {
   .routes__stage {
-    min-height: clamp(220px, 36vw, 340px);
+    min-height: clamp(200px, 28vw, 300px);
+    padding-bottom: 0.35rem;
   }
 }
 
@@ -542,7 +544,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   box-sizing: border-box;
   width: 100%;
   max-width: min(28rem, 100%);
-  margin: 1.25rem auto 0;
+  margin: 0.85rem auto 0;
   padding-inline: clamp(0px, 1.5vw, 0.5rem);
   text-align: center;
   font-size: clamp(0.75rem, 2vw, 0.8125rem);
@@ -550,6 +552,12 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   letter-spacing: 0.02em;
   color: var(--muted);
   overflow-wrap: break-word;
+}
+
+@media (min-width: 720px) {
+  .routes__foot {
+    margin-top: 1.25rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
