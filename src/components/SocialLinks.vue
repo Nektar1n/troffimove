@@ -54,12 +54,7 @@ const items = computed(() => {
       :aria-label="item.label"
     >
       <span v-if="item.id === 'avito'" class="soc__icon soc__icon--avito" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="soc__avito-svg">
-          <path
-            fill="currentColor"
-            d="M12 3 3 21h18L12 3Zm0 3.9 6.1 12.2H5.9L12 6.9Z"
-          />
-        </svg>
+        <span class="soc__avito-letter">А</span>
       </span>
       <span v-else class="soc__icon" aria-hidden="true" v-html="item.svg" />
     </a>
@@ -126,9 +121,14 @@ const items = computed(() => {
   fill: currentColor !important;
 }
 
-.soc__avito-svg {
-  width: 18px;
-  height: 18px;
+/* Монограмма по оптическому весу рядом с SVG 20×20 */
+.soc__avito-letter {
   display: block;
+  font-weight: 700;
+  font-size: 1.1875rem;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: inherit;
+  transform: translateY(-0.5px);
 }
 </style>

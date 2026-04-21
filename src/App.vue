@@ -16,11 +16,11 @@ import SiteFooter from './components/SiteFooter.vue';
     <SiteHeader />
     <main>
       <HeroBlock />
+      <CasesSection />
       <ImportRoutesViz />
       <StatsRow />
       <RegionsGrid />
       <BrandsSection />
-      <CasesSection />
       <ReviewsSection />
       <ContactForm />
     </main>
