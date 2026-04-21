@@ -5,7 +5,8 @@ import imgAlphardCase from '../assets/toyotagn.jpeg';
 import imgBmwCase from '../assets/bmw.jpeg';
 import imgCarnivalCase from '../assets/toyota.jpeg';
 
-const { el, visible } = useInView();
+/** Чуть раньше, чем секция влезет во вьюпорт — анимация и decode первой картинки не попадают в пик скролла */
+const { el, visible } = useInView({ rootMargin: '0px 0px 18% 0px', threshold: 0.06 });
 
 const cases = [
   {
@@ -57,7 +58,6 @@ const cases = [
         :key="c.model"
         class="card"
         :class="{ 'card--in': visible }"
-        :style="{ transitionDelay: `${0.06 * i}s` }"
       >
         <div class="card__media">
           <img
@@ -66,7 +66,8 @@ const cases = [
             width="800"
             height="500"
             :alt="`Иллюстрация к кейсу: ${c.model}`"
-            loading="lazy"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="i === 0 ? 'high' : undefined"
             decoding="async"
           />
         </div>
@@ -155,24 +156,28 @@ const cases = [
   border-radius: 10px;
   overflow: hidden;
   opacity: 0;
-  transform: translateX(12px);
+  /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
+  transform: none;
   transition:
-    opacity 0.45s ease,
-    transform 0.45s ease,
+    opacity 0.32s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .card--in {
   opacity: 1;
-  transform: translateX(0);
 }
 
 @media (min-width: 960px) {
   .card {
     flex: none;
     min-width: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
+    transition:
+      opacity 0.42s ease,
+      transform 0.42s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .card--in {
@@ -260,6 +265,10 @@ const cases = [
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .card--in {
+    transform: none;
   }
 }
 </style>
