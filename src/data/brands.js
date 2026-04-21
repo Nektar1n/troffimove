@@ -49,27 +49,6 @@ export const svgBrandSlugs = [
   'mg',
 ];
 
-/** Монограммы для марок без SVG в simple-icons — нейтральный стиль */
-export const textBrands = [
-  { key: 'mercedes', label: 'Mercedes-Benz', mono: 'MB' },
-  { key: 'alfaromeo', label: 'Alfa Romeo', mono: 'AR' },
-  { key: 'lexus', label: 'Lexus', mono: 'L' },
-  { key: 'genesis', label: 'Genesis', mono: 'G' },
-  { key: 'jaguar', label: 'Jaguar', mono: 'J' },
-  { key: 'landrover', label: 'Land Rover', mono: 'LR' },
-  { key: 'dodge', label: 'Dodge', mono: 'D' },
-  { key: 'gmc', label: 'GMC', mono: 'GMC' },
-  { key: 'lincoln', label: 'Lincoln', mono: 'L' },
-  { key: 'byd', label: 'BYD', mono: 'BYD' },
-  { key: 'geely', label: 'Geely', mono: 'G' },
-  { key: 'hongqi', label: 'Hongqi', mono: 'H' },
-  { key: 'isuzu', label: 'Isuzu', mono: 'I' },
-  { key: 'daihatsu', label: 'Daihatsu', mono: 'D' },
-  { key: 'cupra', label: 'CUPRA', mono: 'C' },
-];
-
 export function buildBrandRows() {
-  const svg = svgBrandSlugs.map((slug) => ({ kind: 'svg', slug }));
-  const text = textBrands.map((b) => ({ kind: 'text', ...b }));
-  return [...svg, ...text];
+  return svgBrandSlugs.map((slug) => ({ kind: 'svg', slug }));
 }

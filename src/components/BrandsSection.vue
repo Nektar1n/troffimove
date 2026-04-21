@@ -10,8 +10,7 @@ const { el, visible } = useInView();
     <div class="sec__head" :class="{ 'is-in': visible }">
       <h2 class="sec__title">Производители</h2>
       <p class="sec__lead">
-        Работаем с масс-маркетом и премиумом. Значки — векторные иконки из открытой библиотеки Simple Icons; для части
-        брендов, у которых нет открытого SVG, показываем нейтральную монограмму с подписью при наведении.
+        Работаем с масс-маркетом и премиумом. 
       </p>
     </div>
     <div class="sec__marquee" :class="{ 'is-in': visible }">

@@ -1,18 +1,11 @@
 <script setup>
 import { useInView } from '../composables/useInView.js';
-import { textBrands } from '../data/brands.js';
 import BrandLogo from './BrandLogo.vue';
 
 const { el, visible } = useInView();
 
 function svgBrand(slug) {
   return { kind: 'svg', slug };
-}
-
-function textBrand(key) {
-  const t = textBrands.find((x) => x.key === key);
-  if (!t) return null;
-  return { kind: 'text', key: t.key, label: t.label, mono: t.mono };
 }
 
 const regions = [
@@ -27,7 +20,7 @@ const regions = [
       'Видео- и фотоосмотр по чек-листу: кузов, салон, электрика, подрамник.',
       'Контракт с фиксированной ценой выкупа и сроком отгрузки из порта.',
     ],
-    brands: [svgBrand('hyundai'), svgBrand('kia'), textBrand('genesis'), svgBrand('renault')].filter(Boolean),
+    brands: [svgBrand('hyundai'), svgBrand('kia'), svgBrand('renault')],
     delay: '0s',
   },
   {
@@ -41,14 +34,7 @@ const regions = [
       'Согласование опций и пробега до оплаты; налоги и сборы — в смете.',
       'Доставка автовозом или фрахтом — по согласованному маршруту.',
     ],
-    brands: [
-      svgBrand('bmw'),
-      textBrand('mercedes'),
-      svgBrand('audi'),
-      svgBrand('volkswagen'),
-      svgBrand('porsche'),
-      svgBrand('volvo'),
-    ].filter(Boolean),
+    brands: [svgBrand('bmw'), svgBrand('audi'), svgBrand('volkswagen'), svgBrand('porsche'), svgBrand('volvo')],
     delay: '0.06s',
   },
   {
@@ -62,14 +48,7 @@ const regions = [
       'Таможенный перевод и комплект документов для выпуска.',
       'Опыт с JDM, гибридами и микроавтобусами под семейный и бизнес-спрос.',
     ],
-    brands: [
-      svgBrand('toyota'),
-      svgBrand('honda'),
-      svgBrand('nissan'),
-      svgBrand('mazda'),
-      textBrand('lexus'),
-      svgBrand('subaru'),
-    ].filter(Boolean),
+    brands: [svgBrand('toyota'), svgBrand('honda'), svgBrand('nissan'), svgBrand('mazda'), svgBrand('subaru')],
     delay: '0.12s',
   },
 ];

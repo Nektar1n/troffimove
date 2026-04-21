@@ -75,7 +75,7 @@ const items = computed(() => {
 }
 
 .soc--hero {
-  margin-top: 0;
+  margin-top: 0.65rem;
 }
 
 .soc--footer {

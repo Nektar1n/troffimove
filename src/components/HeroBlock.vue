@@ -29,7 +29,7 @@ onMounted(() => {
           <img :src="trofimPhoto" width="640" height="800" alt="Трофим" class="hero__img" loading="eager" decoding="async" />
         </div>
         <figcaption class="hero__caption">
-          <span class="hero__caption-name">Трофим</span>
+          <span class="hero__caption-name">Дмитрий Темирович</span>
           <span class="hero__caption-role">Troffimove Auto · личное сопровождение сделки</span>
         </figcaption>
       </figure>
@@ -191,10 +191,6 @@ onMounted(() => {
 .hero__soc.is-in {
   opacity: 1;
   transform: translateY(0);
-}
-
-.hero__soc :deep(.soc--hero) {
-  margin-top: 0.35rem;
 }
 
 .hero__figure {

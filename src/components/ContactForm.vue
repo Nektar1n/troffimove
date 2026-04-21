@@ -132,8 +132,7 @@ async function onSubmit(e) {
           {{ sending ? 'Отправка…' : 'Отправить' }}
         </button>
         <p class="fine">
-          Отправка идёт через FormSubmit (письмо на адрес из <code class="fine__code">VITE_FORM_SUBMIT_EMAIL</code> в
-          <code class="fine__code">.env</code>). Нажимая кнопку, вы даёте согласие на обработку данных для обратной связи.
+          Нажимая кнопку, вы даёте согласие на обработку данных для обратной связи.
         </p>
       </form>
     </div>

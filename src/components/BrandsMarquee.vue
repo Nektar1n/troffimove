@@ -5,7 +5,7 @@ import { getBrandSvg } from '../utils/brandSvgs.js';
 import BrandLogo from './BrandLogo.vue';
 
 const row = computed(() => {
-  const base = buildBrandRows().filter((b) => (b.kind === 'svg' ? !!getBrandSvg(b.slug) : true));
+  const base = buildBrandRows().filter((b) => !!getBrandSvg(b.slug));
   return [...base, ...base, ...base];
 });
 </script>
