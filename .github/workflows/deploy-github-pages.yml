@@ -1,0 +1,56 @@
+# После push в main: сборка и публикация на GitHub Pages.
+# В репозитории: Settings → Pages → Source: «GitHub Actions».
+
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          VITE_FORM_SUBMIT_EMAIL: ${{ secrets.VITE_FORM_SUBMIT_EMAIL }}
+          VITE_SOCIAL_AVITO: ${{ secrets.VITE_SOCIAL_AVITO }}
+          VITE_SOCIAL_INSTAGRAM: ${{ secrets.VITE_SOCIAL_INSTAGRAM }}
+          VITE_SOCIAL_TELEGRAM: ${{ secrets.VITE_SOCIAL_TELEGRAM }}
+          VITE_SOCIAL_VK: ${{ secrets.VITE_SOCIAL_VK }}
+          VITE_REVIEWS_TELEGRAM_URL: ${{ secrets.VITE_REVIEWS_TELEGRAM_URL }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
