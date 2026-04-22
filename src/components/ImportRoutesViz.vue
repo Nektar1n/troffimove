@@ -345,7 +345,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
 .routes__truck-box {
   width: 100%;
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   box-sizing: border-box;
   padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0 max(1rem, env(safe-area-inset-right, 0px));
@@ -463,7 +463,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  max-width: min(1120px, 100%);
+  max-width: min(var(--content-max), 100%);
   margin: 0 auto;
   padding-inline: clamp(0.35rem, 2.5vw, 1.25rem);
   /* Без жёсткого min-height на телефоне — иначе под схемой остаётся пустая полоса */

@@ -82,7 +82,7 @@ const darkHeroTop = computed(
 }
 
 .head__inner {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -230,7 +230,7 @@ const darkHeroTop = computed(
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding: 0.35rem max(1rem, env(safe-area-inset-left, 0px)) 0.65rem max(1rem, env(safe-area-inset-right, 0px));
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   border-top: 1px solid transparent;
 }

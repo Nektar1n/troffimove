@@ -86,7 +86,7 @@ const cases = [
 
 <style scoped>
 .sec {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
   background: var(--bg-subtle);
@@ -160,10 +160,7 @@ const cases = [
   opacity: 0;
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
-  transition:
-    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card--in {
@@ -177,9 +174,7 @@ const cases = [
     transform: translateY(8px);
     transition:
       opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .card--in {
@@ -187,15 +182,10 @@ const cases = [
   }
 }
 
-.card:hover {
-  border-color: var(--line);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.07);
-  transform: translateY(-3px);
-}
-
 .card__media {
   position: relative;
   aspect-ratio: 16 / 10;
+  overflow: hidden;
   background: var(--bg-subtle);
 }
 
@@ -207,15 +197,6 @@ const cases = [
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.card:hover .card__img {
-  transform: scale(1.04);
-}
-
-.card__media {
-  overflow: hidden;
 }
 
 .card__body {
@@ -270,9 +251,10 @@ const cases = [
   border-bottom: 2px solid var(--yellow);
 }
 
-.card__cta:hover {
-  color: #000;
-  border-bottom-color: #000;
+.card__cta:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {

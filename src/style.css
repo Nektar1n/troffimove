@@ -14,6 +14,26 @@
   --surface-dark-2: #161618;
   /* Общий «длинный» исхд для карт и скролл-анимаций: без резкого финиша */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  /* База — прежняя сетка; на широком экране — шире, меньше пустоты по бокам (шапка, футер, секции). */
+  --content-max: 1120px;
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --content-max: min(1240px, calc(100vw - 3rem));
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --content-max: min(1360px, calc(100vw - 4rem));
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --content-max: min(1500px, calc(100vw - 5rem));
+  }
 }
 
 *,

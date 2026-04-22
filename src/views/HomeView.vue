@@ -46,7 +46,7 @@ import ContactForm from '../components/ContactForm.vue';
 }
 
 .home-split__inner {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   display: grid;
   gap: 1rem;

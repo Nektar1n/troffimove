@@ -24,7 +24,7 @@ const stats = [
 .stats {
   position: relative;
   z-index: 0;
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 2rem max(1rem, env(safe-area-inset-left, 0px)) 2rem max(1rem, env(safe-area-inset-right, 0px));
   display: grid;

@@ -196,7 +196,7 @@ const faq = [
 }
 
 .im__inner {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0 max(1rem, env(safe-area-inset-right, 0px));
 }

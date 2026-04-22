@@ -129,7 +129,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 }
 
 .svc__inner {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
 }
 

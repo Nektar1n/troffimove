@@ -75,7 +75,7 @@ onMounted(() => {
   min-height: min(100vh, 100dvh);
   padding: calc(5.5rem + env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-left, 0px)) 2.5rem
     max(1rem, env(safe-area-inset-right, 0px));
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   background: transparent;
   color: rgba(245, 245, 247, 0.92);
@@ -394,7 +394,8 @@ onMounted(() => {
   transition: opacity 0.2s ease;
 }
 
-.btn:hover {
+/* Hover только у основной кнопки; «Примеры сделок» (ghost) — без притемнения */
+.btn--primary:hover {
   opacity: 0.85;
 }
 

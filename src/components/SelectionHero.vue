@@ -159,7 +159,7 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 .pick-hero__box {
   width: 100%;
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   box-sizing: border-box;
   /* Воздух сверху над «Выезд · диагностика · отчёт» (текстовый блок прижат снизу, блок растёт вверх) */

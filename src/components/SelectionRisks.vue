@@ -94,7 +94,7 @@ const items = [
 }
 
 .risks__inner {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
 }
 

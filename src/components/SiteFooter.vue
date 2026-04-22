@@ -52,7 +52,7 @@ import SocialLinks from './SocialLinks.vue';
 }
 
 .foot__inner {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto 1.75rem;
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@ import SocialLinks from './SocialLinks.vue';
 }
 
 .foot__bar {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding-top: 1.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);

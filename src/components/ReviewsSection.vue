@@ -89,7 +89,7 @@ const reviews = [
 .rev {
   position: relative;
   z-index: 0;
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
   background: transparent;

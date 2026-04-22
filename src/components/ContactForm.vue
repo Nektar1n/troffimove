@@ -141,7 +141,7 @@ async function onSubmit(e) {
 
 <style scoped>
 .sec {
-  max-width: 1120px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) calc(2.5rem + env(safe-area-inset-bottom, 0px))
     max(1rem, env(safe-area-inset-right, 0px));
