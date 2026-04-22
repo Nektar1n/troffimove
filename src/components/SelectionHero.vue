@@ -45,8 +45,8 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
 /* Как баннер «Дорога к вашему авто» на /import: полный кадр, тёмный градиент, текст снизу */
 .pick-hero {
   --pick-ease: cubic-bezier(0.33, 1, 0.68, 1);
-  /* Десктоп: одна строка в шапке. Мобайл: лого+CTA + .head__mob — ~3.4rem мало, текст уезжает под fixed header */
-  --pick-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
+  /* Mobile-first: до 820px шапка в две строки (.head__mob) — большой зазор. ≥820px — одна строка, как в SiteHeader */
+  --pick-head-clear: calc(6.75rem + env(safe-area-inset-top, 0px));
   --pick-hero-slab: clamp(240px, 52vh, 620px);
   box-sizing: border-box;
   width: 100vw;
@@ -61,9 +61,9 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
   background: #0a0a0c;
 }
 
-@media (max-width: 819px) {
+@media (min-width: 820px) {
   .pick-hero {
-    --pick-head-clear: calc(6.75rem + env(safe-area-inset-top, 0px));
+    --pick-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
   }
 }
 
