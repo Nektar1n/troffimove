@@ -14,11 +14,11 @@ function onEnter(id) {
 
 function onLeave() {
   clearTimeout(hoverClearTimer);
-  // Небольшая задержка, чтобы курсор успел «перепрыгнуть» с маркера на карточку
+  // Только с hover — нельзя трогать active: на таче сразу после клика приходит pointerleave
+  // с крошечного маркера, и всплывашка схлопывалась. Закреплённый пункт снимаем с backdrop / повтором клика.
   hoverClearTimer = window.setTimeout(() => {
     hoverId.value = null;
-    active.value = null;
-  }, 140);
+  }, 180);
 }
 
 onUnmounted(() => clearTimeout(hoverClearTimer));
@@ -192,6 +192,13 @@ const showWire = computed(() => (showSpot.value ? wireForSpot(showSpot.value) : 
 function onMarkerClick(id) {
   active.value = active.value === id ? null : id;
 }
+
+function onArtClick(e) {
+  const t = e.target;
+  if (t.closest?.('.check__marker') || t.closest?.('.check__pop')) return;
+  active.value = null;
+  hoverId.value = null;
+}
 </script>
 
 <template>
@@ -204,7 +211,7 @@ function onMarkerClick(id) {
       </p>
 
       <div class="check__board">
-        <div class="check__art" @pointerleave="onLeave">
+        <div class="check__art" @pointerleave="onLeave" @click="onArtClick">
           <img
             class="check__car-img"
             :src="carWhite"
@@ -230,7 +237,7 @@ function onMarkerClick(id) {
             :aria-label="`${s.label}: ${s.title}`"
             @pointerenter="onEnter(s.id)"
             @pointerleave="onLeave"
-            @click="onMarkerClick(s.id)"
+            @click.stop="onMarkerClick(s.id)"
           >
             <span class="check__pulse" aria-hidden="true" />
             <span class="check__rhomb" aria-hidden="true" />
