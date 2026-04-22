@@ -44,9 +44,10 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 /* Как баннер «Дорога к вашему авто» на /import: полный кадр, тёмный градиент, текст снизу */
 .pick-hero {
   --pick-ease: cubic-bezier(0.33, 1, 0.68, 1);
-  /* Mobile-first: до 820px шапка в две строки (.head__mob) — большой зазор. ≥820px — одна строка, как в SiteHeader */
-  --pick-head-clear: calc(6.75rem + env(safe-area-inset-top, 0px));
-  --pick-hero-slab: clamp(240px, 52vh, 620px);
+  /* Mobile-first: до 820px шапка в две строки (.head__mob) — с запасом. ≥820px — одна строка */
+  --pick-head-clear: calc(7.5rem + env(safe-area-inset-top, 0px));
+  /* min выше, чтобы flex-end клок текста на узких экранах не «вылезал» в зону fixed header */
+  --pick-hero-slab: clamp(300px, 58vh, 620px);
   box-sizing: border-box;
   width: 100vw;
   max-width: 100%;
@@ -72,8 +73,9 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   display: block;
   width: 100%;
   max-width: none;
+  /* Отрицательный margin: баннер под шапку; padding НЕ влияет на abspos — смещение в .pick-hero__surface / __cap */
   margin: calc(0px - var(--pick-head-clear)) 0 0 0;
-  padding: var(--pick-head-clear) 0 0 0;
+  padding: 0;
   min-height: calc(var(--pick-head-clear) + var(--pick-hero-slab));
   border: 0;
   background: #0a0a0c;
@@ -81,7 +83,10 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 .pick-hero__surface {
   position: absolute;
-  inset: 0;
+  top: var(--pick-head-clear);
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 0;
   overflow: hidden;
   background: #0a0a0c;
@@ -122,7 +127,10 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 .pick-hero__cap {
   position: absolute;
-  inset: 0;
+  top: var(--pick-head-clear);
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -263,7 +271,8 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 @media (max-height: 520px) and (orientation: landscape) {
   .pick-hero {
-    --pick-hero-slab: min(42vh, 280px);
+    /* Чуть больше высоты «полки», иначе многострочный заголовок + шапка снова сходятся */
+    --pick-hero-slab: min(48vh, 320px);
   }
 }
 
