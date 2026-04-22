@@ -100,23 +100,23 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
           decoding="async"
         />
         <div class="routes__truck-overlay" aria-hidden="true" />
-        <figcaption class="routes__truck-cap">
-          <div class="routes__truck-box">
-            <h2 id="routes-heading" class="routes__truck-heading">
-              Дорога к вашему авто
-              <span class="routes__truck-amp"> — </span>
-              <span class="routes__truck-accent">с нами везде</span>
-            </h2>
-            <p class="routes__truck-deck">
-              Европа, Россия, Корея, Япония: контроль груза и сроков на всём пути
-            </p>
-            <div class="routes__truck-actions">
-              <a class="routes__truck-btn routes__truck-btn--primary" href="#contact">Оставить заявку</a>
-              <RouterLink class="routes__truck-btn routes__truck-btn--ghost" to="/">На главную →</RouterLink>
-            </div>
-          </div>
-        </figcaption>
       </div>
+      <figcaption class="routes__truck-cap">
+        <div class="routes__truck-box">
+          <h2 id="routes-heading" class="routes__truck-heading">
+            Дорога к вашему авто
+            <span class="routes__truck-amp"> — </span>
+            <span class="routes__truck-accent">с нами везде</span>
+          </h2>
+          <p class="routes__truck-deck">
+            Европа, Россия, Корея, Япония: контроль груза и сроков на всём пути
+          </p>
+          <div class="routes__truck-actions">
+            <a class="routes__truck-btn routes__truck-btn--primary" href="#contact">Оставить заявку</a>
+            <RouterLink class="routes__truck-btn routes__truck-btn--ghost" to="/">На главную →</RouterLink>
+          </div>
+        </div>
+      </figcaption>
     </figure>
 
     <div class="routes__content">
@@ -273,6 +273,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 .routes__truck-surface {
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   border-radius: 0;
   background: #0a0a0c;
@@ -327,6 +328,19 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   text-align: left;
   text-wrap: balance;
   pointer-events: none;
+  /* как у .routes__truck-surface: figcaption вне div, но в одной анимации */
+  margin: 0;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0) scale(0.998);
+  transition:
+    opacity 0.7s var(--path-ease),
+    transform 0.75s var(--path-ease);
+  will-change: transform, opacity;
+}
+
+.routes__truck--in .routes__truck-cap {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .routes__truck-box {
@@ -437,7 +451,8 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .routes__truck-surface {
+  .routes__truck-surface,
+  .routes__truck-cap {
     opacity: 1;
     transform: none;
     transition: none;

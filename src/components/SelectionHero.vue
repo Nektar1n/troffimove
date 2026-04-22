@@ -20,23 +20,23 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
           fetchpriority="high"
         />
         <div class="pick-hero__overlay" aria-hidden="true" />
-        <figcaption class="pick-hero__cap">
-          <div class="pick-hero__box">
-            <p class="pick-hero__eyebrow">Выезд · диагностика · отчёт</p>
-            <h1 id="pick-hero-title" class="pick-hero__title">
-              Подбор и проверка б/у до сделки: видим риски до перевода денег
-            </h1>
-            <p class="pick-hero__lead">
-              Приезжаем к объявлению, снимаем кузов и узлы на сканере, проверяем юридическую чистоту и сервисную
-              историю. В конце — понятный письменный вердикт: брать, торговаться или уходить.
-            </p>
-            <div class="pick-hero__actions">
-              <a class="pick-hero__btn pick-hero__btn--primary" href="#contact">Оставить заявку</a>
-              <RouterLink class="pick-hero__btn pick-hero__btn--ghost" to="/">На главную →</RouterLink>
-            </div>
-          </div>
-        </figcaption>
       </div>
+      <figcaption class="pick-hero__cap">
+        <div class="pick-hero__box">
+          <p class="pick-hero__eyebrow">Выезд · диагностика · отчёт</p>
+          <h1 id="pick-hero-title" class="pick-hero__title">
+            Подбор и проверка б/у до сделки: видим риски до перевода денег
+          </h1>
+          <p class="pick-hero__lead">
+            Приезжаем к объявлению, снимаем кузов и узлы на сканере, проверяем юридическую чистоту и сервисную
+            историю. В конце — понятный письменный вердикт: брать, торговаться или уходить.
+          </p>
+          <div class="pick-hero__actions">
+            <a class="pick-hero__btn pick-hero__btn--primary" href="#contact">Оставить заявку</a>
+            <RouterLink class="pick-hero__btn pick-hero__btn--ghost" to="/">На главную →</RouterLink>
+          </div>
+        </div>
+      </figcaption>
     </figure>
   </section>
 </template>
@@ -76,6 +76,7 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
 .pick-hero__surface {
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   background: #0a0a0c;
   opacity: 0;
@@ -128,6 +129,18 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
   text-align: left;
   text-wrap: balance;
   pointer-events: none;
+  margin: 0;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0) scale(0.998);
+  transition:
+    opacity 0.7s var(--pick-ease),
+    transform 0.75s var(--pick-ease);
+  will-change: transform, opacity;
+}
+
+.pick-hero--in .pick-hero__cap {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .pick-hero__box {
@@ -243,7 +256,8 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pick-hero__surface {
+  .pick-hero__surface,
+  .pick-hero__cap {
     opacity: 1;
     transform: none;
     transition: none;
