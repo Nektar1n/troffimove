@@ -12,8 +12,8 @@ const stats = [
 </script>
 
 <template>
-  <section ref="el" class="stats" :class="{ 'stats--in': visible }">
-    <div v-for="(s, i) in stats" :key="s.t" class="stats__item" :style="{ transitionDelay: `${i * 0.05}s` }">
+  <section id="stats" ref="el" class="stats" :class="{ 'stats--in': visible }">
+    <div v-for="(s, i) in stats" :key="s.t" class="stats__item" :style="{ transitionDelay: `${i * 0.08}s` }">
       <span class="stats__n">{{ s.n }}</span>
       <span class="stats__t">{{ s.t }}</span>
     </div>
@@ -22,13 +22,31 @@ const stats = [
 
 <style scoped>
 .stats {
+  position: relative;
+  z-index: 0;
   max-width: 1120px;
   margin: 0 auto;
   padding: 2rem max(1rem, env(safe-area-inset-left, 0px)) 2rem max(1rem, env(safe-area-inset-right, 0px));
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem 1rem;
-  border-bottom: 1px solid var(--line-light);
+  background: transparent;
+  border-bottom: none;
+}
+
+.stats::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: var(--surface-dark-2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (min-width: 720px) {
@@ -45,15 +63,15 @@ const stats = [
   flex-direction: column;
   gap: 0.35rem;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(6px);
   transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (min-width: 720px) {
   .stats__item {
-    border-right: 1px solid var(--line-light);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0.25rem 1.75rem;
   }
 
@@ -76,14 +94,14 @@ const stats = [
   font-weight: 600;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: -0.03em;
-  color: var(--text);
+  color: var(--yellow);
   font-variant-numeric: tabular-nums;
 }
 
 .stats__t {
   font-size: 0.8125rem;
   line-height: 1.35;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.55);
   max-width: 12rem;
 }
 

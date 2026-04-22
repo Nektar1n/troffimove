@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
 
+const route = useRoute();
 const scrolled = ref(false);
 
 function onScroll() {
@@ -13,34 +15,43 @@ onMounted(() => {
 });
 onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
-const links = [
-  { href: '#regions', label: 'Направления' },
-  { href: '#brands', label: 'Марки' },
-  { href: '#cases', label: 'Кейсы' },
-  { href: '#reviews', label: 'Отзывы' },
-  { href: '#contact', label: 'Контакт' },
-];
+/** Тёмная прозрачная шапка: главная (hero), подбор (тёмный hero), привоз (тёмный блок маршрутов сверху). */
+const darkHeroTop = computed(
+  () => route.name === 'home' || route.name === 'selection' || route.name === 'import',
+);
 </script>
 
 <template>
-  <header class="head" :class="{ 'head--solid': scrolled }">
+  <header
+    class="head"
+    :class="{
+      'head--solid': scrolled,
+      'head--dark': darkHeroTop && !scrolled,
+    }"
+  >
     <div class="head__top">
       <div class="head__inner">
-        <a href="#" class="head__logo" aria-label="Troffimove Auto — на главную">
+        <RouterLink to="/" class="head__logo" aria-label="Troffimove Auto — на главную">
           <span class="head__mark">T</span>
           <span class="head__word">
             <span class="head__name">Troffimove</span>
             <span class="head__tag">Auto</span>
           </span>
-        </a>
+        </RouterLink>
         <nav class="head__nav" aria-label="Основное меню">
-          <a v-for="l in links" :key="l.href" :href="l.href" class="head__link">{{ l.label }}</a>
+          <RouterLink to="/" class="head__link" exact-active-class="head__link--current">Главная</RouterLink>
+          <RouterLink to="/privoz" class="head__link" active-class="head__link--current">Привоз</RouterLink>
+          <RouterLink to="/podbor" class="head__link" active-class="head__link--current">Подбор</RouterLink>
+          <RouterLink class="head__link" :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
         </nav>
-        <a class="head__cta" href="#contact">Заявка</a>
+        <a class="head__cta" href="#contact">Оставить заявку</a>
       </div>
     </div>
-    <nav class="head__mob" aria-label="Разделы сайта">
-      <a v-for="l in links" :key="'m-' + l.href" :href="l.href" class="head__mob-link">{{ l.label }}</a>
+    <nav class="head__mob" aria-label="Разделы страницы">
+      <RouterLink to="/" class="head__mob-link" exact-active-class="head__mob-link--current">Главная</RouterLink>
+      <RouterLink to="/privoz" class="head__mob-link" active-class="head__mob-link--current">Привоз</RouterLink>
+      <RouterLink to="/podbor" class="head__mob-link" active-class="head__mob-link--current">Подбор</RouterLink>
+      <RouterLink class="head__mob-link" :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
     </nav>
   </header>
 </template>
@@ -60,6 +71,10 @@ const links = [
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid var(--line-light);
+}
+
+.head--dark:not(.head--solid) {
+  background: transparent;
 }
 
 .head__top {
@@ -83,6 +98,10 @@ const links = [
   min-width: 0;
 }
 
+.head--dark:not(.head--solid) .head__logo {
+  color: #f5f5f7;
+}
+
 .head__mark {
   width: 2rem;
   height: 2rem;
@@ -95,6 +114,11 @@ const links = [
   background: var(--text);
   color: #fff;
   flex-shrink: 0;
+}
+
+.head--dark:not(.head--solid) .head__mark {
+  background: #f5c542;
+  color: #111;
 }
 
 .head__word {
@@ -121,6 +145,10 @@ const links = [
   color: var(--muted);
 }
 
+.head--dark:not(.head--solid) .head__tag {
+  color: rgba(245, 245, 247, 0.5);
+}
+
 .head__nav {
   display: none;
   margin-left: auto;
@@ -140,8 +168,25 @@ const links = [
   text-decoration: none;
 }
 
+.head--dark:not(.head--solid) .head__link {
+  color: rgba(245, 245, 247, 0.72);
+}
+
 .head__link:hover {
   color: var(--text);
+}
+
+.head__link--current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.head--dark:not(.head--solid) .head__link:hover {
+  color: #fff;
+}
+
+.head--dark:not(.head--solid) .head__link--current {
+  color: #fff;
 }
 
 .head__cta {
@@ -162,6 +207,12 @@ const links = [
   transition: opacity 0.2s ease;
 }
 
+.head--dark:not(.head--solid) .head__cta {
+  background: #f5c542;
+  color: #111;
+  border-color: #f5c542;
+}
+
 @media (min-width: 820px) {
   .head__cta {
     margin-left: 0;
@@ -172,7 +223,6 @@ const links = [
   opacity: 0.88;
 }
 
-/* Мобильная строка навигации: горизонтальный скролл, без «гамбургера» */
 .head__mob {
   display: flex;
   gap: 1.25rem;
@@ -191,6 +241,10 @@ const links = [
 
 .head--solid .head__mob {
   border-top-color: var(--line-light);
+}
+
+.head--dark:not(.head--solid) .head__mob {
+  border-top-color: rgba(255, 255, 255, 0.12);
 }
 
 @media (min-width: 820px) {
@@ -214,7 +268,24 @@ const links = [
   padding: 0.35rem 0;
 }
 
+.head--dark:not(.head--solid) .head__mob-link {
+  color: rgba(245, 245, 247, 0.72);
+}
+
 .head__mob-link:active {
   color: var(--text);
+}
+
+.head__mob-link--current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.head--dark:not(.head--solid) .head__mob-link:active {
+  color: #fff;
+}
+
+.head--dark:not(.head--solid) .head__mob-link--current {
+  color: #fff;
 }
 </style>

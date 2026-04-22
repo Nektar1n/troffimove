@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 import SocialLinks from './SocialLinks.vue';
 </script>
 
@@ -9,7 +10,9 @@ import SocialLinks from './SocialLinks.vue';
         <span class="foot__mark">T</span>
         <div>
           <div class="foot__name">Troffimove Auto</div>
-          <div class="foot__sub">Импорт автомобилей из Кореи, Европы и Японии. Договор, смета, сроки — в письменном виде.</div>
+          <div class="foot__sub">
+            Пригон из Кореи, Европы и Японии — и выездная проверка б/у на месте. Договор, смета, отчёт по осмотру.
+          </div>
         </div>
       </div>
       <div class="foot__cols">
@@ -21,10 +24,10 @@ import SocialLinks from './SocialLinks.vue';
         </div>
         <div>
           <div class="foot__h">Разделы</div>
-          <a href="#regions">Направления</a>
-          <a href="#brands">Марки</a>
-          <a href="#cases">Кейсы</a>
-          <a href="#reviews">Отзывы</a>
+          <RouterLink to="/">Главная</RouterLink>
+          <RouterLink to="/privoz">Привоз</RouterLink>
+          <RouterLink to="/podbor">Подбор</RouterLink>
+          <RouterLink :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
           <a href="#contact">Заявка</a>
         </div>
       </div>
@@ -36,7 +39,8 @@ import SocialLinks from './SocialLinks.vue';
 <style scoped>
 .foot {
   border-top: 1px solid var(--line-light);
-  background: var(--bg-subtle);
+  background: var(--surface-dark);
+  color: rgba(255, 255, 255, 0.88);
   padding: 2rem max(1rem, env(safe-area-inset-left, 0px)) calc(1.5rem + env(safe-area-inset-bottom, 0px))
     max(1rem, env(safe-area-inset-right, 0px));
 }
@@ -67,7 +71,7 @@ import SocialLinks from './SocialLinks.vue';
   display: flex;
   gap: 0.75rem;
   align-items: flex-start;
-  max-width: 22rem;
+  max-width: 24rem;
 }
 
 .foot__mark {
@@ -78,8 +82,8 @@ import SocialLinks from './SocialLinks.vue';
   place-items: center;
   font-weight: 700;
   font-size: 0.9rem;
-  background: var(--text);
-  color: #fff;
+  background: var(--yellow);
+  color: var(--yellow-ink);
   flex-shrink: 0;
 }
 
@@ -87,12 +91,13 @@ import SocialLinks from './SocialLinks.vue';
   font-weight: 600;
   font-size: 1rem;
   letter-spacing: -0.02em;
+  color: #fff;
 }
 
 .foot__sub {
   font-size: 0.8125rem;
   line-height: 1.45;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.55);
   margin-top: 0.35rem;
 }
 
@@ -106,7 +111,7 @@ import SocialLinks from './SocialLinks.vue';
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.45);
   margin-bottom: 0.5rem;
 }
 
@@ -114,25 +119,37 @@ import SocialLinks from './SocialLinks.vue';
 .foot__cols a {
   margin: 0.2rem 0;
   font-size: 0.875rem;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .foot__cols a {
   display: block;
-  color: var(--accent);
+  color: var(--yellow);
   text-decoration: none;
 }
 
 .foot__cols a:hover {
   text-decoration: underline;
+  color: var(--yellow-hover);
 }
 
 .foot__bar {
   max-width: 1120px;
   margin: 0 auto;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--line-light);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.75rem;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.foot :deep(.soc--footer .soc__link) {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--yellow);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.foot :deep(.soc--footer .soc__link:hover) {
+  border-color: rgba(245, 196, 18, 0.55);
+  background: rgba(255, 255, 255, 0.06);
 }
 </style>

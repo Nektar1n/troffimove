@@ -1,6 +1,8 @@
 <script setup>
 import { onUnmounted, ref, watch } from 'vue';
+import { RouterLink } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
+import imgTruck from '../assets/фура.png';
 
 /** На низких экранах меньше «низового» отступа — блок чаще корректно входит во viewport */
 const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
@@ -80,14 +82,44 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
 <template>
   <section
+    id="routes"
     ref="el"
     class="routes"
     :class="{ 'routes--in': visible, 'routes--woven': woven }"
     :style="{ '--path-draw-ms': `${PATH_MS}ms` }"
     aria-labelledby="routes-heading"
   >
-    
+    <figure class="routes__truck" :class="{ 'routes__truck--in': visible }">
+      <div class="routes__truck-surface">
+        <img
+          :src="imgTruck"
+          class="routes__truck-img"
+          width="1600"
+          height="900"
+          alt="Автовоз с автомобилями: доставка по маршруту"
+          decoding="async"
+        />
+        <div class="routes__truck-overlay" aria-hidden="true" />
+        <figcaption class="routes__truck-cap">
+          <div class="routes__truck-box">
+            <h2 id="routes-heading" class="routes__truck-heading">
+              Дорога к вашему авто
+              <span class="routes__truck-amp"> — </span>
+              <span class="routes__truck-accent">с нами везде</span>
+            </h2>
+            <p class="routes__truck-deck">
+              Европа, Россия, Корея, Япония: контроль груза и сроков на всём пути
+            </p>
+            <div class="routes__truck-actions">
+              <a class="routes__truck-btn routes__truck-btn--primary" href="#contact">Оставить заявку</a>
+              <RouterLink class="routes__truck-btn routes__truck-btn--ghost" to="/">На главную →</RouterLink>
+            </div>
+          </div>
+        </figcaption>
+      </div>
+    </figure>
 
+    <div class="routes__content">
     <div class="routes__stage" aria-hidden="true">
       <!-- Общая коробка: ширина SVG = ширина слоя с точками (иначе при max-height линия «уезжает») -->
       <div class="routes__map">
@@ -163,7 +195,8 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
       </div>
     </div>
 
-
+    
+    </div>
   </section>
 </template>
 
@@ -174,66 +207,241 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   width: 100vw;
   max-width: 100%;
   margin-left: calc(50% - 50vw);
-  padding-top: max(2.25rem, env(safe-area-inset-top, 0px));
+  padding: 0;
   padding-bottom: max(1.65rem, calc(0.45rem + env(safe-area-inset-bottom, 0px)));
-  padding-left: max(1rem, env(safe-area-inset-left, 0px));
-  padding-right: max(1rem, env(safe-area-inset-right, 0px));
-  border-top: 1px solid var(--line-light);
-  border-bottom: 1px solid var(--line-light);
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-subtle) 40%, var(--bg) 100%);
+  border-top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #0a0a0c 0%, #0a0a0c 22%, #141416 100%);
+  color: rgba(245, 245, 247, 0.88);
   overflow-x: clip;
+  overflow-y: visible;
 }
 
 @media (min-width: 720px) {
   .routes {
-    padding-top: max(2.75rem, env(safe-area-inset-top, 0px));
     padding-bottom: max(3.25rem, calc(1.25rem + env(safe-area-inset-bottom, 0px)));
+  }
+}
+
+.routes__content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding-top: 0.9rem;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  padding-bottom: 0.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, #0e0e10 0%, #0a0a0c 38%, #101012 100%);
+}
+
+@media (min-width: 720px) {
+  .routes__content {
+    padding-top: 1.2rem;
     padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   }
 }
 
 @media (min-width: 1200px) {
-  .routes {
+  .routes__content {
     padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
   }
 }
 
-.routes__head {
+/* Кинематика: кадр залезает под фиксированное меню (как у hero) */
+.routes__truck {
+  /* Меньше захода под шапку — кадр визуально ниже, важная часть фуры не «под» меню */
+  --routes-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
+  /* Высота баннера: крупный hero — ~50% экрана по vh, верх/низ в clamp прижимают */
+  --routes-hero-slab: clamp(240px, 52vh, 620px);
+  position: relative;
+  z-index: 0;
+  display: block;
   box-sizing: border-box;
   width: 100%;
-  max-width: min(38rem, 100%);
-  margin: 0 auto 1.65rem;
-  padding-inline: clamp(0px, 1.5vw, 0.5rem);
-  text-align: center;
+  max-width: none;
+  margin: calc(0px - var(--routes-head-clear)) 0 0 0;
+  padding: var(--routes-head-clear) 0 0 0;
+  min-height: calc(var(--routes-head-clear) + var(--routes-hero-slab));
+  border: 0;
+  background: #0a0a0c;
 }
 
-.routes__title {
-  margin: 0 0 0.5rem;
-  font-weight: 600;
-  font-size: clamp(0.7rem, 1.5vw, 0.8125rem);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+.routes__truck-surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 0;
+  background: #0a0a0c;
+  width: 100%;
+  max-width: none;
+  box-shadow: none;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0) scale(0.998);
+  transition:
+    opacity 0.7s var(--path-ease),
+    transform 0.75s var(--path-ease);
+  will-change: transform, opacity;
 }
 
-.routes__lead {
-  margin: 0 0 1rem;
-  font-size: clamp(0.875rem, 2.2vw, 1.0625rem);
-  line-height: 1.45;
-  color: var(--text);
-  letter-spacing: -0.02em;
+.routes__truck--in .routes__truck-surface {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.routes__truck-img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 58%;
+}
+
+.routes__truck-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(6, 6, 8, 0) 0%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
+    linear-gradient(100deg, rgba(10, 10, 12, 0.92) 0%, rgba(10, 10, 12, 0.2) 52%, transparent 72%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.routes__truck-cap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding: clamp(1.05rem, 3.6vw, 2.2rem) 0
+    max(1.15rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
+  max-width: 100%;
+  text-align: left;
   text-wrap: balance;
-  overflow-wrap: break-word;
-  hyphens: auto;
+  pointer-events: none;
 }
 
-.routes__rule {
-  width: 2.5rem;
-  height: 1px;
+.routes__truck-box {
+  width: 100%;
+  max-width: 1120px;
   margin: 0 auto;
-  background: var(--line-light);
+  box-sizing: border-box;
+  padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0 max(1rem, env(safe-area-inset-right, 0px));
+  pointer-events: auto;
+}
+
+@media (min-width: 720px) {
+  .routes__truck-box {
+    padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+  }
+}
+
+@media (min-width: 1200px) {
+  .routes__truck-box {
+    padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+  }
+}
+
+.routes__truck-heading {
+  margin: 0 0 0.5rem;
+  max-width: 32ch;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4.2vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: rgba(252, 252, 255, 0.99);
+  text-align: left;
+}
+
+.routes__truck-amp {
+  font-weight: 500;
+  color: rgba(252, 252, 255, 0.4);
+  letter-spacing: 0.02em;
+}
+
+.routes__truck-accent {
+  color: var(--yellow);
+  text-shadow: 0 0 28px rgba(245, 196, 18, 0.22);
+}
+
+.routes__truck-deck {
+  margin: 0 0 1.1rem;
+  max-width: 40rem;
+  font-size: clamp(0.875rem, 1.85vw, 1.0625rem);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: rgba(245, 245, 247, 0.75);
+  text-align: left;
+}
+
+.routes__truck-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.routes__truck-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 1.35rem;
+  border-radius: 980px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.routes__truck-btn:active {
+  transform: scale(0.98);
+}
+
+.routes__truck-btn--primary {
+  background: #f5c542;
+  color: #111;
+  border: 1px solid #f5c542;
+}
+
+.routes__truck-btn--primary:hover {
+  opacity: 0.92;
+}
+
+.routes__truck-btn--ghost {
+  background: transparent;
+  color: rgba(245, 245, 247, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.routes__truck-btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .routes__truck {
+    --routes-hero-slab: min(42vh, 280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routes__truck-surface {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .routes__stage {
@@ -302,13 +510,13 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
 .routes__echo {
   fill: none;
-  stroke: var(--accent);
+  stroke: rgba(245, 196, 18, 0.45);
   stroke-width: 1.05;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 26 18;
   stroke-dashoffset: 1000;
-  opacity: 0.09;
+  opacity: 0.14;
   pointer-events: none;
 }
 
@@ -320,8 +528,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
 .routes__path {
   fill: none;
-  stroke: var(--line);
-  stroke: color-mix(in srgb, var(--text) 28%, var(--line));
+  stroke: rgba(245, 245, 247, 0.22);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -423,37 +630,37 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 }
 
 .routes__node--lit .routes__dot {
-  background: var(--text);
+  background: var(--yellow);
   animation: routes-dot-ignite 0.68s cubic-bezier(0.22, 1, 0.32, 1) both;
   box-shadow:
-    0 0 0 1px var(--bg),
-    0 0 0 3px var(--line-light),
-    0 0 0 0 rgba(0, 102, 204, 0);
+    0 0 0 1px #0c0c0e,
+    0 0 0 3px rgba(245, 196, 18, 0.35),
+    0 0 0 0 rgba(245, 196, 18, 0);
 }
 
 @keyframes routes-dot-ignite {
   0% {
     transform: scale(0.72);
     box-shadow:
-      0 0 0 1px var(--bg),
-      0 0 0 2px var(--line-light),
-      0 0 0 0 rgba(0, 102, 204, 0.35);
+      0 0 0 1px #0c0c0e,
+      0 0 0 2px rgba(245, 196, 18, 0.25),
+      0 0 0 0 rgba(245, 196, 18, 0.35);
   }
 
   55% {
     transform: scale(1.2);
     box-shadow:
-      0 0 0 1px var(--bg),
-      0 0 0 3px rgba(0, 102, 204, 0.2),
-      0 0 28px rgba(0, 102, 204, 0.18);
+      0 0 0 1px #0c0c0e,
+      0 0 0 3px rgba(245, 196, 18, 0.45),
+      0 0 28px rgba(245, 196, 18, 0.35);
   }
 
   100% {
     transform: scale(1.08);
     box-shadow:
-      0 0 0 1px var(--bg),
-      0 0 0 3px var(--line-light),
-      0 0 18px rgba(29, 29, 31, 0.1);
+      0 0 0 1px #0c0c0e,
+      0 0 0 3px rgba(245, 196, 18, 0.3),
+      0 0 18px rgba(245, 196, 18, 0.2);
   }
 }
 
@@ -467,17 +674,17 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   100% {
     transform: scale(1.08);
     box-shadow:
-      0 0 0 1px var(--bg),
-      0 0 0 3px var(--line-light),
-      0 0 18px rgba(29, 29, 31, 0.1);
+      0 0 0 1px #0c0c0e,
+      0 0 0 3px rgba(245, 196, 18, 0.28),
+      0 0 18px rgba(245, 196, 18, 0.15);
   }
 
   50% {
     transform: scale(1.08);
     box-shadow:
-      0 0 0 1px var(--bg),
-      0 0 0 3px var(--line-light),
-      0 0 22px rgba(29, 29, 31, 0.14);
+      0 0 0 1px #0c0c0e,
+      0 0 0 3px rgba(245, 196, 18, 0.4),
+      0 0 22px rgba(245, 196, 18, 0.22);
   }
 }
 
@@ -507,7 +714,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--muted);
+  background: rgba(255, 255, 255, 0.25);
   transition: background 0.35s var(--path-ease);
 }
 
@@ -515,7 +722,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   font-size: clamp(0.625rem, 2.8vw, 0.9375rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.38);
   max-width: min(4.75rem, 22vw);
   text-align: center;
   line-height: 1.15;
@@ -537,7 +744,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 }
 
 .routes__node--lit .routes__name {
-  color: var(--text);
+  color: #fff;
 }
 
 .routes__foot {
@@ -550,7 +757,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   font-size: clamp(0.75rem, 2vw, 0.8125rem);
   line-height: 1.4;
   letter-spacing: 0.02em;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.5);
   overflow-wrap: break-word;
 }
 
@@ -577,15 +784,15 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   }
 
   .routes__node .routes__name {
-    color: var(--text);
+    color: rgba(245, 245, 247, 0.9);
     animation: none !important;
   }
 
   .routes__node .routes__dot {
-    background: var(--text);
+    background: var(--yellow);
     transform: none;
     animation: none !important;
-    box-shadow: 0 0 0 1px var(--bg), 0 0 0 3px var(--line-light);
+    box-shadow: 0 0 0 1px #0c0c0e, 0 0 0 3px rgba(245, 196, 18, 0.35);
   }
 
   .routes--woven .routes__path,

@@ -145,6 +145,8 @@ async function onSubmit(e) {
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) calc(2.5rem + env(safe-area-inset-bottom, 0px))
     max(1rem, env(safe-area-inset-right, 0px));
+  background: #fff;
+  border-top: 1px solid var(--line-light);
 }
 
 @media (min-width: 720px) {
@@ -272,15 +274,15 @@ async function onSubmit(e) {
   margin-top: 0.5rem;
   align-self: stretch;
   font: inherit;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.0625rem;
   cursor: pointer;
-  border: none;
+  border: 1px solid var(--yellow);
   border-radius: 980px;
   min-height: 48px;
   padding: 0.65rem 1.75rem;
-  color: #fff;
-  background: var(--text);
+  color: var(--yellow-ink);
+  background: var(--yellow);
   transition: opacity 0.2s ease;
 }
 

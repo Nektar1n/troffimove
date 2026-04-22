@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 import trofimPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
 
@@ -48,6 +49,9 @@ onMounted(() => {
           <a class="btn btn--primary" href="#contact">Написать нам</a>
           <a class="btn btn--ghost" href="#cases">Примеры сделок</a>
         </div>
+        <p class="hero__subcta" :class="{ 'is-in': mounted }">
+          <RouterLink class="hero__subcta-link" to="/podbor">Подбор и проверка б/у на месте →</RouterLink>
+        </p>
       </div>
 
       <aside class="hero__aside" :class="{ 'is-in': mounted }" aria-label="Схема поставки">
@@ -66,12 +70,31 @@ onMounted(() => {
 
 <style scoped>
 .hero {
+  position: relative;
+  z-index: 0;
   min-height: min(100vh, 100dvh);
   padding: calc(5.5rem + env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-left, 0px)) 2.5rem
     max(1rem, env(safe-area-inset-right, 0px));
   max-width: 1120px;
   margin: 0 auto;
-  border-bottom: 1px solid var(--line-light);
+  background: transparent;
+  color: rgba(245, 245, 247, 0.92);
+  border-bottom: none;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: var(--surface-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .hero__layout {
@@ -125,9 +148,9 @@ onMounted(() => {
 .hero__eyebrow {
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(245, 196, 18, 0.95);
   margin: 0 0 0.85rem;
   opacity: 0;
   transform: translateY(8px);
@@ -147,7 +170,7 @@ onMounted(() => {
   line-height: 1.05;
   letter-spacing: -0.045em;
   margin: 0 0 1rem;
-  color: var(--text);
+  color: #fff;
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -169,12 +192,13 @@ onMounted(() => {
 .hero__title-em {
   font-weight: 700;
   font-style: italic;
+  color: var(--yellow);
 }
 
 .hero__lead {
   font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.68);
   margin: 0;
   opacity: 0;
   transform: translateY(12px);
@@ -201,6 +225,17 @@ onMounted(() => {
   transform: translateY(0);
 }
 
+.hero :deep(.soc__link) {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.hero :deep(.soc__link:hover) {
+  border-color: rgba(245, 196, 18, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+}
+
 .hero__figure {
   margin: 0;
   opacity: 0;
@@ -216,8 +251,8 @@ onMounted(() => {
 }
 
 .hero__frame {
-  border: 1px solid var(--line-light);
-  background: var(--bg-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
 
@@ -243,21 +278,22 @@ onMounted(() => {
   gap: 0.2rem;
   margin: 0;
   padding: 0.85rem 1rem;
-  border: 1px solid var(--line-light);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-top: none;
-  background: var(--bg);
+  background: rgba(10, 10, 12, 0.95);
 }
 
 .hero__caption-name {
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  color: #fff;
 }
 
 .hero__caption-role {
   font-size: 0.75rem;
   line-height: 1.35;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.55);
 }
 
 .hero__body {
@@ -273,7 +309,7 @@ onMounted(() => {
   gap: 0.65rem;
   font-size: clamp(0.875rem, 2.4vw, 0.9375rem);
   line-height: 1.45;
-  color: var(--text);
+  color: rgba(245, 245, 247, 0.88);
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -299,7 +335,7 @@ onMounted(() => {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--text);
+  background: var(--yellow);
 }
 
 .hero__actions {
@@ -316,6 +352,33 @@ onMounted(() => {
 .hero__actions.is-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+.hero__subcta {
+  margin: 0.85rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.55s ease 0.2s,
+    transform 0.55s ease 0.2s;
+}
+
+.hero__subcta.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__subcta-link {
+  color: var(--yellow);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.hero__subcta-link:hover {
+  text-decoration: underline;
+  color: var(--yellow-hover);
 }
 
 .btn {
@@ -336,14 +399,14 @@ onMounted(() => {
 }
 
 .btn--primary {
-  color: #fff;
-  background: var(--text);
-  border: 1px solid var(--text);
+  color: var(--yellow-ink);
+  background: var(--yellow);
+  border: 1px solid var(--yellow);
 }
 
 .btn--ghost {
-  color: var(--accent);
-  border: 1px solid var(--line);
+  color: rgba(245, 245, 247, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   background: transparent;
 }
 
@@ -359,7 +422,7 @@ onMounted(() => {
 @media (min-width: 900px) {
   .hero__aside {
     padding-top: 1.5rem;
-    border-top: 1px solid var(--line-light);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -374,7 +437,7 @@ onMounted(() => {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(245, 196, 18, 0.9);
 }
 
 .hero__steps {
@@ -383,7 +446,7 @@ onMounted(() => {
   list-style: none;
   font-size: 0.8125rem;
   line-height: 1.5;
-  color: var(--text);
+  color: rgba(245, 245, 247, 0.85);
 }
 
 .hero__steps li {
@@ -396,7 +459,7 @@ onMounted(() => {
 .hero__steps span {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--yellow);
   min-width: 1rem;
 }
 
@@ -408,7 +471,8 @@ onMounted(() => {
   .hero__figure,
   .hero__list,
   .hero__actions,
-  .hero__aside {
+  .hero__aside,
+  .hero__subcta {
     opacity: 1;
     transform: none;
     transition: none;

@@ -1,29 +1,17 @@
 <script setup>
+import { RouterView } from 'vue-router';
 import SiteHeader from './components/SiteHeader.vue';
-import HeroBlock from './components/HeroBlock.vue';
-import ImportRoutesViz from './components/ImportRoutesViz.vue';
-import StatsRow from './components/StatsRow.vue';
-import RegionsGrid from './components/RegionsGrid.vue';
-import BrandsSection from './components/BrandsSection.vue';
-import CasesSection from './components/CasesSection.vue';
-import ReviewsSection from './components/ReviewsSection.vue';
-import ContactForm from './components/ContactForm.vue';
 import SiteFooter from './components/SiteFooter.vue';
 </script>
 
 <template>
   <div class="page">
     <SiteHeader />
-    <main>
-      <HeroBlock />
-      <CasesSection />
-      <ImportRoutesViz />
-      <StatsRow />
-      <RegionsGrid />
-      <BrandsSection />
-      <ReviewsSection />
-      <ContactForm />
-    </main>
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="page" mode="out-in">
+        <component :is="Component" :key="route.path" />
+      </Transition>
+    </RouterView>
     <SiteFooter />
   </div>
 </template>
@@ -37,7 +25,22 @@ import SiteFooter from './components/SiteFooter.vue';
   overflow-x: clip;
 }
 
-.page main {
+.page :deep(main) {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+</style>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 0.38s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.38s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(5px);
 }
 </style>

@@ -58,6 +58,7 @@ const cases = [
         :key="c.model"
         class="card"
         :class="{ 'card--in': visible }"
+        :style="visible ? { transitionDelay: `${i * 0.09}s` } : { transitionDelay: '0s' }"
       >
         <div class="card__media">
           <img
@@ -88,6 +89,7 @@ const cases = [
   max-width: 1120px;
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
+  background: var(--bg-subtle);
   border-bottom: 1px solid var(--line-light);
 }
 
@@ -159,7 +161,7 @@ const cases = [
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
   transition:
-    opacity 0.32s ease,
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
@@ -172,10 +174,10 @@ const cases = [
   .card {
     flex: none;
     min-width: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
     transition:
-      opacity 0.42s ease,
-      transform 0.42s ease,
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
       border-color 0.2s ease,
       box-shadow 0.2s ease;
   }
@@ -187,7 +189,8 @@ const cases = [
 
 .card:hover {
   border-color: var(--line);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
 }
 
 .card__media {
@@ -204,6 +207,15 @@ const cases = [
   object-fit: cover;
   object-position: center;
   display: block;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .card__img {
+  transform: scale(1.04);
+}
+
+.card__media {
+  overflow: hidden;
 }
 
 .card__body {
@@ -251,13 +263,16 @@ const cases = [
   align-self: flex-start;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #000;
+  color: var(--yellow-ink);
   text-decoration: none;
   letter-spacing: -0.01em;
+  padding: 0.35rem 0;
+  border-bottom: 2px solid var(--yellow);
 }
 
 .card__cta:hover {
-  text-decoration: underline;
+  color: #000;
+  border-bottom-color: #000;
 }
 
 @media (prefers-reduced-motion: reduce) {

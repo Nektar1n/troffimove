@@ -54,7 +54,12 @@ const reviews = [
     </div>
 
     <div class="rev__grid" :class="{ 'rev__grid--in': visible }">
-      <article v-for="(r, i) in reviews" :key="r.name + r.date" class="rev__card" :style="{ transitionDelay: `${i * 0.05}s` }">
+      <article
+        v-for="(r, i) in reviews"
+        :key="r.name + r.date"
+        class="rev__card"
+        :style="{ transitionDelay: `${i * 0.08}s` }"
+      >
         <div class="rev__card-top">
           <span class="rev__name">{{ r.name }}</span>
           <div class="rev__meta">
@@ -82,10 +87,28 @@ const reviews = [
 
 <style scoped>
 .rev {
+  position: relative;
+  z-index: 0;
   max-width: 1120px;
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
-  border-bottom: 1px solid var(--line-light);
+  background: transparent;
+  border-bottom: none;
+}
+
+.rev::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: var(--surface-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (min-width: 720px) {
@@ -116,7 +139,7 @@ const reviews = [
   font-size: clamp(1.75rem, 4vw, 2.25rem);
   letter-spacing: -0.04em;
   line-height: 1.1;
-  color: #000;
+  color: #fff;
 }
 
 .rev__sub {
@@ -124,7 +147,7 @@ const reviews = [
   max-width: 28rem;
   font-size: 0.9375rem;
   line-height: 1.45;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.58);
 }
 
 .rev__rating {
@@ -134,8 +157,8 @@ const reviews = [
   align-items: flex-start;
   gap: 0.35rem;
   padding: 1rem 1.25rem;
-  border: 1px solid var(--line);
-  background: #fff;
+  border: 1px solid rgba(245, 196, 18, 0.35);
+  background: rgba(255, 255, 255, 0.04);
   min-width: 9rem;
 }
 
@@ -143,27 +166,27 @@ const reviews = [
   font-weight: 600;
   font-size: 1.75rem;
   letter-spacing: -0.03em;
-  color: #000;
+  color: var(--yellow);
 }
 
 .rev__stars {
   font-size: 0.75rem;
   letter-spacing: 0.05em;
-  color: #000;
+  color: var(--yellow);
   line-height: 1;
 }
 
 .rev__count {
   font-size: 0.75rem;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.5);
 }
 
 .rev__grid {
   display: grid;
   gap: 1px;
   margin-bottom: 2rem;
-  background: var(--line-light);
-  border: 1px solid var(--line-light);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 640px) {
@@ -173,13 +196,13 @@ const reviews = [
 }
 
 .rev__card {
-  background: #fff;
+  background: rgba(18, 18, 20, 0.96);
   padding: 1.25rem 1.15rem 1.35rem;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(7px);
   transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .rev__grid--in .rev__card {
@@ -198,7 +221,7 @@ const reviews = [
 .rev__name {
   font-weight: 600;
   font-size: 0.9375rem;
-  color: #000;
+  color: #fff;
 }
 
 .rev__meta {
@@ -212,20 +235,20 @@ const reviews = [
 .rev__card-stars {
   font-size: 0.65rem;
   letter-spacing: 0.04em;
-  color: #000;
+  color: var(--yellow);
   line-height: 1;
 }
 
 .rev__date {
   font-size: 0.75rem;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.45);
 }
 
 .rev__text {
   margin: 0;
   font-size: 0.9375rem;
   line-height: 1.5;
-  color: #000;
+  color: rgba(245, 245, 247, 0.88);
 }
 
 .rev__cta {
@@ -239,19 +262,19 @@ const reviews = [
   min-height: 48px;
   padding: 0.75rem 1.25rem;
   font-size: 0.9375rem;
-  font-weight: 500;
-  color: #000;
+  font-weight: 600;
+  color: var(--yellow-ink);
   text-decoration: none;
-  border: 1px solid var(--line);
-  background: #fff;
+  border: 1px solid var(--yellow);
+  background: var(--yellow);
   transition:
     border-color 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .rev__cta:hover {
-  border-color: #000;
-  background: var(--bg-subtle);
+  opacity: 0.9;
 }
 
 .rev__arrow {
@@ -262,7 +285,7 @@ const reviews = [
   margin: 0;
   text-align: center;
   font-size: 0.8125rem;
-  color: var(--muted);
+  color: rgba(245, 245, 247, 0.5);
   max-width: 26rem;
   margin-inline: auto;
 }

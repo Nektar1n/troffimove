@@ -1,5 +1,7 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+import router from './router';
+import revealDirective from './directives/reveal.js';
 
-createApp(App).mount('#app')
+createApp(App).use(router).directive('reveal', revealDirective).mount('#app');
