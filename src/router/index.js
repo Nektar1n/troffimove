@@ -4,7 +4,8 @@ import ImportView from '../views/ImportView.vue';
 import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
-  history: createWebHistory(),
+  /* На GitHub Pages путь: /repo/ — без base роуты не сходятся, белый экран. Vite кладёт base в BASE_URL. */
+  history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, saved) {
     if (saved) return saved;
     if (to.hash) {
