@@ -44,7 +44,7 @@ const darkHeroTop = computed(
           <RouterLink to="/podbor" class="head__link" active-class="head__link--current">Подбор</RouterLink>
           <RouterLink class="head__link" :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
         </nav>
-        <a class="head__cta" href="#contact">Оставить заявку</a>
+        <RouterLink class="head__cta" :to="{ path: '/', hash: '#contact' }">Оставить заявку</RouterLink>
       </div>
     </div>
     <nav class="head__mob" aria-label="Разделы страницы">

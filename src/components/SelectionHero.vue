@@ -44,10 +44,10 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 /* Как баннер «Дорога к вашему авто» на /import: полный кадр, тёмный градиент, текст снизу */
 .pick-hero {
   --pick-ease: cubic-bezier(0.33, 1, 0.68, 1);
-  /* Mobile-first: до 820px шапка в две строки (.head__mob) — с запасом. ≥820px — одна строка */
-  --pick-head-clear: calc(7.5rem + env(safe-area-inset-top, 0px));
-  /* min выше, чтобы flex-end клок текста на узких экранах не «вылезал» в зону fixed header */
-  --pick-hero-slab: clamp(300px, 58vh, 620px);
+  /* До 819px: две строки шапки — крупный зазор (телефоны) */
+  --pick-head-clear: calc(9.75rem + env(safe-area-inset-top, 0px));
+  /* min выше, чтобы flex-end + многострочный H1 не уезжали под header */
+  --pick-hero-slab: clamp(340px, 60vh, 640px);
   box-sizing: border-box;
   width: 100vw;
   max-width: 100%;
@@ -63,7 +63,8 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 @media (min-width: 820px) {
   .pick-hero {
-    --pick-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
+    /* Одна строка в шапке, но CTA/логотип выше 3.4rem */
+    --pick-head-clear: calc(4.25rem + env(safe-area-inset-top, 0px));
   }
 }
 
@@ -137,8 +138,14 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   align-items: center;
   justify-content: flex-end;
   box-sizing: border-box;
-  padding: clamp(1.05rem, 3.6vw, 2.2rem) 0
-    max(1.15rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
+  /* Критично: при flex-end без достаточного padding-top заголовок растёт в зону fixed header */
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: max(1.15rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
+  padding-top: max(
+    clamp(1.15rem, 3.2vw, 2rem),
+    calc(7.5rem + env(safe-area-inset-top, 0px))
+  );
   max-width: 100%;
   text-align: left;
   text-wrap: balance;
@@ -155,6 +162,15 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 .pick-hero--in .pick-hero__cap {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (min-width: 820px) {
+  .pick-hero__cap {
+    padding-top: max(
+      clamp(1rem, 2.5vw, 1.5rem),
+      calc(4.25rem + env(safe-area-inset-top, 0px))
+    );
+  }
 }
 
 .pick-hero__box {

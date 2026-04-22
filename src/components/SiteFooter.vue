@@ -20,6 +20,7 @@ import SocialLinks from './SocialLinks.vue';
           <div class="foot__h">Контакты</div>
           <p>hello@troffimove.auto</p>
           <p>+7 (000) 000-00-00</p>
+          <p class="foot__reply">Первичный ответ в рабочий день; в мессенджерах — по возможности в тот же день.</p>
           <SocialLinks variant="footer" />
         </div>
         <div>
@@ -28,7 +29,15 @@ import SocialLinks from './SocialLinks.vue';
           <RouterLink to="/privoz">Привоз</RouterLink>
           <RouterLink to="/podbor">Подбор</RouterLink>
           <RouterLink :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
-          <a href="#contact">Заявка</a>
+          <RouterLink :to="{ path: '/', hash: '#faq' }">Вопросы и ответы</RouterLink>
+          <RouterLink :to="{ path: '/', hash: '#contact' }">Заявка</RouterLink>
+        </div>
+        <div>
+          <div class="foot__h">Документы</div>
+          <RouterLink to="/legal#privacy">Конфиденциальность</RouterLink>
+          <RouterLink to="/legal#cookies">Cookie</RouterLink>
+          <RouterLink to="/legal#offer">Оферта</RouterLink>
+          <RouterLink to="/legal#requisites">Реквизиты</RouterLink>
         </div>
       </div>
     </div>
@@ -101,9 +110,18 @@ import SocialLinks from './SocialLinks.vue';
   margin-top: 0.35rem;
 }
 
+.foot__reply {
+  margin: 0.4rem 0 0.75rem;
+  max-width: 20rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .foot__cols {
   display: flex;
-  gap: 3rem;
+  flex-wrap: wrap;
+  gap: 2.5rem 3rem;
 }
 
 .foot__h {

@@ -1,11 +1,13 @@
 <script setup>
 import { RouterView } from 'vue-router';
+import SeoJsonLd from './components/SeoJsonLd.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import SiteFooter from './components/SiteFooter.vue';
 </script>
 
 <template>
   <div class="page">
+    <SeoJsonLd />
     <SiteHeader />
     <RouterView v-slot="{ Component, route }">
       <Transition name="page" mode="out-in">

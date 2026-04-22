@@ -20,6 +20,9 @@ onMounted(() => {
         <h1 class="hero__title" :class="{ 'is-in': mounted }">
           Подбор, выкуп и привоз авто <span class="hero__title-em">под ключ</span>
         </h1>
+        <p class="hero__kicker" :class="{ 'is-in': mounted }">
+          Один контрагент по договору: смета, этапы и сопровождение до постановки на учёт — без «сюрпризов» по деньгам.
+        </p>
         <p class="hero__lead" :class="{ 'is-in': mounted }">
           Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
           организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную сумму
@@ -73,7 +76,8 @@ onMounted(() => {
   position: relative;
   z-index: 0;
   min-height: min(100vh, 100dvh);
-  padding: calc(5.5rem + env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-left, 0px)) 2.5rem
+  /* До 819px: .head__mob (вторая строка) — больший зазор под fixed header */
+  padding: calc(7.5rem + env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-left, 0px)) 2.5rem
     max(1rem, env(safe-area-inset-right, 0px));
   max-width: var(--content-max);
   margin: 0 auto;
@@ -101,6 +105,12 @@ onMounted(() => {
   display: grid;
   gap: 1.75rem;
   align-items: start;
+}
+
+@media (min-width: 820px) {
+  .hero {
+    padding-top: calc(5.5rem + env(safe-area-inset-top, 0px));
+  }
 }
 
 @media (min-width: 900px) {
@@ -169,7 +179,7 @@ onMounted(() => {
   font-size: clamp(2rem, 6.5vw, 3.75rem);
   line-height: 1.05;
   letter-spacing: -0.045em;
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
   color: #fff;
   opacity: 0;
   transform: translateY(12px);
@@ -193,6 +203,24 @@ onMounted(() => {
   font-weight: 700;
   font-style: italic;
   color: var(--yellow);
+}
+
+.hero__kicker {
+  font-size: clamp(0.9rem, 2.2vw, 1.02rem);
+  line-height: 1.45;
+  color: rgba(245, 196, 18, 0.92);
+  margin: 0 0 1rem;
+  max-width: 40rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.5s ease 0.08s,
+    transform 0.5s ease 0.08s;
+}
+
+.hero__kicker.is-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero__lead {
@@ -467,6 +495,7 @@ onMounted(() => {
 @media (prefers-reduced-motion: reduce) {
   .hero__eyebrow,
   .hero__title,
+  .hero__kicker,
   .hero__lead,
   .hero__soc,
   .hero__figure,

@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { DEFAULT_DESCRIPTION, PAGE_DESCRIPTIONS, applyPageMeta } from '../seo/siteMeta.js';
 import { ensureSelectionHeroImagePreload } from '../utils/selectionHeroImage.js';
 import HomeView from '../views/HomeView.vue';
 import ImportView from '../views/ImportView.vue';
+import LegalView from '../views/LegalView.vue';
 import SelectionView from '../views/SelectionView.vue';
 
 const router = createRouter({
@@ -39,19 +41,25 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { title: 'Главная' },
+      meta: { title: 'Главная', description: PAGE_DESCRIPTIONS.home },
     },
     {
       path: '/privoz',
       name: 'import',
       component: ImportView,
-      meta: { title: 'Привоз авто' },
+      meta: { title: 'Привоз авто', description: PAGE_DESCRIPTIONS.import },
     },
     {
       path: '/podbor',
       name: 'selection',
       component: SelectionView,
-      meta: { title: 'Подбор и проверка' },
+      meta: { title: 'Подбор и проверка', description: PAGE_DESCRIPTIONS.selection },
+    },
+    {
+      path: '/legal',
+      name: 'legal',
+      component: LegalView,
+      meta: { title: 'Документы', description: PAGE_DESCRIPTIONS.legal },
     },
     { path: '/prigon', redirect: '/privoz' },
     { path: '/reviews-cases', redirect: { path: '/', hash: '#cases' } },
@@ -66,7 +74,12 @@ router.beforeEach((to) => {
 
 router.afterEach((to) => {
   const base = 'Troffimove Auto';
-  document.title = to.meta?.title ? `${to.meta.title} · ${base}` : base;
+  const t = to.meta?.title;
+  const fullTitle = t ? `${t} · ${base}` : base;
+  document.title = fullTitle;
+  const desc = to.meta?.description || DEFAULT_DESCRIPTION;
+  const pathUrl = typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : '';
+  applyPageMeta(desc, fullTitle, pathUrl || undefined);
 });
 
 export default router;

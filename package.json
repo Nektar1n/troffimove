@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "optimize:selection-hero": "node scripts/optimize-selection-hero.mjs"
+    "optimize:selection-hero": "node scripts/optimize-selection-hero.mjs",
+    "optimize:white-car": "node scripts/optimize-white-car.mjs"
   },
   "dependencies": {
     "simple-icons": "^16.17.0",

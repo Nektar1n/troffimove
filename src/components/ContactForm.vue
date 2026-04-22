@@ -1,13 +1,22 @@
 <script setup>
 import { reactive, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
 import { formSubmitEmail } from '../config/site.js';
 
 const { el, visible } = useInView();
 
+const TOPIC_LABELS = {
+  import: 'Привоз (аукцион / импорт)',
+  selection: 'Подбор б/у на месте',
+  consult: 'Консультация / вилка',
+  other: 'Другое',
+};
+
 const form = reactive({
   name: '',
   phone: '',
+  topic: 'import',
   region: 'korea',
   message: '',
 });
@@ -36,9 +45,10 @@ async function onSubmit(e) {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        _subject: `[Troffimove] Заявка · ${form.region}`,
+        _subject: `[Troffimove] ${TOPIC_LABELS[form.topic] ?? form.topic} · ${form.region}`,
         name: form.name,
         phone: form.phone,
+        topic: TOPIC_LABELS[form.topic] ?? form.topic,
         region: form.region,
         message: form.message,
         _captcha: false,
@@ -54,6 +64,7 @@ async function onSubmit(e) {
     form.name = '';
     form.phone = '';
     form.message = '';
+    form.topic = 'import';
     form.region = 'korea';
     setTimeout(() => {
       sent.value = false;
@@ -72,14 +83,14 @@ async function onSubmit(e) {
       <div class="copy" :class="{ 'is-in': visible }">
         <h2 class="title">Заявка</h2>
         <p class="lead">
-          Опишите модель, год, бюджет «под ключ» и город постановки на учёт. Если уже есть ссылка на Encar, аукционный
-          лист или объявление дилера — приложите её в поле комментария: так быстрее сориентируем по срокам и полной
-          сумме.
+          Опишите модель, год, бюджет и город учёта. Ссылка на лот, аукционный лист или объявление в комментарии ускоряет
+          оценку. Ориентир по вилке и срокам — по заявке; «калькулятор» в одну кнопку не подменяет проверку лота, но
+          сразу скажем, каких вводных не хватает.
         </p>
         <ul class="bullets">
-          <li>Первичный ответ и вилка по стоимости — в рабочий день.</li>
-          <li>Договор и оплата только после согласования лота и сметы.</li>
-          <li>Можем начать с аудита чужого предложения: скажем, где риски.</li>
+          <li>Первичный ответ в рабочий день (часто — в течение суток при полных вводных).</li>
+          <li>Договор и оплата после согласования сметы и схемы.</li>
+          <li>Можем начать с разбора чужого предложения: где риски и что уточнить.</li>
         </ul>
       </div>
 
@@ -109,12 +120,22 @@ async function onSubmit(e) {
         </label>
 
         <label class="field">
-          <span>Направление</span>
+          <span>Тема заявки</span>
+          <select v-model="form.topic" name="topic">
+            <option value="import">Привоз (аукцион / импорт)</option>
+            <option value="selection">Подбор б/у на месте</option>
+            <option value="consult">Консультация / вилка по вводным</option>
+            <option value="other">Другое</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Регион / направление поставки</span>
           <select v-model="form.region" name="region">
             <option value="korea">Корея</option>
             <option value="japan">Япония</option>
             <option value="europe">Европа</option>
-            <option value="any">Пока не выбрал</option>
+            <option value="any">Пока не выбрал / не относится</option>
           </select>
         </label>
 
@@ -132,7 +153,8 @@ async function onSubmit(e) {
           {{ sending ? 'Отправка…' : 'Отправить' }}
         </button>
         <p class="fine">
-          Нажимая кнопку, вы даёте согласие на обработку данных для обратной связи.
+          Нажимая кнопку, вы даёте согласие на обработку персональных данных для обратной связи. Подробнее — в
+          <RouterLink class="fine__link" to="/legal#privacy">политике</RouterLink>.
         </p>
       </form>
     </div>
@@ -308,6 +330,17 @@ async function onSubmit(e) {
   color: var(--text);
   opacity: 0.72;
   max-width: 28rem;
+}
+
+.fine__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.fine__link:hover {
+  opacity: 1;
+  color: var(--yellow-ink);
 }
 
 .fine__code {

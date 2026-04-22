@@ -1,8 +1,10 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+import FaqSection from '../components/FaqSection.vue';
 import HeroBlock from '../components/HeroBlock.vue';
 import CasesSection from '../components/CasesSection.vue';
 import ReviewsSection from '../components/ReviewsSection.vue';
+import StatsRow from '../components/StatsRow.vue';
 import ContactForm from '../components/ContactForm.vue';
 </script>
 
@@ -25,8 +27,10 @@ import ContactForm from '../components/ContactForm.vue';
       </div>
     </section>
 
+    <StatsRow />
     <CasesSection />
     <ReviewsSection />
+    <FaqSection />
     <ContactForm />
   </main>
 </template>

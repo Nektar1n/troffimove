@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onUnmounted, ref } from 'vue';
-import carWhite from '../assets/white-car.png';
+import carWhite from '../assets/white-car.webp';
 
 function isFineHover() {
   if (typeof window === 'undefined' || !window.matchMedia) return true;
