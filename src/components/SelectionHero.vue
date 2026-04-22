@@ -148,12 +148,17 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
   max-width: 1120px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0 max(1rem, env(safe-area-inset-right, 0px));
+  /* Воздух сверху над «Выезд · диагностика · отчёт» (текстовый блок прижат снизу, блок растёт вверх) */
+  padding-top: clamp(2rem, 6vw, 3.75rem);
+  padding-bottom: 0;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
   pointer-events: auto;
 }
 
 @media (min-width: 720px) {
   .pick-hero__box {
+    padding-top: clamp(2.25rem, 5.5vw, 4rem);
     padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   }
@@ -161,6 +166,7 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
 
 @media (min-width: 1200px) {
   .pick-hero__box {
+    padding-top: clamp(2.5rem, 4.5vw, 4.25rem);
     padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
   }
