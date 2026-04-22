@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import SelectionView from '../views/SelectionView.vue';
-import ImportView from '../views/ImportView.vue';
+import { ensureSelectionHeroImagePreload } from '../utils/selectionHeroImage.js';
 import HomeView from '../views/HomeView.vue';
+import ImportView from '../views/ImportView.vue';
+import SelectionView from '../views/SelectionView.vue';
 
 const router = createRouter({
   /* На GitHub Pages путь: /repo/ — без base роуты не сходятся, белый экран. Vite кладёт base в BASE_URL. */
@@ -55,6 +56,12 @@ const router = createRouter({
     { path: '/prigon', redirect: '/privoz' },
     { path: '/reviews-cases', redirect: { path: '/', hash: '#cases' } },
   ],
+});
+
+router.beforeEach((to) => {
+  if (to.name === 'selection') {
+    ensureSelectionHeroImagePreload();
+  }
 });
 
 router.afterEach((to) => {

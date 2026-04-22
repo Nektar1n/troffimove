@@ -1,22 +1,21 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { useInView } from '../composables/useInView.js';
-import imgAudi from '../assets/желтаяауди.png';
-
-const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 </script>
 
 <template>
-  <section ref="el" class="pick-hero" :class="{ 'pick-hero--in': visible }" aria-labelledby="pick-hero-title">
+  <!-- pick-hero--in сразу: без useInView — кадр с opacity:0 и IO задерживали LCP/появление фото -->
+  <section class="pick-hero pick-hero--in" aria-labelledby="pick-hero-title">
     <figure class="pick-hero__shot">
       <div class="pick-hero__surface">
         <img
-          :src="imgAudi"
+          :src="selectionHeroUrl"
           class="pick-hero__img"
-          width="1600"
-          height="900"
+          width="1376"
+          height="768"
           alt="Audi: осмотр автомобиля перед сделкой"
-          decoding="async"
+          loading="eager"
+          decoding="sync"
           fetchpriority="high"
         />
         <div class="pick-hero__overlay" aria-hidden="true" />
