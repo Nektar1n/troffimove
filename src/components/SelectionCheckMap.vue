@@ -2,20 +2,27 @@
 import { computed, onUnmounted, ref } from 'vue';
 import carWhite from '../assets/white-car.png';
 
+function isFineHover() {
+  if (typeof window === 'undefined' || !window.matchMedia) return true;
+  return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+}
+
 /** Клик = закрепить зону (для тача). Наведение показывает без клика. */
 const active = ref(null);
 const hoverId = ref(null);
 let hoverClearTimer;
 
 function onEnter(id) {
+  if (!isFineHover()) return;
   clearTimeout(hoverClearTimer);
   hoverId.value = id;
 }
 
 function onLeave() {
+  if (!isFineHover()) return;
   clearTimeout(hoverClearTimer);
-  // Только с hover — нельзя трогать active: на таче сразу после клика приходит pointerleave
-  // с крошечного маркера, и всплывашка схлопывалась. Закреплённый пункт снимаем с backdrop / повтором клика.
+  // Только с hover: на таче pointerleave приходит раньше click, clear hoverId дёргает showId
+  // до срабатывания клика — всплывашка «моргает». С тача показываем только через active.
   hoverClearTimer = window.setTimeout(() => {
     hoverId.value = null;
   }, 180);
@@ -382,6 +389,8 @@ function onArtClick(e) {
   border: none;
   background: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition:
     transform 0.25s cubic-bezier(0.22, 0.9, 0.32, 1),
     opacity 0.25s ease;
@@ -542,6 +551,14 @@ function onArtClick(e) {
 
 .pop-leave-active {
   transition: opacity 0.16s ease;
+}
+
+/* Тач: убрать длинный fade, меньше слоёв/перерисовок на iOS при первом кадре. */
+@media (hover: none), (pointer: coarse) {
+  .pop-enter-active,
+  .pop-leave-active {
+    transition-duration: 0.12s;
+  }
 }
 
 .pop-enter-from,

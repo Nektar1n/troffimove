@@ -45,6 +45,7 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
 /* Как баннер «Дорога к вашему авто» на /import: полный кадр, тёмный градиент, текст снизу */
 .pick-hero {
   --pick-ease: cubic-bezier(0.33, 1, 0.68, 1);
+  /* Десктоп: одна строка в шапке. Мобайл: лого+CTA + .head__mob — ~3.4rem мало, текст уезжает под fixed header */
   --pick-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
   --pick-hero-slab: clamp(240px, 52vh, 620px);
   box-sizing: border-box;
@@ -58,6 +59,12 @@ const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.
   overflow-x: clip;
   overflow-y: visible;
   background: #0a0a0c;
+}
+
+@media (max-width: 819px) {
+  .pick-hero {
+    --pick-head-clear: calc(6.75rem + env(safe-area-inset-top, 0px));
+  }
 }
 
 .pick-hero__shot {
