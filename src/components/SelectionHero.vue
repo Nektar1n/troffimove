@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import yellowBmwPng from '../assets/желтая бнв.png';
+import coolBmwPng from '../assets/самаякрутаябэха.png';
 </script>
 
 <template>
@@ -9,11 +9,11 @@ import yellowBmwPng from '../assets/желтая бнв.png';
     <figure class="pick-hero__shot">
       <div class="pick-hero__surface">
         <img
-          :src="yellowBmwPng"
+          :src="coolBmwPng"
           class="pick-hero__img"
           width="1376"
           height="768"
-          alt="Желтый BMW: осмотр автомобиля перед сделкой"
+          alt="BMW: осмотр автомобиля перед сделкой"
           loading="eager"
           decoding="sync"
           fetchpriority="high"
@@ -76,7 +76,7 @@ import yellowBmwPng from '../assets/желтая бнв.png';
 
 .pick-hero__surface {
   position: absolute;
-  top: calc(var(--pick-head-clear) + 4.75rem);
+  top: var(--pick-head-clear);
   right: 0;
   bottom: 0;
   left: 0;
@@ -108,10 +108,6 @@ import yellowBmwPng from '../assets/желтая бнв.png';
 }
 
 @media (min-width: 900px) {
-  .pick-hero__surface {
-    top: calc(var(--pick-head-clear) + 7.25rem);
-  }
-
   .pick-hero__img {
     object-position: 50% 74%;
   }

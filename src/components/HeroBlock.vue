@@ -182,6 +182,12 @@ onMounted(() => {
   transform-origin: 50% 50%;
 }
 
+@media (max-width: 899px) {
+  .hero__bg-img {
+    object-position: 50% 32%;
+  }
+}
+
 .hero__veil {
   position: absolute;
   inset: 0;
