@@ -412,6 +412,13 @@ const faq = [
   color: #f5f5f7;
 }
 
+.im__step .im__h3 {
+  font-size: clamp(1.24rem, 2.9vw, 1.62rem);
+  line-height: 1.16;
+  letter-spacing: -0.028em;
+  font-weight: 650;
+}
+
 .im__h3--tag {
   font-size: 0.7rem;
   text-transform: uppercase;

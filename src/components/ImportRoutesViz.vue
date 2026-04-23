@@ -112,8 +112,8 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
             Европа, Россия, Корея, Япония: контроль груза и сроков на всём пути
           </p>
           <div class="routes__truck-actions">
-            <a class="routes__truck-btn routes__truck-btn--primary" href="#contact">Оставить заявку</a>
-            <RouterLink class="routes__truck-btn routes__truck-btn--ghost" to="/">На главную →</RouterLink>
+            <a class="btn btn--primary" href="#contact">Оставить заявку</a>
+            <RouterLink class="btn btn--ghost" to="/">На главную →</RouterLink>
           </div>
         </div>
       </figcaption>
@@ -256,7 +256,7 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   /* Меньше захода под шапку — кадр визуально ниже, важная часть фуры не «под» меню */
   --routes-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
   /* Высота баннера: крупный hero — ~50% экрана по vh, верх/низ в clamp прижимают */
-  --routes-hero-slab: clamp(240px, 52vh, 620px);
+  --routes-hero-slab: clamp(280px, 58vh, 720px);
   position: relative;
   z-index: 0;
   display: block;
@@ -306,8 +306,8 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(6, 6, 8, 0) 0%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
-    linear-gradient(100deg, rgba(10, 10, 12, 0.92) 0%, rgba(10, 10, 12, 0.2) 52%, transparent 72%);
+  background: linear-gradient(180deg, rgba(6, 6, 8, 0.35) 0%, rgba(6, 6, 8, 0.2) 42%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
+    linear-gradient(100deg, rgba(10, 10, 12, 0.94) 0%, rgba(10, 10, 12, 0.35) 48%, transparent 72%);
   mix-blend-mode: multiply;
   pointer-events: none;
   opacity: 0.9;
@@ -319,10 +319,10 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: stretch;
+  justify-content: flex-start;
   box-sizing: border-box;
-  padding: clamp(1.05rem, 3.6vw, 2.2rem) 0
+  padding: calc(7.5rem + var(--routes-head-clear) + env(safe-area-inset-top, 0px)) 0
     max(1.15rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
   max-width: 100%;
   text-align: left;
@@ -359,7 +359,17 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 820px) {
+  .routes__truck-cap {
+    padding-top: calc(5.5rem + var(--routes-head-clear) + env(safe-area-inset-top, 0px));
+  }
+}
+
+@media (min-width: 900px) {
+  .routes__truck-cap {
+    padding-top: calc(6.5rem + var(--routes-head-clear) + env(safe-area-inset-top, 0px));
+  }
+
   .routes__truck-box {
     padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
@@ -368,80 +378,81 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
 .routes__truck-heading {
   margin: 0 0 0.5rem;
-  max-width: 32ch;
+  max-width: min(64rem, 100%);
   font-weight: 600;
-  font-size: clamp(1.8rem, 4.2vw, 2.6rem);
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  color: rgba(252, 252, 255, 0.99);
+  font-size: clamp(2.4rem, 7.6vw, 3.9rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: #fff;
+  text-shadow:
+    0 2px 28px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.65);
   text-align: left;
+}
+
+@media (min-width: 900px) {
+  .routes__truck-heading {
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.02;
+  }
 }
 
 .routes__truck-amp {
   font-weight: 500;
-  color: rgba(252, 252, 255, 0.4);
+  color: rgba(245, 245, 247, 0.45);
   letter-spacing: 0.02em;
 }
 
 .routes__truck-accent {
+  font-weight: 700;
+  font-style: italic;
   color: var(--yellow);
-  text-shadow: 0 0 28px rgba(245, 196, 18, 0.22);
 }
 
 .routes__truck-deck {
-  margin: 0 0 1.1rem;
-  max-width: 40rem;
-  font-size: clamp(0.875rem, 1.85vw, 1.0625rem);
+  margin: 0 0 0.9rem;
+  max-width: 44rem;
+  font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  letter-spacing: 0.01em;
-  color: rgba(245, 245, 247, 0.75);
+  color: rgba(245, 245, 247, 0.72);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
   text-align: left;
 }
 
 .routes__truck-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.65rem;
   align-items: center;
 }
 
-.routes__truck-btn {
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 0 1.35rem;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
   border-radius: 980px;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 1rem;
   text-decoration: none;
-  letter-spacing: -0.02em;
-  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-.routes__truck-btn:active {
-  transform: scale(0.98);
+.btn--primary:hover {
+  opacity: 0.85;
 }
 
-.routes__truck-btn--primary {
-  background: #f5c542;
-  color: #111;
-  border: 1px solid #f5c542;
+.btn--primary {
+  color: var(--yellow-ink);
+  background: var(--yellow);
+  border: 1px solid var(--yellow);
 }
 
-.routes__truck-btn--primary:hover {
-  opacity: 0.92;
-}
-
-.routes__truck-btn--ghost {
+.btn--ghost {
+  color: rgba(245, 245, 247, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   background: transparent;
-  color: rgba(245, 245, 247, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-}
-
-.routes__truck-btn--ghost:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  color: #fff;
 }
 
 @media (max-height: 520px) and (orientation: landscape) {
@@ -711,7 +722,12 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
 .routes__node--ru {
   left: 34.333%;
-  top: 47.78%;
+  top: 45.9%;
+}
+
+.routes__node--ru .routes__dot {
+  width: 12px;
+  height: 12px;
 }
 
 .routes__node--kr {

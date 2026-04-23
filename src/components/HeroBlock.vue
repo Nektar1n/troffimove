@@ -1,22 +1,41 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import mainHeroPhoto from '../assets/главныйгерой.jpg';
 import SocialLinks from './SocialLinks.vue';
+import { STATS_LINE, formatStatValue } from '../data/statsLine.js';
+import { useStatsCountup } from '../composables/useStatsCountup.js';
+import { useInView } from '../composables/useInView.js';
 
 const mounted = ref(false);
+const statCountStarted = ref(false);
+const { el: heroDownRef, visible: heroDownInView } = useInView({
+  rootMargin: '0px 0px -8% 0px',
+  threshold: 0.12,
+});
+
+const { values: statValues, done: statCountDone, start: startStatCount } = useStatsCountup();
+
+const statNumberLines = computed(() =>
+  statValues.value.map((v, i) => formatStatValue(i, v, statCountDone.value))
+);
+
+watch(
+  heroDownInView,
+  (v) => {
+    if (v && !statCountStarted.value) {
+      statCountStarted.value = true;
+      startStatCount();
+    }
+  },
+  { immediate: true },
+);
+
 onMounted(() => {
   requestAnimationFrame(() => {
     mounted.value = true;
   });
 });
-
-const stats = [
-  { n: '1200+', t: 'авто доставлено клиентам' },
-  { n: '14', t: 'стран-источников поставки' },
-  { n: '48 ч', t: 'до первого отчёта по лоту' },
-  { n: '1', t: 'менеджер на всю сделку' },
-];
 </script>
 
 <template>
@@ -42,9 +61,15 @@ const stats = [
             <h1 class="hero__title" :class="{ 'is-in': mounted }">
               Подбор, выкуп и привоз авто <span class="hero__title-em">под ключ</span>
             </h1>
-            <p class="hero__kicker" :class="{ 'is-in': mounted }">
-              Один контрагент по договору: смета, этапы и сопровождение до постановки на учёт — без «сюрпризов» по деньгам.
-            </p>
+            <div class="hero__cta">
+              <div class="hero__actions" :class="{ 'is-in': mounted }">
+                <a class="btn btn--primary" href="#contact">Написать нам</a>
+                <a class="btn btn--ghost" href="#cases">Примеры сделок</a>
+              </div>
+              <p class="hero__subcta" :class="{ 'is-in': mounted }">
+                <RouterLink class="hero__subcta-link" to="/podbor">Подбор и проверка б/у на месте →</RouterLink>
+              </p>
+            </div>
             <p class="hero__lead" :class="{ 'is-in': mounted }">
               Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
               организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную
@@ -52,39 +77,30 @@ const stats = [
             </p>
             <div class="hero__meta">
               <SocialLinks class="hero__soc" :class="{ 'is-in': mounted }" variant="hero" />
-              <p class="hero__byline">Дмитрий Темирович <span class="hero__byline-sep" aria-hidden="true">·</span> Troffimove Auto — личное сопровождение сделки</p>
+              <p class="hero__byline">Дмитрий Темирович<span class="hero__byline-sep" aria-hidden="true"></span> </p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="hero__down">
+    <div class="hero__down" ref="heroDownRef">
       <div class="hero__inner">
         <div
           id="stats"
           class="hero__stats"
-          :class="{ 'hero__stats--in': mounted }"
+          :class="{ 'hero__stats--in': heroDownInView }"
           aria-label="Показатели"
         >
           <div
-            v-for="(s, i) in stats"
+            v-for="(s, i) in STATS_LINE"
             :key="s.t"
             class="hero__stat"
             :style="{ transitionDelay: `${i * 0.08}s` }"
           >
-            <span class="hero__stat-n">{{ s.n }}</span>
+            <span class="hero__stat-n">{{ statNumberLines[i] }}</span>
             <span class="hero__stat-t">{{ s.t }}</span>
           </div>
-        </div>
-        <div class="hero__cta">
-          <div class="hero__actions" :class="{ 'is-in': mounted }">
-            <a class="btn btn--primary" href="#contact">Написать нам</a>
-            <a class="btn btn--ghost" href="#cases">Примеры сделок</a>
-          </div>
-          <p class="hero__subcta" :class="{ 'is-in': mounted }">
-            <RouterLink class="hero__subcta-link" to="/podbor">Подбор и проверка б/у на месте →</RouterLink>
-          </p>
         </div>
       </div>
     </div>
@@ -127,7 +143,7 @@ const stats = [
   position: relative;
   z-index: 1;
   width: 100%;
-  min-height: min(64vh, 700px);
+  min-height: min(78vh, 860px);
   background: #050506;
   opacity: 0;
   transform: translate3d(0, 4px, 0);
@@ -186,7 +202,7 @@ const stats = [
   z-index: 2;
   display: block;
   width: 100%;
-  padding: calc(7.5rem + env(safe-area-inset-top, 0px)) 0 2.25rem;
+  padding: calc(7.5rem + env(safe-area-inset-top, 0px)) 0 2.5rem;
   box-sizing: border-box;
   pointer-events: auto;
 }
@@ -206,7 +222,7 @@ const stats = [
 
 @media (min-width: 900px) {
   .hero__fore {
-    padding: calc(6.5rem + env(safe-area-inset-top, 0px)) 0 2.75rem;
+    padding: calc(6.5rem + env(safe-area-inset-top, 0px)) 0 3rem;
   }
 
   .hero__inner {
@@ -243,20 +259,29 @@ const stats = [
     grid-column: 1 / 11;
     grid-row: 2;
     max-width: var(--hero-title-w);
-    font-size: clamp(2.75rem, 4.4vw, 4.4rem);
-    line-height: 1.03;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.02;
+  }
+
+  .hero__swiss .hero__cta {
+    grid-column: 1 / 11;
+    grid-row: 3;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    align-self: start;
   }
 
   .hero__swiss .hero__kicker {
     grid-column: 1 / 11;
-    grid-row: 3;
+    grid-row: 4;
+    margin-top: 0.5rem;
     margin-bottom: 0;
     max-width: var(--hero-left-prose);
   }
 
   .hero__swiss .hero__lead {
     grid-column: 11 / 13;
-    grid-row: 2 / 4;
+    grid-row: 2 / 6;
     max-width: none;
     margin: 0;
     align-self: start;
@@ -267,8 +292,8 @@ const stats = [
   .hero__swiss .hero__meta {
     display: block;
     grid-column: 1 / 11;
-    grid-row: 4;
-    margin-top: 1.3rem;
+    grid-row: 5;
+    margin-top: 1.35rem;
   }
 }
 
@@ -288,6 +313,11 @@ const stats = [
 @media (max-width: 899px) {
   .hero__byline {
     margin-top: 1.1rem;
+  }
+
+  .hero__swiss .hero__cta {
+    margin-top: 0.9rem;
+    margin-bottom: 1.2rem;
   }
 }
 
@@ -384,7 +414,7 @@ const stats = [
   font-weight: 600;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: -0.03em;
-  color: var(--yellow);
+  color: rgba(245, 245, 247, 0.95);
   font-variant-numeric: tabular-nums;
 }
 
@@ -422,7 +452,7 @@ const stats = [
 
 .hero__title {
   font-weight: 600;
-  font-size: clamp(2.2rem, 7.1vw, 3.5rem);
+  font-size: clamp(2.4rem, 7.6vw, 3.9rem);
   line-height: 1.05;
   letter-spacing: -0.045em;
   margin: 0 0 0.5rem;

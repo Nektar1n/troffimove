@@ -1,20 +1,33 @@
 <script setup>
+import { computed, ref, watch } from 'vue';
 import { useInView } from '../composables/useInView.js';
+import { useStatsCountup } from '../composables/useStatsCountup.js';
+import { STATS_LINE, formatStatValue } from '../data/statsLine.js';
 
 const { el, visible } = useInView();
+const { values: statValues, done: statCountDone, start: startStatCount } = useStatsCountup();
+const countStarted = ref(false);
 
-const stats = [
-  { n: '1200+', t: 'авто доставлено клиентам' },
-  { n: '14', t: 'стран-источников поставки' },
-  { n: '48 ч', t: 'до первого отчёта по лоту' },
-  { n: '1', t: 'менеджер на всю сделку' },
-];
+const statNumberLines = computed(() =>
+  statValues.value.map((v, i) => formatStatValue(i, v, statCountDone.value))
+);
+
+watch(
+  visible,
+  (v) => {
+    if (v && !countStarted.value) {
+      countStarted.value = true;
+      startStatCount();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
   <section id="stats" ref="el" class="stats" :class="{ 'stats--in': visible }">
-    <div v-for="(s, i) in stats" :key="s.t" class="stats__item" :style="{ transitionDelay: `${i * 0.08}s` }">
-      <span class="stats__n">{{ s.n }}</span>
+    <div v-for="(s, i) in STATS_LINE" :key="s.t" class="stats__item" :style="{ transitionDelay: `${i * 0.08}s` }">
+      <span class="stats__n">{{ statNumberLines[i] }}</span>
       <span class="stats__t">{{ s.t }}</span>
     </div>
   </section>
@@ -94,7 +107,7 @@ const stats = [
   font-weight: 600;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: -0.03em;
-  color: var(--yellow);
+  color: rgba(245, 245, 247, 0.95);
   font-variant-numeric: tabular-nums;
 }
 

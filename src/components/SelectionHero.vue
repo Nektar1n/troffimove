@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
+import yellowBmwPng from '../assets/желтая бнв.png';
 </script>
 
 <template>
@@ -9,11 +9,11 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
     <figure class="pick-hero__shot">
       <div class="pick-hero__surface">
         <img
-          :src="selectionHeroUrl"
+          :src="yellowBmwPng"
           class="pick-hero__img"
           width="1376"
           height="768"
-          alt="Audi: осмотр автомобиля перед сделкой"
+          alt="Желтый BMW: осмотр автомобиля перед сделкой"
           loading="eager"
           decoding="sync"
           fetchpriority="high"
@@ -24,15 +24,16 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
         <div class="pick-hero__box">
           <p class="pick-hero__eyebrow">Выезд · диагностика · отчёт</p>
           <h1 id="pick-hero-title" class="pick-hero__title">
-            Подбор и проверка б/у до сделки: видим риски до перевода денег
+            Подбор и проверка:
+            <span class="pick-hero__title-accent">мы видим автомобили насквозь</span>
           </h1>
           <p class="pick-hero__lead">
             Приезжаем к объявлению, снимаем кузов и узлы на сканере, проверяем юридическую чистоту и сервисную
             историю. В конце — понятный письменный вердикт: брать, торговаться или уходить.
           </p>
           <div class="pick-hero__actions">
-            <a class="pick-hero__btn pick-hero__btn--primary" href="#contact">Оставить заявку</a>
-            <RouterLink class="pick-hero__btn pick-hero__btn--ghost" to="/">На главную →</RouterLink>
+            <a class="btn btn--primary" href="#contact">Оставить заявку</a>
+            <RouterLink class="btn btn--ghost" to="/">На главную →</RouterLink>
           </div>
         </div>
       </figcaption>
@@ -41,13 +42,11 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 </template>
 
 <style scoped>
-/* Как баннер «Дорога к вашему авто» на /import: полный кадр, тёмный градиент, текст снизу */
+/* Как баннер привоза / герой главной: тот же слот под шапку и типографика */
 .pick-hero {
   --pick-ease: cubic-bezier(0.33, 1, 0.68, 1);
-  /* До 819px: две строки шапки — крупный зазор (телефоны) */
-  --pick-head-clear: calc(9.75rem + env(safe-area-inset-top, 0px));
-  /* min выше, чтобы flex-end + многострочный H1 не уезжали под header */
-  --pick-hero-slab: clamp(340px, 60vh, 640px);
+  --pick-head-clear: calc(3.4rem + env(safe-area-inset-top, 0px));
+  --pick-hero-slab: 100dvh;
   box-sizing: border-box;
   width: 100vw;
   max-width: 100%;
@@ -59,13 +58,6 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   overflow-x: clip;
   overflow-y: visible;
   background: #0a0a0c;
-}
-
-@media (min-width: 820px) {
-  .pick-hero {
-    /* Одна строка в шапке, но CTA/логотип выше 3.4rem */
-    --pick-head-clear: calc(4.25rem + env(safe-area-inset-top, 0px));
-  }
 }
 
 .pick-hero__shot {
@@ -84,7 +76,7 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 .pick-hero__surface {
   position: absolute;
-  top: var(--pick-head-clear);
+  top: calc(var(--pick-head-clear) + 4.75rem);
   right: 0;
   bottom: 0;
   left: 0;
@@ -110,17 +102,27 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   max-width: none;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 42%;
+  object-position: 50% 72%;
   /* смотрит вправо: исходник ориентирован влево */
   transform: scaleX(-1);
+}
+
+@media (min-width: 900px) {
+  .pick-hero__surface {
+    top: calc(var(--pick-head-clear) + 7.25rem);
+  }
+
+  .pick-hero__img {
+    object-position: 50% 74%;
+  }
 }
 
 .pick-hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(6, 6, 8, 0) 0%, rgba(6, 6, 8, 0.4) 55%, rgba(4, 4, 5, 0.75) 100%),
-    linear-gradient(100deg, rgba(10, 10, 12, 0.9) 0%, rgba(10, 10, 12, 0.18) 58%, transparent 75%);
+  background: linear-gradient(180deg, rgba(6, 6, 8, 0.35) 0%, rgba(6, 6, 8, 0.2) 42%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
+    linear-gradient(100deg, rgba(10, 10, 12, 0.94) 0%, rgba(10, 10, 12, 0.35) 48%, transparent 72%);
   mix-blend-mode: multiply;
   pointer-events: none;
   opacity: 0.9;
@@ -135,17 +137,11 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: stretch;
+  justify-content: flex-start;
   box-sizing: border-box;
-  /* Критично: при flex-end без достаточного padding-top заголовок растёт в зону fixed header */
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: max(1.15rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
-  padding-top: max(
-    clamp(1.15rem, 3.2vw, 2rem),
-    calc(7.5rem + env(safe-area-inset-top, 0px))
-  );
+  padding: calc(9.25rem + env(safe-area-inset-top, 0px)) 0
+    max(2.6rem, calc(1.2rem + env(safe-area-inset-bottom, 0px)));
   max-width: 100%;
   text-align: left;
   text-wrap: balance;
@@ -166,10 +162,13 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 @media (min-width: 820px) {
   .pick-hero__cap {
-    padding-top: max(
-      clamp(1rem, 2.5vw, 1.5rem),
-      calc(4.25rem + env(safe-area-inset-top, 0px))
-    );
+    padding-top: calc(7rem + env(safe-area-inset-top, 0px));
+  }
+}
+
+@media (min-width: 900px) {
+  .pick-hero__cap {
+    padding-top: calc(8rem + env(safe-area-inset-top, 0px));
   }
 }
 
@@ -178,117 +177,142 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   max-width: var(--content-max);
   margin: 0 auto;
   box-sizing: border-box;
-  /* Воздух сверху над «Выезд · диагностика · отчёт» (текстовый блок прижат снизу, блок растёт вверх) */
-  padding-top: clamp(2rem, 6vw, 3.75rem);
-  padding-bottom: 0;
-  padding-left: max(1rem, env(safe-area-inset-left, 0px));
-  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0 max(1rem, env(safe-area-inset-right, 0px));
   pointer-events: auto;
 }
 
 @media (min-width: 720px) {
   .pick-hero__box {
-    padding-top: clamp(2.25rem, 5.5vw, 4rem);
     padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 900px) {
   .pick-hero__box {
-    padding-top: clamp(2.5rem, 4.5vw, 4.25rem);
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.75rem;
+    row-gap: 0;
+    align-items: start;
     padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
   }
 }
 
 .pick-hero__eyebrow {
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.85rem;
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 197, 66, 0.95);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+  color: rgba(245, 196, 18, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 
-.pick-hero__title {
-  margin: 0 0 0.9rem;
-  max-width: 20ch;
-  font-weight: 600;
-  font-size: clamp(1.8rem, 4.2vw, 2.9rem);
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  color: rgba(252, 252, 255, 0.99);
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
-}
-
-@media (min-width: 640px) {
-  .pick-hero__title {
-    max-width: 22ch;
+@media (min-width: 900px) {
+  .pick-hero__eyebrow {
+    grid-column: 1 / 11;
+    grid-row: 1;
   }
 }
 
+.pick-hero__title {
+  margin: 0 0 0.5rem;
+  max-width: min(64rem, 100%);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 7.6vw, 3.9rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: #fff;
+  text-shadow:
+    0 2px 28px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.65);
+}
+
+@media (min-width: 900px) {
+  .pick-hero__title {
+    grid-column: 1 / 11;
+    grid-row: 2;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.02;
+  }
+}
+
+.pick-hero__title-accent {
+  font-weight: 700;
+  font-style: italic;
+  color: var(--yellow);
+}
+
 .pick-hero__lead {
-  margin: 0 0 1.35rem;
-  max-width: 40rem;
-  font-size: clamp(0.9rem, 1.9vw, 1.1rem);
+  margin: 0 0 0.9rem;
+  max-width: 44rem;
+  font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  letter-spacing: 0.01em;
-  color: rgba(245, 245, 247, 0.8);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+  color: rgba(245, 245, 247, 0.72);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+@media (min-width: 900px) {
+  .pick-hero__lead {
+    grid-column: 11 / 13;
+    grid-row: 2 / 4;
+    max-width: none;
+    margin: 0;
+    align-self: start;
+    font-size: clamp(0.86rem, 0.9vw, 0.95rem);
+    line-height: 1.5;
+  }
 }
 
 .pick-hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.65rem;
   align-items: center;
 }
 
-.pick-hero__btn {
+@media (min-width: 900px) {
+  .pick-hero__actions {
+    grid-column: 1 / 11;
+    grid-row: 3;
+    margin-top: 1.1rem;
+  }
+}
+
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 0 1.35rem;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
   border-radius: 980px;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 1rem;
   text-decoration: none;
-  letter-spacing: -0.02em;
-  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-.pick-hero__btn:active {
-  transform: scale(0.98);
+.btn--primary:hover {
+  opacity: 0.85;
 }
 
-.pick-hero__btn--primary {
-  background: #f5c542;
-  color: #111;
-  border: 1px solid #f5c542;
+.btn--primary {
+  color: var(--yellow-ink);
+  background: var(--yellow);
+  border: 1px solid var(--yellow);
 }
 
-.pick-hero__btn--primary:hover {
-  opacity: 0.92;
-}
-
-.pick-hero__btn--ghost {
+.btn--ghost {
+  color: rgba(245, 245, 247, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   background: transparent;
-  color: rgba(245, 245, 247, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-}
-
-.pick-hero__btn--ghost:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  color: #fff;
 }
 
 @media (max-height: 520px) and (orientation: landscape) {
   .pick-hero {
-    /* Чуть больше высоты «полки», иначе многострочный заголовок + шапка снова сходятся */
-    --pick-hero-slab: min(48vh, 320px);
+    --pick-hero-slab: 100dvh;
   }
 }
 
