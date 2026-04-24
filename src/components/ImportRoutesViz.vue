@@ -263,6 +263,10 @@ const jpBrands = computed(() => brandSets.jp);
 <style scoped>
 .routes {
   --path-ease: cubic-bezier(0.33, 1, 0.68, 1);
+  --routes-bg: #050607;
+  --routes-surface: #0f1013;
+  --routes-surface-2: #121419;
+  --routes-border: rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
   width: 100vw;
   max-width: 100%;
@@ -271,7 +275,7 @@ const jpBrands = computed(() => brandSets.jp);
   padding-bottom: max(1.65rem, calc(0.45rem + env(safe-area-inset-bottom, 0px)));
   border-top: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, #0a0a0c 0%, #0a0a0c 22%, #141416 100%);
+  background: var(--routes-bg);
   color: rgba(245, 245, 247, 0.88);
   overflow-x: clip;
   overflow-y: visible;
@@ -292,8 +296,8 @@ const jpBrands = computed(() => brandSets.jp);
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
   padding-bottom: 0.1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(180deg, #0e0e10 0%, #0a0a0c 38%, #101012 100%);
+  border-top: 1px solid var(--routes-border);
+  background: var(--routes-surface);
 }
 
 @media (min-width: 720px) {
@@ -327,7 +331,7 @@ const jpBrands = computed(() => brandSets.jp);
   padding: var(--routes-head-clear) 0 0 0;
   min-height: calc(var(--routes-head-clear) + var(--routes-hero-slab));
   border: 0;
-  background: #0a0a0c;
+  background: var(--routes-bg);
 }
 
 .routes__truck-surface {
@@ -336,7 +340,7 @@ const jpBrands = computed(() => brandSets.jp);
   z-index: 0;
   overflow: hidden;
   border-radius: 0;
-  background: #0a0a0c;
+  background: var(--routes-bg);
   width: 100%;
   max-width: none;
   box-shadow: none;
@@ -366,11 +370,11 @@ const jpBrands = computed(() => brandSets.jp);
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(6, 6, 8, 0.35) 0%, rgba(6, 6, 8, 0.2) 42%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
-    linear-gradient(100deg, rgba(10, 10, 12, 0.94) 0%, rgba(10, 10, 12, 0.35) 48%, transparent 72%);
-  mix-blend-mode: multiply;
+  background:
+    linear-gradient(90deg, rgba(5, 6, 7, 0.9) 0%, rgba(5, 6, 7, 0.5) 46%, rgba(5, 6, 7, 0.12) 72%),
+    linear-gradient(180deg, rgba(5, 6, 7, 0.28) 0%, rgba(5, 6, 7, 0.12) 44%, rgba(5, 6, 7, 0.8) 100%);
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .routes__truck-cap {
@@ -444,9 +448,7 @@ const jpBrands = computed(() => brandSets.jp);
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: #fff;
-  text-shadow:
-    0 2px 28px rgba(0, 0, 0, 0.5),
-    0 1px 2px rgba(0, 0, 0, 0.65);
+  text-wrap: balance;
   text-align: left;
 }
 
@@ -459,7 +461,7 @@ const jpBrands = computed(() => brandSets.jp);
 
 .routes__truck-amp {
   font-weight: 500;
-  color: rgba(245, 245, 247, 0.45);
+  color: rgba(245, 245, 247, 0.32);
   letter-spacing: 0.02em;
 }
 
@@ -472,10 +474,9 @@ const jpBrands = computed(() => brandSets.jp);
 .routes__truck-deck {
   margin: 0 0 0.9rem;
   max-width: 44rem;
-  font-size: clamp(1rem, 2.8vw, 1.0625rem);
+  font-size: clamp(0.98rem, 2.4vw, 1.02rem);
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.72);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  color: rgba(245, 245, 247, 0.62);
   text-align: left;
 }
 
@@ -491,16 +492,21 @@ const jpBrands = computed(() => brandSets.jp);
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0.65rem 1.35rem;
-  border-radius: 980px;
-  font-weight: 500;
-  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.9rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .btn--primary:hover {
-  opacity: 0.85;
+  background: var(--yellow-hover);
+  border-color: var(--yellow-hover);
 }
 
 .btn--primary {
@@ -511,8 +517,13 @@ const jpBrands = computed(() => brandSets.jp);
 
 .btn--ghost {
   color: rgba(245, 245, 247, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 13, 15, 0.72);
+}
+
+.btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(18, 19, 22, 0.9);
 }
 
 @media (max-height: 520px) and (orientation: landscape) {
@@ -734,16 +745,13 @@ const jpBrands = computed(() => brandSets.jp);
   top: 50%;
   display: grid;
   place-items: center;
-  width: clamp(1.45rem, 4vw, 1.85rem);
-  height: clamp(1.45rem, 4vw, 1.85rem);
-  padding: 0.28rem;
+  width: clamp(1.35rem, 3.6vw, 1.7rem);
+  height: clamp(1.35rem, 3.6vw, 1.7rem);
+  padding: 0.24rem;
   border-radius: 999px;
-  color: rgba(245, 245, 247, 0.56);
-  background: rgba(12, 12, 14, 0.78);
+  color: rgba(245, 245, 247, 0.52);
+  background: rgba(12, 12, 14, 0.84);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 10px 24px -18px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
   transform: translate(calc(-50% + var(--logo-x)), calc(-50% + var(--logo-y)));
   transition:
     color 0.35s var(--path-ease),
@@ -784,7 +792,7 @@ const jpBrands = computed(() => brandSets.jp);
 
 .routes__node--lit .routes__logo {
   color: rgba(255, 255, 255, 0.96);
-  background: rgba(20, 20, 22, 0.92);
+  background: var(--routes-surface-2);
   border-color: rgba(245, 196, 18, 0.26);
   opacity: 1;
 }
@@ -961,7 +969,7 @@ const jpBrands = computed(() => brandSets.jp);
   font-size: clamp(0.625rem, 2.8vw, 0.9375rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: rgba(245, 245, 247, 0.38);
+  color: rgba(245, 245, 247, 0.46);
   max-width: min(4.75rem, 22vw);
   text-align: center;
   line-height: 1.15;

@@ -257,6 +257,10 @@ const cases = [
   border-radius: 2px;
 }
 
+.card__cta:hover {
+  color: var(--yellow-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card {
     opacity: 1;

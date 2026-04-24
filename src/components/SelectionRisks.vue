@@ -71,11 +71,17 @@ const items = [
 
 <style scoped>
 .risks {
+  --risks-bg: #050607;
+  --risks-surface: #0f1013;
+  --risks-border: rgba(255, 255, 255, 0.1);
+  --risks-text: #f6f7f9;
+  --risks-muted: rgba(246, 247, 249, 0.64);
+
   position: relative;
   z-index: 0;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.75rem max(1rem, env(safe-area-inset-right, 0px));
-  border-bottom: 1px solid var(--line-light);
-  background: transparent;
+  border-bottom: 1px solid var(--risks-border);
+  background: var(--risks-bg);
   overflow: clip;
 }
 
@@ -83,7 +89,7 @@ const items = [
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #f0f0f3 0%, var(--bg) 24%, var(--bg) 100%);
+  background: var(--risks-bg);
   pointer-events: none;
 }
 
@@ -100,11 +106,12 @@ const items = [
 
 .risks__kicker {
   margin: 0 0 0.4rem;
-  font-size: 0.6875rem;
+  font-size: 0.66rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  font-style: italic;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #5c5c61;
+  color: rgba(245, 196, 18, 0.86);
 }
 
 .risks__title {
@@ -114,15 +121,15 @@ const items = [
   letter-spacing: -0.03em;
   line-height: 1.15;
   max-width: 22ch;
-  color: var(--text);
+  color: var(--risks-text);
 }
 
 .risks__intro {
   margin: 0 0 1.75rem;
   max-width: 40rem;
-  font-size: 0.9375rem;
+  font-size: 0.95rem;
   line-height: 1.5;
-  color: var(--muted);
+  color: var(--risks-muted);
 }
 
 .risks__list {
@@ -145,11 +152,11 @@ const items = [
   display: grid;
   grid-template-columns: 1fr;
   margin: 0;
-  border-radius: 14px;
+  border-radius: 0.95rem;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  background: #111;
+  border: 1px solid var(--risks-border);
+  box-shadow: 0 18px 32px -28px rgba(0, 0, 0, 0.82);
+  background: var(--risks-surface);
 }
 
 @media (min-width: 900px) {
@@ -178,7 +185,7 @@ const items = [
 .risks__shot {
   position: relative;
   min-height: 200px;
-  background: #0a0a0c;
+  background: var(--risks-bg);
 }
 
 @media (min-width: 900px) {
@@ -208,13 +215,13 @@ const items = [
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, transparent 45%);
+  background: linear-gradient(90deg, rgba(5, 6, 7, 0.42) 0%, transparent 46%);
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 1;
 }
 
 .risks__card--reverse .risks__shot::after {
-  background: linear-gradient(270deg, rgba(0, 0, 0, 0.5) 0%, transparent 45%);
+  background: linear-gradient(270deg, rgba(5, 6, 7, 0.42) 0%, transparent 46%);
 }
 
 @media (max-width: 899px) {
@@ -226,13 +233,13 @@ const items = [
 
 .risks__panel {
   position: relative;
-  padding: 1.35rem 1.35rem 1.5rem 1.25rem;
+  padding: 1.35rem 1.35rem 1.45rem 1.3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(145deg, var(--surface-dark-2) 0%, var(--surface-dark) 100%);
-  color: #f5f5f7;
+  background: var(--risks-surface);
+  color: var(--risks-text);
   min-height: 0;
 }
 
@@ -244,27 +251,27 @@ const items = [
 
 .risks__n {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   color: var(--yellow);
   font-variant-numeric: tabular-nums;
 }
 
 .risks__h {
   margin: 0;
-  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
-  color: #fff;
+  font-size: clamp(1rem, 2vw, 1.14rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+  color: var(--risks-text);
 }
 
 .risks__p {
   margin: 0;
   font-size: 0.9rem;
-  line-height: 1.55;
-  color: rgba(245, 245, 247, 0.78);
+  line-height: 1.5;
+  color: rgba(245, 245, 247, 0.7);
   max-width: 46ch;
 }
 
@@ -273,22 +280,22 @@ const items = [
   left: 0;
   top: 1.1rem;
   bottom: 1.1rem;
-  width: 3px;
-  border-radius: 0 2px 2px 0;
+  width: 2px;
+  border-radius: 0;
   background: var(--yellow);
 }
 
 .risks__card--reverse .risks__panel-bar {
   left: auto;
   right: 0;
-  border-radius: 2px 0 0 2px;
+  border-radius: 0;
 }
 
 @media (max-width: 899px) {
   .risks__card--reverse .risks__panel-bar {
     left: 0;
     right: auto;
-    border-radius: 0 2px 2px 0;
+    border-radius: 0;
   }
 }
 

@@ -113,6 +113,12 @@ onMounted(() => {
 
 <style scoped>
 .hero {
+  --hero-bg: #050607;
+  --hero-surface: #0f1013;
+  --hero-border: rgba(255, 255, 255, 0.1);
+  --hero-text: rgba(245, 245, 247, 0.92);
+  --hero-muted: rgba(245, 245, 247, 0.62);
+
   position: relative;
   z-index: 0;
   min-height: min(100vh, 100dvh);
@@ -122,7 +128,7 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   background: transparent;
-  color: rgba(245, 245, 247, 0.92);
+  color: var(--hero-text);
   border-bottom: none;
   overflow-x: clip;
 }
@@ -138,8 +144,8 @@ onMounted(() => {
   transform: translateX(-50%);
   z-index: 0;
   pointer-events: none;
-  background: var(--surface-dark);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--hero-bg);
+  border-bottom: 1px solid var(--hero-border);
 }
 
 /* Сцена: фото на 100% ширины, текст вверху слоем; высоту даёт .hero__fore */
@@ -148,13 +154,13 @@ onMounted(() => {
   z-index: 1;
   width: 100%;
   min-height: min(78vh, 860px);
-  background: #050506;
+  background: var(--hero-bg);
   opacity: 0;
   transform: translate3d(0, 4px, 0);
   transition:
     opacity 0.6s ease 0.04s,
     transform 0.65s cubic-bezier(0.33, 1, 0.68, 1) 0.04s;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .hero__stage.is-in {
@@ -187,10 +193,75 @@ onMounted(() => {
 }
 
 @media (max-width: 899px) {
+  .hero__swiss {
+    min-height: calc(min(108svh, 56rem) - (8.1rem + env(safe-area-inset-top, 0px)) - 2.75rem);
+  }
+
+  .hero__stage {
+    min-height: min(108svh, 56rem);
+  }
+
   .hero__bg-img {
+    inset: 0.9rem 0 0;
+    height: calc(100% - 0.9rem);
     object-fit: contain;
     object-position: center bottom;
-    transform: none;
+    transform: translateY(-4.2rem);
+  }
+
+  .hero__fore {
+    padding-top: calc(8.1rem + env(safe-area-inset-top, 0px));
+    padding-bottom: 2.75rem;
+  }
+
+  .hero__cta {
+    margin-top: auto;
+  }
+
+  .hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .btn {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0.9rem;
+  }
+
+  .hero__subcta {
+    margin-top: 0.8rem;
+    text-align: left;
+  }
+
+  .hero__meta {
+    margin-top: 1rem;
+  }
+
+  .hero__soc {
+    margin-top: 0;
+  }
+
+  .hero :deep(.soc) {
+    gap: 0.45rem;
+  }
+
+  .hero :deep(.soc__link) {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero__byline {
+    margin-top: 0.8rem;
+    font-size: 0.74rem;
+    color: rgba(245, 245, 247, 0.5);
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__bg-img {
+    transform: translateY(-6.4rem);
   }
 }
 
@@ -199,14 +270,9 @@ onMounted(() => {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(
-      100deg,
-      rgba(2, 2, 3, 0.94) 0%,
-      rgba(2, 2, 3, 0.58) 38%,
-      rgba(2, 2, 3, 0.2) 68%,
-      rgba(2, 2, 3, 0.4) 100%
-    ),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.1) 38%, rgba(3, 3, 4, 0.82) 100%);
+  background:
+    linear-gradient(90deg, rgba(5, 6, 7, 0.92) 0%, rgba(5, 6, 7, 0.58) 42%, rgba(5, 6, 7, 0.14) 72%),
+    linear-gradient(180deg, rgba(5, 6, 7, 0.3) 0%, rgba(5, 6, 7, 0.1) 44%, rgba(5, 6, 7, 0.78) 100%);
 }
 
 .hero__fore {
@@ -318,22 +384,28 @@ onMounted(() => {
   max-width: 40rem;
   font-size: 0.8rem;
   line-height: 1.4;
-  color: rgba(245, 245, 247, 0.7);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  color: rgba(245, 245, 247, 0.58);
 }
 
 @media (max-width: 899px) {
   .hero__byline {
-    margin-top: 1.1rem;
+    margin-top: 0.8rem;
   }
 
   .hero__swiss .hero__cta {
-    margin-top: 0.9rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0;
   }
 
   .hero__lead {
     display: none;
+  }
+  
+  .hero__down {
+    padding-bottom: 2rem;
+  }
+
+  .hero__stats {
+    margin-top: 0.25rem;
   }
 }
 
@@ -388,13 +460,13 @@ onMounted(() => {
   z-index: -1;
   pointer-events: none;
   /* Как .hero::before, не --surface-dark-2 (сероватый) */
-  background: var(--surface-dark);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0a0b0d;
+  border-top: 1px solid var(--hero-border);
+  border-bottom: 1px solid var(--hero-border);
 }
 
 .hero__stat {
-  padding: 0.75rem 0;
+  padding: 0.9rem 0;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -437,7 +509,7 @@ onMounted(() => {
 .hero__stat-t {
   font-size: 0.8125rem;
   line-height: 1.35;
-  color: rgba(245, 245, 247, 0.55);
+  color: rgba(245, 245, 247, 0.48);
   max-width: 12rem;
 }
 
@@ -451,8 +523,7 @@ onMounted(() => {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.95);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  color: rgba(245, 196, 18, 0.92);
   margin: 0 0 0.85rem;
   opacity: 0;
   transform: translateY(8px);
@@ -473,9 +544,7 @@ onMounted(() => {
   letter-spacing: -0.045em;
   margin: 0 0 0.5rem;
   color: #fff;
-  text-shadow:
-    0 2px 28px rgba(0, 0, 0, 0.5),
-    0 1px 2px rgba(0, 0, 0, 0.65);
+  text-wrap: balance;
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -496,9 +565,9 @@ onMounted(() => {
 
 .hero__kicker {
   font-size: clamp(0.9rem, 2.2vw, 1.02rem);
+  font-style: italic;
   line-height: 1.45;
-  color: rgba(245, 196, 18, 0.92);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  color: rgba(245, 196, 18, 0.88);
   margin: 0 0 1rem;
   max-width: min(32rem, 100%);
   opacity: 0;
@@ -516,8 +585,7 @@ onMounted(() => {
 .hero__lead {
   font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.72);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  color: var(--hero-muted);
   margin: 0;
   max-width: 44rem;
   opacity: 0;
@@ -546,14 +614,14 @@ onMounted(() => {
 }
 
 .hero :deep(.soc__link) {
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.14);
   color: #fff;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(13, 14, 16, 0.78);
 }
 
 .hero :deep(.soc__link:hover) {
-  border-color: rgba(245, 196, 18, 0.55);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(245, 196, 18, 0.4);
+  background: rgba(18, 19, 22, 0.92);
 }
 
 .hero__actions {
@@ -574,7 +642,7 @@ onMounted(() => {
 
 .hero__subcta {
   margin: 0.85rem 0 0;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 500;
   opacity: 0;
   transform: translateY(10px);
@@ -589,14 +657,14 @@ onMounted(() => {
 }
 
 .hero__subcta-link {
-  color: var(--yellow);
+  color: rgba(245, 245, 247, 0.84);
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .hero__subcta-link:hover {
-  text-decoration: underline;
-  color: var(--yellow-hover);
+  color: var(--yellow);
 }
 
 .btn {
@@ -604,17 +672,21 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0.65rem 1.35rem;
-  border-radius: 980px;
-  font-weight: 500;
-  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.9rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
-/* Hover только у основной кнопки; «Примеры сделок» (ghost) — без притемнения */
 .btn--primary:hover {
-  opacity: 0.85;
+  background: var(--yellow-hover);
+  border-color: var(--yellow-hover);
 }
 
 .btn--primary {
@@ -625,8 +697,37 @@ onMounted(() => {
 
 .btn--ghost {
   color: rgba(245, 245, 247, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 13, 15, 0.72);
+}
+
+.btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(18, 19, 22, 0.9);
+}
+
+@media (max-width: 899px) {
+  .hero__fore {
+    padding-bottom: 1.8rem;
+  }
+
+  .hero__stats {
+    margin-bottom: 1.25rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero__stat {
+    gap: 0.28rem;
+  }
+
+  .hero__title {
+    margin-bottom: 0.35rem;
+  }
+
+  .hero__subcta {
+    margin-top: 0.7rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -305,7 +305,8 @@ async function onSubmit(e) {
   padding: 0.65rem 1.75rem;
   color: var(--yellow-ink);
   background: var(--yellow);
-  transition: opacity 0.2s ease;
+  transition:
+    opacity 0.2s ease;
 }
 
 .submit:disabled {

@@ -31,7 +31,7 @@ const zones = [
     text: 'Патрубки, наддув, свисты, следы масла и общее состояние узла.',
     tag: 'Наддув',
     side: 'left',
-    anchor: { x: 40.4, y: 46.2 },
+    anchor: { x: 40.4, y: 50.2 },
     bends: [{ x: 30.4, y: 46.2 }, { x: 22.5, y: 52.2 }],
     port: { x: 22, y: 50 },
     card: { x: 2.8, y: 44.5 },
@@ -65,7 +65,7 @@ const zones = [
     tag: 'История',
     side: 'top',
     anchor: { x: 56.6, y: 42.8 },
-    bends: [{ x: 47.4, y: 42.8 }, { x: 47.4, y: 16.2 }],
+    bends: [{ x: 47.4, y: 42.8 }, { x: 47.4, y: 26.2 }],
     port: { x: 39, y: 14 },
     card: { x: 35, y: 7.5 },
   },
@@ -299,6 +299,8 @@ onBeforeUnmount(() => {
   --scheme-line: color-mix(in srgb, var(--yellow, #f5c412) 52%, white 48%);
   --scheme-text: #f7f7f8;
   --scheme-muted: rgba(247, 247, 248, 0.78);
+  --scheme-surface: #101114;
+  --scheme-border: rgba(255, 255, 255, 0.1);
 
   position: relative;
   z-index: 0;
@@ -329,12 +331,12 @@ onBeforeUnmount(() => {
   top: 1.25rem;
   z-index: 5;
   margin: 0;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.35rem, 4.6vw, 3.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
   font-weight: 600;
+  font-style: italic;
   color: var(--yellow, #f5c412);
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.32);
 }
 
 .scheme__board {
@@ -355,9 +357,20 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.1) 18%, rgba(0, 0, 0, 0.08) 76%, rgba(0, 0, 0, 0.34)),
-    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.06), transparent 34%);
+    linear-gradient(180deg, rgba(5, 6, 7, 0.3) 0%, rgba(5, 6, 7, 0.08) 24%, rgba(5, 6, 7, 0.24) 58%, rgba(5, 6, 7, 0.88) 100%);
   opacity: 1;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.scheme__board::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(7rem, 16vw, 11rem);
+  background: linear-gradient(180deg, rgba(5, 6, 7, 0) 0%, rgba(5, 6, 7, 0.58) 42%, #050607 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -383,7 +396,7 @@ onBeforeUnmount(() => {
   stroke-width: 0.11;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.72;
+  opacity: 0.58;
 }
 
 .scheme__node {
@@ -395,13 +408,13 @@ onBeforeUnmount(() => {
 .scheme__node--anchor {
   width: 0.5rem;
   height: 0.5rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(245, 196, 18, 0.82);
 }
 
 .scheme__node--port {
   width: 0.42rem;
   height: 0.42rem;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .scheme__car {
@@ -422,14 +435,10 @@ onBeforeUnmount(() => {
   width: clamp(10.2rem, 12.8vw, 13.2rem);
   min-width: 10.2rem;
   padding: 0.7rem 0.8rem 0.76rem;
-  border-radius: 0.95rem;
-  background: linear-gradient(180deg, rgba(12, 13, 16, 0.78), rgba(12, 13, 16, 0.62));
-  border: 1px solid color-mix(in srgb, var(--yellow, #f5c412) 18%, rgba(255, 255, 255, 0.14));
-  box-shadow:
-    0 12px 26px -18px rgba(0, 0, 0, 0.62),
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
-  backdrop-filter: blur(18px) saturate(1.08);
-  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+  border-radius: 0.72rem;
+  background: rgba(16, 17, 20, 0.94);
+  border: 1px solid var(--scheme-border);
+  box-shadow: 0 16px 28px -24px rgba(0, 0, 0, 0.82);
 }
 
 .scheme__callout-top {
@@ -444,46 +453,45 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--yellow, #f5c412) 88%, white 12%);
-  border: 1px solid color-mix(in srgb, var(--yellow, #f5c412) 70%, white 30%);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.45rem;
+  background: rgba(245, 196, 18, 0.12);
+  border: 1px solid rgba(245, 196, 18, 0.22);
 }
 
 .scheme__callout-icon svg {
   width: 0.95rem;
   height: 0.95rem;
-  stroke: var(--yellow-ink, #111);
+  stroke: var(--yellow, #f5c412);
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .scheme__callout-tag {
-  font-size: 0.56rem;
+  font-size: 0.54rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--yellow, #f5c412) 82%, white 18%);
+  color: rgba(245, 196, 18, 0.86);
   opacity: 1;
 }
 
 .scheme__callout-title {
   margin: 0 0 0.28rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.16;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   font-weight: 600;
   color: #fff;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
 }
 
 .scheme__callout-text {
   margin: 0;
-  font-size: 0.74rem;
-  line-height: 1.42;
-  color: rgba(251, 252, 254, 0.76);
+  font-size: 0.72rem;
+  line-height: 1.38;
+  color: rgba(251, 252, 254, 0.68);
 }
 
 .scheme__mobile-list {
@@ -498,15 +506,15 @@ onBeforeUnmount(() => {
   .scheme__title {
     left: 1rem;
     top: 1rem;
-    font-size: clamp(1.35rem, 4.5vw, 1.75rem);
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
   }
 
   .scheme__board {
     width: calc(100% - 2rem);
     height: 28rem;
     margin: 0 auto;
-    border-radius: 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.95rem;
+    border: 1px solid var(--scheme-border);
   }
 
   .scheme__wires,
@@ -536,9 +544,9 @@ onBeforeUnmount(() => {
     grid-template-columns: 2.2rem 1fr;
     gap: 0.75rem;
     padding: 0.95rem 1rem;
-    border-radius: 1rem;
-    background: color-mix(in srgb, var(--surface-dark-2, #161618) 88%, black 12%);
-    border: 1px solid color-mix(in srgb, var(--yellow, #f5c412) 18%, rgba(255, 255, 255, 0.1));
+    border-radius: 0.8rem;
+    background: var(--scheme-surface);
+    border: 1px solid var(--scheme-border);
   }
 
   .scheme__mobile-num {
@@ -547,7 +555,7 @@ onBeforeUnmount(() => {
     justify-content: center;
     width: 2rem;
     height: 2rem;
-    border-radius: 999px;
+    border-radius: 0.5rem;
     font-size: 0.72rem;
     font-weight: 800;
     color: var(--yellow-ink, #111);
@@ -566,15 +574,15 @@ onBeforeUnmount(() => {
     margin: 0 0 0.15rem;
     font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--yellow, #f5c412) 82%, white 18%);
   }
 
   .scheme__mobile-text {
     margin: 0;
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-size: 0.8rem;
+    line-height: 1.42;
     color: var(--scheme-muted);
   }
 }
@@ -659,7 +667,7 @@ onBeforeUnmount(() => {
   .scheme__title {
     top: 0.85rem;
     left: 0.9rem;
-    font-size: clamp(1.2rem, 5.5vw, 1.5rem);
+    font-size: clamp(1.65rem, 7.4vw, 2.2rem);
   }
 
   .scheme__board {

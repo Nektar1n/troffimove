@@ -203,8 +203,9 @@ const darkHeroTop = computed(
   text-decoration: none;
   color: #fff;
   background: var(--text);
-  border: 1px solid var(--text);
-  transition: opacity 0.2s ease;
+  border-color: #f5c542;
+  transition:
+    opacity 0.2s ease;
 }
 
 .head--dark:not(.head--solid) .head__cta {

@@ -35,6 +35,9 @@ watch(
 
 <style scoped>
 .stats {
+  --stats-bg: #0a0b0d;
+  --stats-border: rgba(255, 255, 255, 0.1);
+
   position: relative;
   z-index: 0;
   max-width: var(--content-max);
@@ -58,8 +61,8 @@ watch(
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background: var(--surface-dark-2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--stats-bg);
+  border-bottom: 1px solid var(--stats-border);
 }
 
 @media (min-width: 720px) {
@@ -71,7 +74,7 @@ watch(
 }
 
 .stats__item {
-  padding: 0.75rem 0;
+  padding: 0.9rem 0;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -84,7 +87,7 @@ watch(
 
 @media (min-width: 720px) {
   .stats__item {
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--stats-border);
     padding: 0.25rem 1.75rem;
   }
 
@@ -114,7 +117,7 @@ watch(
 .stats__t {
   font-size: 0.8125rem;
   line-height: 1.35;
-  color: rgba(245, 245, 247, 0.55);
+  color: rgba(245, 245, 247, 0.48);
   max-width: 12rem;
 }
 

@@ -118,13 +118,13 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 <style scoped>
 .svc {
   --svc-bg: #050607;
-  --svc-surface: #101114;
-  --svc-surface-2: #131417;
+  --svc-surface: #0f1013;
+  --svc-surface-2: #14161a;
   --svc-border: rgba(255, 255, 255, 0.1);
   --svc-border-strong: rgba(245, 196, 18, 0.28);
   --svc-text: #f6f7f9;
   --svc-muted: rgba(246, 247, 249, 0.7);
-  --svc-shadow: 0 30px 80px -44px rgba(0, 0, 0, 0.9);
+  --svc-shadow: 0 20px 48px -40px rgba(0, 0, 0, 0.9);
 
   position: relative;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
@@ -153,7 +153,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 
 .svc__lead {
   margin: 0 0 2rem;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--svc-muted);
   max-width: 40rem;
@@ -161,7 +161,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 
 .svc__shell {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 900px) {
@@ -175,7 +175,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 .svc__tabs {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.45rem;
 }
 
 @media (max-width: 899px) {
@@ -187,12 +187,12 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 .svc__tab {
   text-align: left;
   font: inherit;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.95rem 1rem;
-  border-radius: 1rem;
+  padding: 0.95rem 1rem 0.95rem 1.05rem;
+  border-radius: 0.75rem;
   border: 1px solid var(--svc-border);
   background: var(--svc-surface);
   color: var(--svc-muted);
@@ -201,22 +201,22 @@ const activeService = computed(() => services.find((s) => s.id === current.value
     background 0.18s ease,
     color 0.18s ease,
     border-color 0.18s ease,
-    transform 0.18s ease,
     box-shadow 0.18s ease;
 }
 
 .svc__tab:hover:not(.svc__tab--on) {
-  background: #181a1e;
+  background: #15171b;
   border-color: rgba(255, 255, 255, 0.16);
   color: var(--svc-text);
-  transform: translateY(-1px);
 }
 
 .svc__tab--on {
   background: var(--svc-surface-2);
   color: var(--svc-text);
   border-color: var(--svc-border-strong);
-  box-shadow: inset 0 0 0 1px rgba(245, 196, 18, 0.18);
+  box-shadow:
+    inset 3px 0 0 var(--yellow),
+    inset 0 0 0 1px rgba(245, 196, 18, 0.12);
 }
 
 .svc__tab--on:hover,
@@ -246,7 +246,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   overflow: hidden;
   min-height: 26rem;
   border: 1px solid var(--svc-border);
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   background: var(--svc-surface);
   box-shadow: var(--svc-shadow);
 }
@@ -278,9 +278,9 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.5rem 1.4rem 1.65rem 1.5rem;
+  padding: 1.55rem 1.45rem 1.65rem 1.55rem;
   background: var(--svc-surface);
-  border-left: 3px solid var(--yellow);
+  border-left: 2px solid var(--yellow);
 }
 
 @media (min-width: 800px) {
@@ -291,9 +291,9 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 
 .svc__kicker {
   margin: 0 0 0.4rem;
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--yellow) 82%, white 18%);
 }
@@ -338,39 +338,40 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
-  filter: brightness(0.9) contrast(1.08) saturate(0.92);
+  filter: brightness(0.92) contrast(1.03) saturate(0.88);
 }
 
 .svc__h {
   margin: 0 0 0.4rem;
-  font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+  font-size: clamp(1.1rem, 1.4vw, 1.25rem);
   font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.16;
   color: var(--svc-text);
 }
 
 .svc__price {
   margin: 0 0 1.15rem;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .svc__list {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 0.90625rem;
-  line-height: 1.55;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: var(--svc-text);
 }
 
 .svc__list li {
   position: relative;
-  margin-bottom: 0.75rem;
-  padding-left: 1.15rem;
+  margin-bottom: 0.7rem;
+  padding-left: 1rem;
 }
 
 .svc__list li:last-child {
@@ -381,12 +382,11 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   content: '';
   position: absolute;
   left: 0;
-  top: 0.6em;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 999px;
+  top: 0.62em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 0;
   background: var(--yellow);
-  box-shadow: 0 0 0 0.18rem rgba(245, 196, 18, 0.14);
 }
 
 @media (max-width: 799px) {
@@ -402,7 +402,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 
   .svc__content {
     min-height: 0;
-    border-radius: 1.2rem;
+    border-radius: 0.9rem;
   }
 
   .svc__content-body {
@@ -413,7 +413,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
     order: 2;
     padding: 1.1rem 1rem 1.2rem;
     border-left-width: 0;
-    border-top: 3px solid var(--yellow);
+    border-top: 2px solid var(--yellow);
   }
 
   .svc__media {
@@ -428,7 +428,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   }
 
   .svc__h {
-    font-size: 1.1rem;
+    font-size: 1.02rem;
   }
 
   .svc__price {

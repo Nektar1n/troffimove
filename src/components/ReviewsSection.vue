@@ -108,7 +108,7 @@ const reviews = [
   z-index: -1;
   pointer-events: none;
   background: var(--surface-dark);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-dark);
 }
 
 @media (min-width: 720px) {
@@ -136,7 +136,7 @@ const reviews = [
 .rev__title {
   margin: 0 0 0.5rem;
   font-weight: 600;
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-size: clamp(1.8rem, 4vw, 2.15rem);
   letter-spacing: -0.04em;
   line-height: 1.1;
   color: #fff;
@@ -145,9 +145,9 @@ const reviews = [
 .rev__sub {
   margin: 0;
   max-width: 28rem;
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   line-height: 1.45;
-  color: rgba(245, 245, 247, 0.58);
+  color: var(--muted-on-dark);
 }
 
 .rev__rating {
@@ -156,9 +156,10 @@ const reviews = [
   flex-direction: column;
   align-items: flex-start;
   gap: 0.35rem;
-  padding: 1rem 1.25rem;
-  border: 1px solid rgba(245, 196, 18, 0.35);
-  background: rgba(255, 255, 255, 0.04);
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--border-dark-strong);
+  border-radius: var(--radius-m);
+  background: var(--surface-panel);
   min-width: 9rem;
 }
 
@@ -177,16 +178,20 @@ const reviews = [
 }
 
 .rev__count {
-  font-size: 0.75rem;
-  color: rgba(245, 245, 247, 0.5);
+  font-size: 0.72rem;
+  color: rgba(245, 245, 247, 0.46);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .rev__grid {
   display: grid;
   gap: 1px;
   margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--border-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-l);
+  overflow: hidden;
 }
 
 @media (min-width: 640px) {
@@ -196,7 +201,7 @@ const reviews = [
 }
 
 .rev__card {
-  background: rgba(18, 18, 20, 0.96);
+  background: var(--surface-panel);
   padding: 1.25rem 1.15rem 1.35rem;
   opacity: 0;
   transform: translateY(7px);
@@ -220,7 +225,7 @@ const reviews = [
 
 .rev__name {
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: 0.92rem;
   color: #fff;
 }
 
@@ -233,22 +238,22 @@ const reviews = [
 }
 
 .rev__card-stars {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.04em;
   color: var(--yellow);
   line-height: 1;
 }
 
 .rev__date {
-  font-size: 0.75rem;
-  color: rgba(245, 245, 247, 0.45);
+  font-size: 0.7rem;
+  color: rgba(245, 245, 247, 0.42);
 }
 
 .rev__text {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.88);
+  color: rgba(245, 245, 247, 0.8);
 }
 
 .rev__cta {
@@ -260,21 +265,23 @@ const reviews = [
   max-width: 28rem;
   margin: 0 auto;
   min-height: 48px;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9375rem;
+  padding: 0.78rem 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--yellow-ink);
   text-decoration: none;
   border: 1px solid var(--yellow);
+  border-radius: var(--radius-m);
   background: var(--yellow);
   transition:
     border-color 0.2s ease,
     background-color 0.2s ease,
-    opacity 0.2s ease;
+    color 0.2s ease;
 }
 
 .rev__cta:hover {
-  opacity: 0.9;
+  background: var(--yellow-hover);
+  border-color: var(--yellow-hover);
 }
 
 .rev__arrow {
@@ -285,7 +292,7 @@ const reviews = [
   margin: 0;
   text-align: center;
   font-size: 0.8125rem;
-  color: rgba(245, 245, 247, 0.5);
+  color: rgba(245, 245, 247, 0.46);
   max-width: 26rem;
   margin-inline: auto;
 }
@@ -293,9 +300,9 @@ const reviews = [
 .rev__code {
   font-size: 0.75rem;
   padding: 0.05rem 0.3rem;
-  border: 1px solid var(--line-light);
-  border-radius: 2px;
-  background: var(--bg-subtle);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  background: var(--surface-panel-2);
 }
 
 @media (prefers-reduced-motion: reduce) {

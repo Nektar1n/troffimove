@@ -106,10 +106,11 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(6, 6, 8, 0.35) 0%, rgba(6, 6, 8, 0.2) 42%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
-    linear-gradient(100deg, rgba(10, 10, 12, 0.94) 0%, rgba(10, 10, 12, 0.35) 48%, transparent 72%);
+  background:
+    linear-gradient(90deg, rgba(5, 6, 7, 0.92) 0%, rgba(5, 6, 7, 0.54) 46%, rgba(5, 6, 7, 0.14) 72%),
+    linear-gradient(180deg, rgba(5, 6, 7, 0.28) 0%, rgba(5, 6, 7, 0.12) 44%, rgba(5, 6, 7, 0.8) 100%);
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .pick-hero__cap {
@@ -177,10 +178,10 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   margin: 0 0 0.85rem;
   font-size: 0.75rem;
   font-weight: 500;
+  font-style: italic;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.95);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  color: rgba(245, 196, 18, 0.92);
 }
 
 @media (min-width: 900px) {
@@ -198,9 +199,7 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: #fff;
-  text-shadow:
-    0 2px 28px rgba(0, 0, 0, 0.5),
-    0 1px 2px rgba(0, 0, 0, 0.65);
+  text-wrap: balance;
 }
 
 @media (min-width: 900px) {
@@ -223,8 +222,7 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   max-width: 44rem;
   font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.72);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  color: rgba(245, 245, 247, 0.62);
 }
 
 @media (min-width: 900px) {
@@ -259,16 +257,21 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0.65rem 1.35rem;
-  border-radius: 980px;
-  font-weight: 500;
-  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.9rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .btn--primary:hover {
-  opacity: 0.85;
+  background: var(--yellow-hover);
+  border-color: var(--yellow-hover);
 }
 
 .btn--primary {
@@ -279,8 +282,13 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
 .btn--ghost {
   color: rgba(245, 245, 247, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 13, 15, 0.72);
+}
+
+.btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(18, 19, 22, 0.9);
 }
 
 @media (max-height: 520px) and (orientation: landscape) {

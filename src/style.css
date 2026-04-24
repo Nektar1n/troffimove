@@ -12,6 +12,15 @@
   --yellow-ink: #111;
   --surface-dark: #0c0c0e;
   --surface-dark-2: #161618;
+  --surface-panel: #0f1013;
+  --surface-panel-2: #14161a;
+  --border-dark: rgba(255, 255, 255, 0.1);
+  --border-dark-strong: rgba(245, 196, 18, 0.24);
+  --text-on-dark: rgba(245, 245, 247, 0.94);
+  --muted-on-dark: rgba(245, 245, 247, 0.62);
+  --radius-s: 0.7rem;
+  --radius-m: 0.9rem;
+  --radius-l: 1rem;
   /* Общий «длинный» исхд для карт и скролл-анимаций: без резкого финиша */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   /* База — прежняя сетка; на широком экране — шире, меньше пустоты по бокам (шапка, футер, секции). */

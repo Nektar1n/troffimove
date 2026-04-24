@@ -282,6 +282,7 @@ const faq = [
   margin: 0 0 0.4rem;
   font-size: 0.7rem;
   font-weight: 600;
+  font-style: italic;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(245, 196, 18, 0.9);
