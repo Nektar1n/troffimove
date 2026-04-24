@@ -1,8 +1,17 @@
 <script setup>
-import { onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
+import { normalizeBrandSvg } from '../utils/svgNormalize.js';
 import imgTruck from '../assets/фура.png';
+import audi from '../../node_modules/simple-icons/icons/audi.svg?raw';
+import bmw from '../../node_modules/simple-icons/icons/bmw.svg?raw';
+import volkswagen from '../../node_modules/simple-icons/icons/volkswagen.svg?raw';
+import hyundai from '../../node_modules/simple-icons/icons/hyundai.svg?raw';
+import kia from '../../node_modules/simple-icons/icons/kia.svg?raw';
+import honda from '../../node_modules/simple-icons/icons/honda.svg?raw';
+import nissan from '../../node_modules/simple-icons/icons/nissan.svg?raw';
+import toyota from '../../node_modules/simple-icons/icons/toyota.svg?raw';
 
 /** На низких экранах меньше «низового» отступа — блок чаще корректно входит во viewport */
 const { el, visible } = useInView({ rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
@@ -78,6 +87,27 @@ onUnmounted(() => clearTimers());
 const d1 = 'M 102 208 C 208 178 318 152 412 172';
 const d2 = 'M 412 172 C 528 148 648 198 748 220';
 const d3 = 'M 748 220 C 868 198 982 168 1088 152';
+
+const brandSets = {
+  eu: [
+    { id: 'audi', svg: normalizeBrandSvg(audi), x: '-1.8rem', y: '-1.55rem' },
+    { id: 'bmw', svg: normalizeBrandSvg(bmw), x: '0rem', y: '-2rem' },
+    { id: 'vw', svg: normalizeBrandSvg(volkswagen), x: '1.8rem', y: '-1.55rem' },
+  ],
+  kr: [
+    { id: 'hyundai', svg: normalizeBrandSvg(hyundai), x: '-1.55rem', y: '-1.7rem' },
+    { id: 'kia', svg: normalizeBrandSvg(kia), x: '1.55rem', y: '-1.7rem' },
+  ],
+  jp: [
+    { id: 'toyota', svg: normalizeBrandSvg(toyota), x: '-1.9rem', y: '-1.4rem' },
+    { id: 'honda', svg: normalizeBrandSvg(honda), x: '0rem', y: '-2rem' },
+    { id: 'nissan', svg: normalizeBrandSvg(nissan), x: '1.9rem', y: '-1.4rem' },
+  ],
+};
+
+const euBrands = computed(() => brandSets.eu);
+const krBrands = computed(() => brandSets.kr);
+const jpBrands = computed(() => brandSets.jp);
 </script>
 
 <template>
@@ -176,6 +206,15 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 
         <div class="routes__nodes">
           <div class="routes__node routes__node--eu" :class="{ 'routes__node--lit': litEurope }">
+            <div class="routes__logos" aria-hidden="true">
+              <span
+                v-for="brand in euBrands"
+                :key="brand.id"
+                class="routes__logo"
+                :style="{ '--logo-x': brand.x, '--logo-y': brand.y }"
+                v-html="brand.svg"
+              />
+            </div>
             <span class="routes__dot" />
             <span class="routes__name">Европа</span>
           </div>
@@ -184,10 +223,28 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
             <span class="routes__name">Россия</span>
           </div>
           <div class="routes__node routes__node--kr" :class="{ 'routes__node--lit': litKorea }">
+            <div class="routes__logos" aria-hidden="true">
+              <span
+                v-for="brand in krBrands"
+                :key="brand.id"
+                class="routes__logo"
+                :style="{ '--logo-x': brand.x, '--logo-y': brand.y }"
+                v-html="brand.svg"
+              />
+            </div>
             <span class="routes__dot" />
             <span class="routes__name">Корея</span>
           </div>
           <div class="routes__node routes__node--jp" :class="{ 'routes__node--lit': litJapan }">
+            <div class="routes__logos" aria-hidden="true">
+              <span
+                v-for="brand in jpBrands"
+                :key="brand.id"
+                class="routes__logo"
+                :style="{ '--logo-x': brand.x, '--logo-y': brand.y }"
+                v-html="brand.svg"
+              />
+            </div>
             <span class="routes__dot" />
             <span class="routes__name">Япония</span>
           </div>
@@ -634,9 +691,54 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   filter: grayscale(0.4);
 }
 
+.routes__logos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.routes__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(1.45rem, 4vw, 1.85rem);
+  height: clamp(1.45rem, 4vw, 1.85rem);
+  padding: 0.28rem;
+  border-radius: 999px;
+  color: rgba(245, 245, 247, 0.56);
+  background: rgba(12, 12, 14, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 10px 24px -18px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  transform: translate(calc(-50% + var(--logo-x)), calc(-50% + var(--logo-y)));
+  transition:
+    color 0.35s var(--path-ease),
+    border-color 0.35s var(--path-ease),
+    background 0.35s var(--path-ease),
+    opacity 0.35s var(--path-ease),
+    transform 0.35s var(--path-ease);
+  opacity: 0.72;
+}
+
+.routes__logo :deep(svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .routes__node--lit {
   opacity: 1;
   filter: grayscale(0);
+}
+
+.routes__node--lit .routes__logo {
+  color: rgba(255, 255, 255, 0.96);
+  background: rgba(20, 20, 22, 0.92);
+  border-color: rgba(245, 196, 18, 0.26);
+  opacity: 1;
 }
 
 .routes__node--lit .routes__name {
@@ -726,8 +828,20 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
 }
 
 .routes__node--ru .routes__dot {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
+  background: rgba(245, 196, 18, 0.72);
+  box-shadow:
+    0 0 0 1px #0c0c0e,
+    0 0 0 4px rgba(245, 196, 18, 0.14),
+    0 0 22px rgba(245, 196, 18, 0.16);
+}
+
+.routes__node--ru.routes__node--lit .routes__dot {
+  box-shadow:
+    0 0 0 1px #0c0c0e,
+    0 0 0 5px rgba(245, 196, 18, 0.42),
+    0 0 32px rgba(245, 196, 18, 0.34);
 }
 
 .routes__node--kr {
@@ -765,6 +879,12 @@ const d3 = 'M 748 220 C 868 198 982 168 1088 152';
   .routes__name {
     white-space: normal;
     max-width: 3.5rem;
+  }
+
+  .routes__logo {
+    width: 1.28rem;
+    height: 1.28rem;
+    padding: 0.22rem;
   }
 }
 
