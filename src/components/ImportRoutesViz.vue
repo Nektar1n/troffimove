@@ -157,21 +157,21 @@ const jpBrands = computed(() => brandSets.jp);
         <!-- Тонкое эхо только по акценту (без широкой подложки — не смешивается с пунктиром) -->
         <path
           :d="d1"
-          class="routes__echo"
+          class="routes__echo routes__echo--seg1"
           pathLength="1000"
           vectorEffect="non-scaling-stroke"
           :style="{ animationDelay: `${path1Delay + 40}ms` }"
         />
         <path
           :d="d2"
-          class="routes__echo"
+          class="routes__echo routes__echo--seg2"
           pathLength="1000"
           vectorEffect="non-scaling-stroke"
           :style="{ animationDelay: `${path2Delay + 40}ms` }"
         />
         <path
           :d="d3"
-          class="routes__echo"
+          class="routes__echo routes__echo--seg3"
           pathLength="1000"
           vectorEffect="non-scaling-stroke"
           :style="{ animationDelay: `${path3Delay + 40}ms` }"
@@ -179,7 +179,7 @@ const jpBrands = computed(() => brandSets.jp);
 
         <path
           :d="d1"
-          class="routes__path"
+          class="routes__path routes__path--seg1"
           pathLength="1000"
           vectorEffect="non-scaling-stroke"
           :style="{ animationDelay: `${path1Delay}ms` }"
@@ -188,7 +188,7 @@ const jpBrands = computed(() => brandSets.jp);
         />
         <path
           :d="d2"
-          class="routes__path"
+          class="routes__path routes__path--seg2"
           pathLength="1000"
           vectorEffect="non-scaling-stroke"
           :style="{ animationDelay: `${path2Delay}ms` }"
@@ -196,7 +196,7 @@ const jpBrands = computed(() => brandSets.jp);
         />
         <path
           :d="d3"
-          class="routes__path"
+          class="routes__path routes__path--seg3"
           pathLength="1000"
           vectorEffect="non-scaling-stroke"
           :style="{ animationDelay: `${path3Delay}ms` }"
@@ -219,7 +219,10 @@ const jpBrands = computed(() => brandSets.jp);
             <span class="routes__name">Европа</span>
           </div>
           <div class="routes__node routes__node--ru" :class="{ 'routes__node--lit': litRussia }">
-            <span class="routes__dot" />
+            <span class="routes__marker routes__marker--ru" aria-hidden="true">
+              <span class="routes__hub-wave" />
+              <span class="routes__dot" />
+            </span>
             <span class="routes__name">Россия</span>
           </div>
           <div class="routes__node routes__node--kr" :class="{ 'routes__node--lit': litKorea }">
@@ -639,17 +642,21 @@ const jpBrands = computed(() => brandSets.jp);
   animation-fill-mode: forwards;
 }
 
-.routes--woven .routes__path {
-  animation-name: routes-dash-drift;
+.routes--woven .routes__path--seg1,
+.routes--woven .routes__echo--seg1 {
+  animation-name: routes-dash-to-russia;
   animation-duration: 14s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: none;
 }
 
-.routes--woven .routes__echo {
-  animation-name: routes-dash-drift;
-  animation-duration: 17s;
+.routes--woven .routes__path--seg2,
+.routes--woven .routes__path--seg3,
+.routes--woven .routes__echo--seg2,
+.routes--woven .routes__echo--seg3 {
+  animation-name: routes-dash-to-russia-reverse;
+  animation-duration: 14s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: none;
@@ -661,13 +668,23 @@ const jpBrands = computed(() => brandSets.jp);
   }
 }
 
-@keyframes routes-dash-drift {
+@keyframes routes-dash-to-russia {
   from {
     stroke-dashoffset: 0;
   }
 
   to {
     stroke-dashoffset: -44;
+  }
+}
+
+@keyframes routes-dash-to-russia-reverse {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: 44;
   }
 }
 
@@ -689,6 +706,20 @@ const jpBrands = computed(() => brandSets.jp);
     filter 0.4s var(--path-ease);
   opacity: 0.2;
   filter: grayscale(0.4);
+}
+
+.routes__marker {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+.routes__marker .routes__dot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .routes__logos {
@@ -729,9 +760,26 @@ const jpBrands = computed(() => brandSets.jp);
   height: 100%;
 }
 
+.routes__hub-wave {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 196, 18, 0.42);
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+
 .routes__node--lit {
   opacity: 1;
   filter: grayscale(0);
+}
+
+.routes__node--ru.routes__node--lit .routes__hub-wave {
+  animation: routes-hub-arrival 2.4s ease-out infinite;
 }
 
 .routes__node--lit .routes__logo {
@@ -797,6 +845,10 @@ const jpBrands = computed(() => brandSets.jp);
   animation-delay: 0.15s;
 }
 
+.routes--woven .routes__node--ru.routes__node--lit .routes__dot {
+  animation: routes-dot-hub 2.8s ease-in-out infinite;
+}
+
 @keyframes routes-dot-breathe {
   0%,
   100% {
@@ -816,6 +868,45 @@ const jpBrands = computed(() => brandSets.jp);
   }
 }
 
+@keyframes routes-dot-hub {
+  0%,
+  100% {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 0 1px #0c0c0e,
+      0 0 0 5px rgba(245, 196, 18, 0.38),
+      0 0 28px rgba(245, 196, 18, 0.22);
+  }
+
+  50% {
+    transform: scale(1.18);
+    box-shadow:
+      0 0 0 1px #0c0c0e,
+      0 0 0 7px rgba(245, 196, 18, 0.5),
+      0 0 40px rgba(245, 196, 18, 0.34);
+  }
+}
+
+@keyframes routes-hub-arrival {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  18% {
+    opacity: 0.5;
+  }
+
+  55% {
+    opacity: 0.24;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.9);
+  }
+}
+
 /* Совпадают с концами path в viewBox 1200×360 — не менять отдельно для мобилки, иначе расходится со scale SVG */
 .routes__node--eu {
   left: 8.5%;
@@ -828,13 +919,16 @@ const jpBrands = computed(() => brandSets.jp);
 }
 
 .routes__node--ru .routes__dot {
-  width: 16px;
-  height: 16px;
   background: rgba(245, 196, 18, 0.72);
   box-shadow:
     0 0 0 1px #0c0c0e,
     0 0 0 4px rgba(245, 196, 18, 0.14),
     0 0 22px rgba(245, 196, 18, 0.16);
+}
+
+.routes__marker--ru {
+  width: 16px;
+  height: 16px;
 }
 
 .routes__node--ru.routes__node--lit .routes__dot {
