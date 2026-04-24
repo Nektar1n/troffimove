@@ -117,9 +117,19 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 
 <style scoped>
 .svc {
+  --svc-bg: #050607;
+  --svc-surface: #101114;
+  --svc-surface-2: #131417;
+  --svc-border: rgba(255, 255, 255, 0.1);
+  --svc-border-strong: rgba(245, 196, 18, 0.28);
+  --svc-text: #f6f7f9;
+  --svc-muted: rgba(246, 247, 249, 0.7);
+  --svc-shadow: 0 30px 80px -44px rgba(0, 0, 0, 0.9);
+
+  position: relative;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
-  background: #fff;
-  border-bottom: 1px solid var(--line-light);
+  background: var(--svc-bg);
+  border-bottom: 0;
 }
 
 @media (min-width: 720px) {
@@ -138,13 +148,14 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   font-weight: 600;
   font-size: clamp(1.75rem, 3.2vw, 2.35rem);
   letter-spacing: -0.035em;
+  color: var(--svc-text);
 }
 
 .svc__lead {
   margin: 0 0 2rem;
   font-size: 1.0625rem;
   line-height: 1.5;
-  color: var(--muted);
+  color: var(--svc-muted);
   max-width: 40rem;
 }
 
@@ -164,95 +175,80 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 .svc__tabs {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.55rem;
 }
 
 @media (max-width: 899px) {
   .svc__tabs {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.65rem;
   }
 }
 
 .svc__tab {
   text-align: left;
   font: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.8rem 1rem 0.8rem 0.85rem;
-  border-radius: 0;
-  border: 1px solid var(--line-light);
-  border-left: 2px solid transparent;
-  background: #fff;
-  color: var(--muted);
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--svc-border);
+  background: var(--svc-surface);
+  color: var(--svc-muted);
   cursor: pointer;
   transition:
     background 0.18s ease,
     color 0.18s ease,
-    border-color 0.18s ease;
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .svc__tab:hover:not(.svc__tab--on) {
-  background: #f7f7f8;
-  border-color: var(--line);
-  border-left-color: rgba(245, 196, 18, 0.55);
-  color: var(--text);
+  background: #181a1e;
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--svc-text);
+  transform: translateY(-1px);
 }
 
 .svc__tab--on {
-  background: #151517;
-  color: #f5f5f7;
-  border-color: #151517;
-  border-left: 2px solid var(--yellow);
+  background: var(--svc-surface-2);
+  color: var(--svc-text);
+  border-color: var(--svc-border-strong);
+  box-shadow: inset 0 0 0 1px rgba(245, 196, 18, 0.18);
 }
 
 .svc__tab--on:hover,
 .svc__tab--on:focus-visible {
-  background: #1a1a1c;
-  color: #f5f5f7;
-  border-color: #1a1a1c;
-  border-left-color: var(--yellow);
+  background: var(--svc-surface-2);
+  color: var(--svc-text);
+  border-color: rgba(245, 196, 18, 0.42);
 }
 
 @media (max-width: 899px) {
   .svc__tab {
-    flex: 1 1 auto;
-    min-width: 0;
-    text-align: center;
-    font-size: 0.6875rem;
-    padding: 0.6rem 0.4rem;
-    border-left: 1px solid var(--line-light);
-    border-bottom: 2px solid transparent;
-  }
-
-  .svc__tab--on {
-    border-left: 1px solid #151517;
-    border-bottom: 2px solid var(--yellow);
-  }
-
-  .svc__tab--on:hover,
-  .svc__tab--on:focus-visible {
-    background: #1a1a1c;
-    color: #f5f5f7;
+    width: 100%;
+    text-align: left;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    padding: 0.85rem 0.95rem;
   }
 }
 
 .svc__tab:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--yellow);
   outline-offset: 2px;
 }
 
-/* Внешняя оболочка: рамка и min-height, чтобы при out-in панель не схлопывалась */
 .svc__content {
   position: relative;
   overflow: hidden;
   min-height: 26rem;
-  border: 1px solid var(--line-light);
-  border-radius: 0;
-  background: #fff;
+  border: 1px solid var(--svc-border);
+  border-radius: 1.5rem;
+  background: var(--svc-surface);
+  box-shadow: var(--svc-shadow);
 }
 
 @media (min-width: 800px) {
@@ -281,7 +277,9 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   min-width: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 1.5rem 1.4rem 1.65rem 1.5rem;
+  background: var(--svc-surface);
   border-left: 3px solid var(--yellow);
 }
 
@@ -297,21 +295,21 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: color-mix(in srgb, var(--yellow) 82%, white 18%);
 }
 
 .svc__media {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  background: var(--bg-subtle);
-  border-top: 1px solid var(--line-light);
+  background: #0a0b0d;
+  border-top: 1px solid var(--svc-border);
 }
 
 @media (min-width: 800px) {
   .svc__media {
     border-top: 0;
-    border-left: 1px solid var(--line-light);
+    border-left: 1px solid var(--svc-border);
   }
 }
 
@@ -340,6 +338,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
+  filter: brightness(0.9) contrast(1.08) saturate(0.92);
 }
 
 .svc__h {
@@ -348,7 +347,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.2;
-  color: var(--text);
+  color: var(--svc-text);
 }
 
 .svc__price {
@@ -356,7 +355,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .svc__list {
@@ -365,13 +364,13 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   list-style: none;
   font-size: 0.90625rem;
   line-height: 1.55;
-  color: var(--text);
+  color: var(--svc-text);
 }
 
 .svc__list li {
   position: relative;
-  margin-bottom: 0.6rem;
-  padding-left: 0.9rem;
+  margin-bottom: 0.75rem;
+  padding-left: 1.15rem;
 }
 
 .svc__list li:last-child {
@@ -383,10 +382,64 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   position: absolute;
   left: 0;
   top: 0.6em;
-  width: 4px;
-  height: 4px;
-  border-radius: 0;
-  background: #151517;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--yellow);
+  box-shadow: 0 0 0 0.18rem rgba(245, 196, 18, 0.14);
+}
+
+@media (max-width: 799px) {
+  .svc {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .svc__lead {
+    margin-bottom: 1.35rem;
+    font-size: 0.98rem;
+  }
+
+  .svc__content {
+    min-height: 0;
+    border-radius: 1.2rem;
+  }
+
+  .svc__content-body {
+    min-height: 0;
+  }
+
+  .svc__text {
+    order: 2;
+    padding: 1.1rem 1rem 1.2rem;
+    border-left-width: 0;
+    border-top: 3px solid var(--yellow);
+  }
+
+  .svc__media {
+    order: 1;
+    border-top: 0;
+    border-bottom: 1px solid var(--svc-border);
+  }
+
+  .svc__media-frame {
+    min-height: 220px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .svc__h {
+    font-size: 1.1rem;
+  }
+
+  .svc__price {
+    margin-bottom: 1rem;
+    font-size: 0.82rem;
+  }
+
+  .svc__list {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
 }
 
 .svc-fade-enter-active,

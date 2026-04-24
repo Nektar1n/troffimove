@@ -302,14 +302,15 @@ onBeforeUnmount(() => {
 
   position: relative;
   z-index: 0;
-  padding: 2.75rem 0 2rem;
-  border-bottom: 1px solid var(--line-light);
+  padding: 0 0 2rem;
+  background: #050607;
+  border-bottom: 0;
   overflow: hidden;
 }
 
 @media (min-width: 900px) {
   .scheme {
-    padding: 3rem 0 2.5rem;
+    padding: 0 0 2.5rem;
   }
 }
 
