@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import mainHeroPhoto from '../assets/главныйгерой.jpg';
-import mobileHeroPhoto from '../assets/главныйгерой-backup-logo.jpg';
+import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
 import { STATS_LINE, formatStatValue } from '../data/statsLine.js';
 import { useStatsCountup } from '../composables/useStatsCountup.js';
@@ -188,7 +188,8 @@ onMounted(() => {
 
 @media (max-width: 899px) {
   .hero__bg-img {
-    object-position: 52% 32%;
+    object-fit: contain;
+    object-position: center bottom;
     transform: none;
   }
 }
@@ -329,6 +330,10 @@ onMounted(() => {
   .hero__swiss .hero__cta {
     margin-top: 0.9rem;
     margin-bottom: 1.2rem;
+  }
+
+  .hero__lead {
+    display: none;
   }
 }
 
