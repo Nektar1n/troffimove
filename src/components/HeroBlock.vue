@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import mainHeroPhoto from '../assets/главныйгерой.jpg';
+import mobileHeroPhoto from '../assets/главныйгерой-backup-logo.jpg';
 import SocialLinks from './SocialLinks.vue';
 import { STATS_LINE, formatStatValue } from '../data/statsLine.js';
 import { useStatsCountup } from '../composables/useStatsCountup.js';
@@ -42,16 +43,19 @@ onMounted(() => {
   <section class="hero">
     <div class="hero__stage" :class="{ 'is-in': mounted }">
       <div class="hero__media" aria-hidden="true">
-        <img
-          :src="mainHeroPhoto"
-          class="hero__bg-img"
-          width="1920"
-          height="800"
-          alt=""
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
+        <picture>
+          <source :srcset="mobileHeroPhoto" media="(max-width: 899px)" />
+          <img
+            :src="mainHeroPhoto"
+            class="hero__bg-img"
+            width="1920"
+            height="800"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
         <div class="hero__veil" />
       </div>
       <div class="hero__fore">
@@ -184,7 +188,8 @@ onMounted(() => {
 
 @media (max-width: 899px) {
   .hero__bg-img {
-    object-position: 50% 32%;
+    object-position: 52% 32%;
+    transform: none;
   }
 }
 

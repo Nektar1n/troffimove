@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import coolBmwPng from '../assets/самаякрутаябэха.png';
+import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import coolBmwPng from '../assets/самаякрутаябэха.png';
     <figure class="pick-hero__shot">
       <div class="pick-hero__surface">
         <img
-          :src="coolBmwPng"
+          :src="selectionHeroUrl"
           class="pick-hero__img"
           width="1376"
           height="768"
@@ -83,17 +83,6 @@ import coolBmwPng from '../assets/самаякрутаябэха.png';
   z-index: 0;
   overflow: hidden;
   background: #0a0a0c;
-  opacity: 0;
-  transform: translate3d(0, 6px, 0) scale(0.998);
-  transition:
-    opacity 0.7s var(--pick-ease),
-    transform 0.75s var(--pick-ease);
-  will-change: transform, opacity;
-}
-
-.pick-hero--in .pick-hero__surface {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .pick-hero__img {
@@ -119,7 +108,6 @@ import coolBmwPng from '../assets/самаякрутаябэха.png';
   z-index: 1;
   background: linear-gradient(180deg, rgba(6, 6, 8, 0.35) 0%, rgba(6, 6, 8, 0.2) 42%, rgba(6, 6, 8, 0.45) 58%, rgba(4, 4, 5, 0.72) 100%),
     linear-gradient(100deg, rgba(10, 10, 12, 0.94) 0%, rgba(10, 10, 12, 0.35) 48%, transparent 72%);
-  mix-blend-mode: multiply;
   pointer-events: none;
   opacity: 0.9;
 }
@@ -143,17 +131,6 @@ import coolBmwPng from '../assets/самаякрутаябэха.png';
   text-wrap: balance;
   pointer-events: none;
   margin: 0;
-  opacity: 0;
-  transform: translate3d(0, 6px, 0) scale(0.998);
-  transition:
-    opacity 0.7s var(--pick-ease),
-    transform 0.75s var(--pick-ease);
-  will-change: transform, opacity;
-}
-
-.pick-hero--in .pick-hero__cap {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
 }
 
 @media (min-width: 820px) {
@@ -312,12 +289,4 @@ import coolBmwPng from '../assets/самаякрутаябэха.png';
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pick-hero__surface,
-  .pick-hero__cap {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
 </style>
