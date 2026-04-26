@@ -26,7 +26,15 @@ import ContactForm from '../components/ContactForm.vue';
       </div>
     </section>
 
-    <CasesSection />
+    <CasesSection
+      section-id="cases"
+      title="Кейсы привоза и подбора"
+      lead="Смешанная выборка: часть кейсов про привоз из Кореи, Японии и Европы, часть — про осмотр и сопровождение покупки на месте."
+      scope="home"
+      cta-label="Все кейсы"
+      :cta-to="{ path: '/cases' }"
+      :card-cta-to="{ path: '/', hash: '#contact' }"
+    />
     <ReviewsSection />
     <FaqSection />
     <ContactForm />

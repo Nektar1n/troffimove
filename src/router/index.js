@@ -4,6 +4,7 @@ import { ensureSelectionHeroImagePreload } from '../utils/selectionHeroImage.js'
 import HomeView from '../views/HomeView.vue';
 import ImportView from '../views/ImportView.vue';
 import LegalView from '../views/LegalView.vue';
+import CasesView from '../views/CasesView.vue';
 import SelectionView from '../views/SelectionView.vue';
 
 const router = createRouter({
@@ -56,13 +57,19 @@ const router = createRouter({
       meta: { title: 'Подбор и проверка', description: PAGE_DESCRIPTIONS.selection },
     },
     {
+      path: '/cases',
+      name: 'cases',
+      component: CasesView,
+      meta: { title: 'Кейсы', description: PAGE_DESCRIPTIONS.cases },
+    },
+    {
       path: '/legal',
       name: 'legal',
       component: LegalView,
       meta: { title: 'Документы', description: PAGE_DESCRIPTIONS.legal },
     },
     { path: '/prigon', redirect: '/privoz' },
-    { path: '/reviews-cases', redirect: { path: '/', hash: '#cases' } },
+    { path: '/reviews-cases', redirect: '/cases' },
   ],
 });
 

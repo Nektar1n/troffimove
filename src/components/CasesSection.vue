@@ -1,61 +1,60 @@
 <script setup>
+import { computed } from 'vue';
+import { RouterLink } from 'vue-router';
+import { getFeaturedCases } from '../data/cases.js';
 import { useInView } from '../composables/useInView.js';
-import imgGenesisCase from '../assets/gelik.jpeg';
-import imgAlphardCase from '../assets/toyotagn.jpeg';
-import imgBmwCase from '../assets/bmw.jpeg';
-import imgCarnivalCase from '../assets/toyota.jpeg';
 
-/** Чуть раньше, чем секция влезет во вьюпорт — анимация и decode первой картинки не попадают в пик скролла */
+const props = defineProps({
+  sectionId: {
+    type: String,
+    default: 'cases',
+  },
+  title: {
+    type: String,
+    default: 'Примеры сделок',
+  },
+  lead: {
+    type: String,
+    default: 'Реальные этапы кейсов.',
+  },
+  scope: {
+    type: String,
+    default: 'home',
+  },
+  tone: {
+    type: String,
+    default: 'light',
+  },
+  ctaLabel: {
+    type: String,
+    default: 'Все кейсы',
+  },
+  ctaTo: {
+    type: [String, Object],
+    default: '/cases',
+  },
+  cardCtaTo: {
+    type: [String, Object],
+    default: () => ({ path: '/', hash: '#contact' }),
+  },
+});
+
 const { el, visible } = useInView({ rootMargin: '0px 0px 18% 0px', threshold: 0.06 });
 
-const cases = [
-  {
-    tag: 'Корея',
-    model: 'Genesis GV80, 2022',
-    meta: 'Под ключ · 28 дней морем · смета зафиксирована в договоре',
-    text:
-      'Клиент искал семиместный кроссовер с панорамой и пакетом Lexicon. Мы отфильтровали лоты с реальным пробегом, сделали видеоосмотр лакокраски и подвески, согласовали цену с продавцом и забронировали лот до перевода. Документы на экспорт и страховка груза — у нас; клиент получил калькуляцию таможни и утильсбора до оплаты.',
-    image: imgGenesisCase,
-  },
-  {
-    tag: 'Япония',
-    model: 'Toyota Alphard Executive Lounge, 2021',
-    meta: 'USS Tokyo · оценка 4.5B · аукционный лист и перевод',
-    text:
-      'Запрос на кресла-капсулы второго ряда и минимальную историю ремонтов. Подняли несколько лотов с близкими Grade, сравнили регионы регистрации и пробег. До торгов посчитали полную стоимость в РФ; после выигрыша оформили выкуп, доставку до порта Японии и морскую перевозку с трекингом.',
-    image: imgAlphardCase,
-  },
-  {
-    tag: 'Европа',
-    model: 'BMW 540i xDrive, 2020',
-    meta: 'Официальный дилер EU · сервисная книга · VIN-отчёт',
-    text:
-      'Нужен был шестицилиндровый седан с M Sport и активным круизом. Проверили опции по VIN, сверили пробег с онлайн-сервисом бренда, получили закрывающие документы для таможни. Авто ушло автовозом до консолидации в Германии, затем контейнером — сроки по каждому плечу прописали в отчёте для клиента.',
-    image: imgBmwCase,
-  },
-  {
-    tag: 'Корея',
-    model: 'Kia Carnival Hi-Limousine, 2023',
-    meta: 'Редкий VIP-ряд · согласование опций · страхование кузова',
-    text:
-      'Поиск заводской четырёхместной конфигурации с перегородкой. Мы отсекли переоборудованные машины, запросили фото рельсов сдвижных дверей и люка, проверили наличие оригинальных мониторов. После выкупа клиент получал еженедельные статусы: склад в Корее → погрузка → судно → прибытие в порт РФ.',
-    image: imgCarnivalCase,
-  },
-];
+const cases = computed(() => getFeaturedCases(props.scope));
+const isDark = computed(() => props.tone === 'dark');
 </script>
 
 <template>
-  <section id="cases" ref="el" class="sec">
+  <section :id="sectionId" ref="el" class="sec" :class="{ 'sec--dark': isDark }">
     <div class="sec__intro">
-      <h2 class="sec__title">Примеры сделок</h2>
-      <p class="sec__lead">
-        Реальные этапы кейсов. 
-      </p>
+      <h2 class="sec__title">{{ title }}</h2>
+      <p class="sec__lead">{{ lead }}</p>
     </div>
     <div class="track" tabindex="0">
       <article
         v-for="(c, i) in cases"
-        :key="c.model"
+        :key="c.id"
         class="card"
         :class="{ 'card--in': visible }"
         :style="visible ? { transitionDelay: `${i * 0.09}s` } : { transitionDelay: '0s' }"
@@ -77,31 +76,70 @@ const cases = [
           <h3 class="card__model">{{ c.model }}</h3>
           <p class="card__meta">{{ c.meta }}</p>
           <p class="card__text">{{ c.text }}</p>
-          <a class="card__cta" href="#contact">Обсудить похожую сделку →</a>
+          <RouterLink class="card__cta" :to="cardCtaTo">Обсудить похожую задачу →</RouterLink>
         </div>
       </article>
+    </div>
+    <div class="sec__actions">
+      <RouterLink class="sec__cta" :to="ctaTo">{{ ctaLabel }}</RouterLink>
     </div>
   </section>
 </template>
 
 <style scoped>
 .sec {
+  position: relative;
+  z-index: 0;
   max-width: var(--content-max);
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
-  background: var(--bg-subtle);
+  background: transparent;
+  border-bottom: none;
+}
+
+.sec::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: #fff;
   border-bottom: 1px solid var(--line-light);
+}
+
+.sec--dark::before {
+  background: var(--surface-dark);
+  border-bottom-color: var(--border-dark);
+}
+
+.sec--dark {
+  padding-top: 2.2rem;
+  padding-bottom: 2.25rem;
 }
 
 @media (min-width: 720px) {
   .sec {
     padding: 3.5rem max(1.25rem, env(safe-area-inset-left, 0px)) 3.5rem max(1.25rem, env(safe-area-inset-right, 0px));
   }
+
+  .sec--dark {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
 }
 
 .sec__intro {
   margin-bottom: 2rem;
   max-width: 40rem;
+}
+
+.sec--dark .sec__intro {
+  margin-bottom: 1.7rem;
 }
 
 .sec__title {
@@ -112,11 +150,19 @@ const cases = [
   margin: 0 0 0.65rem;
 }
 
+.sec--dark .sec__title {
+  color: var(--text-on-dark);
+}
+
 .sec__lead {
   margin: 0;
   font-size: 1.0625rem;
   line-height: 1.5;
   color: var(--muted);
+}
+
+.sec--dark .sec__lead {
+  color: var(--muted-on-dark);
 }
 
 .track {
@@ -148,6 +194,10 @@ const cases = [
   border-radius: 4px;
 }
 
+.sec--dark .track::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+
 .card {
   flex: 0 0 min(340px, calc(100vw - 2.25rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
   scroll-snap-align: start;
@@ -161,6 +211,11 @@ const cases = [
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
   transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sec--dark .card {
+  background: var(--surface-panel);
+  border-color: var(--border-dark);
 }
 
 .card--in {
@@ -186,7 +241,11 @@ const cases = [
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: var(--bg-subtle);
+  background: #f7f7f5;
+}
+
+.sec--dark .card__media {
+  background: var(--surface-dark);
 }
 
 .card__img {
@@ -216,6 +275,10 @@ const cases = [
   margin-bottom: 0.65rem;
 }
 
+.sec--dark .card__tag {
+  color: rgba(245, 196, 18, 0.86);
+}
+
 .card__model {
   font-weight: 600;
   font-size: 1.0625rem;
@@ -225,11 +288,19 @@ const cases = [
   color: #000;
 }
 
+.sec--dark .card__model {
+  color: var(--text-on-dark);
+}
+
 .card__meta {
   margin: 0 0 0.85rem;
   font-size: 0.8125rem;
   line-height: 1.4;
   color: var(--muted);
+}
+
+.sec--dark .card__meta {
+  color: rgba(245, 245, 247, 0.5);
 }
 
 .card__text {
@@ -238,6 +309,10 @@ const cases = [
   line-height: 1.5;
   color: var(--text);
   flex: 1;
+}
+
+.sec--dark .card__text {
+  color: rgba(245, 245, 247, 0.76);
 }
 
 .card__cta {
@@ -259,6 +334,44 @@ const cases = [
 
 .card__cta:hover {
   color: var(--yellow-ink);
+}
+
+.sec--dark .card__cta {
+  color: rgba(245, 245, 247, 0.88);
+  border-bottom-color: rgba(245, 196, 18, 0.72);
+}
+
+.sec--dark .card__cta:hover {
+  color: var(--yellow);
+}
+
+.sec__actions {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sec__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.7rem 1.15rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--yellow);
+  background: var(--yellow);
+  color: var(--yellow-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sec__cta:hover {
+  background: var(--yellow-hover);
+  border-color: var(--yellow-hover);
 }
 
 @media (prefers-reduced-motion: reduce) {

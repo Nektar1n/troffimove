@@ -42,7 +42,7 @@ const darkHeroTop = computed(
           <RouterLink to="/" class="head__link" exact-active-class="head__link--current">Главная</RouterLink>
           <RouterLink to="/privoz" class="head__link" active-class="head__link--current">Привоз</RouterLink>
           <RouterLink to="/podbor" class="head__link" active-class="head__link--current">Подбор</RouterLink>
-          <RouterLink class="head__link" :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
+          <RouterLink to="/cases" class="head__link" active-class="head__link--current">Кейсы</RouterLink>
         </nav>
         <RouterLink class="head__cta" :to="{ path: '/', hash: '#contact' }">Оставить заявку</RouterLink>
       </div>
@@ -51,7 +51,7 @@ const darkHeroTop = computed(
       <RouterLink to="/" class="head__mob-link" exact-active-class="head__mob-link--current">Главная</RouterLink>
       <RouterLink to="/privoz" class="head__mob-link" active-class="head__mob-link--current">Привоз</RouterLink>
       <RouterLink to="/podbor" class="head__mob-link" active-class="head__mob-link--current">Подбор</RouterLink>
-      <RouterLink class="head__mob-link" :to="{ path: '/', hash: '#cases' }">Кейсы и отзывы</RouterLink>
+      <RouterLink to="/cases" class="head__mob-link" active-class="head__mob-link--current">Кейсы</RouterLink>
     </nav>
   </header>
 </template>
