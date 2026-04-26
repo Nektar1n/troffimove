@@ -25,8 +25,21 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
           <p class="pick-hero__eyebrow">Выезд · диагностика · отчёт</p>
           <h1 id="pick-hero-title" class="pick-hero__title">
             Подбор и проверка:
-            <span class="pick-hero__title-accent">мы видим автомобили насквозь</span>
+            <span class="pick-hero__title-accent">видим автомобили насквозь</span>
           </h1>
+          <div class="pick-hero__inline-media" aria-hidden="true">
+            <img
+              :src="selectionHeroUrl"
+              class="pick-hero__inline-img"
+              width="1376"
+              height="768"
+              alt=""
+              loading="eager"
+              decoding="sync"
+              fetchpriority="high"
+            />
+            <div class="pick-hero__inline-veil" />
+          </div>
           <p class="pick-hero__lead">
             Приезжаем к объявлению, снимаем кузов и узлы на сканере, проверяем юридическую чистоту и сервисную
             историю. В конце — понятный письменный вердикт: брать, торговаться или уходить.
@@ -111,6 +124,29 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
     linear-gradient(180deg, rgba(5, 6, 7, 0.28) 0%, rgba(5, 6, 7, 0.12) 44%, rgba(5, 6, 7, 0.8) 100%);
   pointer-events: none;
   opacity: 1;
+}
+
+.pick-hero__inline-media {
+  display: none;
+  position: relative;
+}
+
+.pick-hero__inline-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 54% 58%;
+  transform: scaleX(-1);
+  position: relative;
+  z-index: 0;
+}
+
+.pick-hero__inline-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .pick-hero__cap {
@@ -242,6 +278,106 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   flex-wrap: wrap;
   gap: 0.65rem;
   align-items: center;
+}
+
+@media (max-width: 899px) {
+  .pick-hero__eyebrow {
+    display: none;
+  }
+
+  .pick-hero__shot {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: auto;
+    padding: 0 0 max(1.4rem, calc(0.7rem + env(safe-area-inset-bottom, 0px)));
+    background:
+      radial-gradient(circle at top right, rgba(245, 196, 18, 0.16), transparent 34%),
+      linear-gradient(180deg, #08090b 0%, #0a0b0d 100%);
+  }
+
+  .pick-hero__surface {
+    display: none;
+  }
+
+  .pick-hero__cap {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    order: 1;
+    padding: calc(9.8rem + env(safe-area-inset-top, 0px)) 0 0;
+  }
+
+  .pick-hero__title {
+    max-width: 100%;
+    font-size: clamp(2.3rem, 10vw, 3.4rem);
+    line-height: 1.02;
+  }
+
+  .pick-hero__inline-media {
+    position: relative;
+    display: block;
+    width: calc(100% + max(1rem, env(safe-area-inset-left, 0px)) + max(1rem, env(safe-area-inset-right, 0px)));
+    max-width: none;
+    aspect-ratio: 16 / 10;
+    margin: 1rem calc(-1 * max(1rem, env(safe-area-inset-right, 0px))) 1rem
+      calc(-1 * max(1rem, env(safe-area-inset-left, 0px)));
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    background: #0a0a0c;
+  }
+
+  .pick-hero__inline-media::before,
+  .pick-hero__inline-media::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .pick-hero__inline-media::before {
+    top: 0;
+    height: clamp(2.25rem, 14%, 4.5rem);
+    background: linear-gradient(180deg, #0a0a0c 0%, rgba(10, 10, 12, 0) 100%);
+  }
+
+  .pick-hero__inline-media::after {
+    bottom: 0;
+    height: clamp(2.75rem, 22%, 6rem);
+    background: linear-gradient(0deg, #0a0a0c 0%, rgba(10, 10, 12, 0) 100%);
+  }
+
+  .pick-hero__inline-veil {
+    display: none;
+  }
+
+  .pick-hero__lead {
+    max-width: 25rem;
+    margin-bottom: 1rem;
+    font-size: 0.98rem;
+    line-height: 1.48;
+  }
+
+  .pick-hero__actions {
+    gap: 0.75rem;
+  }
+
+  .btn {
+    min-height: 46px;
+    padding: 0.78rem 1.15rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .pick-hero__cap {
+    padding-top: calc(10.3rem + env(safe-area-inset-top, 0px));
+  }
 }
 
 @media (min-width: 900px) {

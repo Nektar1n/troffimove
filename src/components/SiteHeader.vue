@@ -1,24 +1,51 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();
 const scrolled = ref(false);
+const mobileMenuOpen = ref(false);
 
 function onScroll() {
   scrolled.value = window.scrollY > 24;
+}
+
+function closeMobileMenu() {
+  mobileMenuOpen.value = false;
+}
+
+function toggleMobileMenu() {
+  mobileMenuOpen.value = !mobileMenuOpen.value;
 }
 
 onMounted(() => {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 });
-onUnmounted(() => window.removeEventListener('scroll', onScroll));
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll);
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = '';
+  }
+});
 
 /** Тёмная прозрачная шапка: главная (hero), подбор (тёмный hero), привоз (тёмный блок маршрутов сверху). */
 const darkHeroTop = computed(
   () => route.name === 'home' || route.name === 'selection' || route.name === 'import',
 );
+
+watch(
+  () => route.fullPath,
+  () => {
+    closeMobileMenu();
+  },
+);
+
+watch(mobileMenuOpen, (isOpen) => {
+  if (typeof document === 'undefined') return;
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
 </script>
 
 <template>
@@ -27,6 +54,7 @@ const darkHeroTop = computed(
     :class="{
       'head--solid': scrolled,
       'head--dark': darkHeroTop && !scrolled,
+      'head--menu': mobileMenuOpen,
     }"
   >
     <div class="head__top">
@@ -38,21 +66,56 @@ const darkHeroTop = computed(
             <span class="head__tag">Auto</span>
           </span>
         </RouterLink>
+
         <nav class="head__nav" aria-label="Основное меню">
           <RouterLink to="/" class="head__link" exact-active-class="head__link--current">Главная</RouterLink>
           <RouterLink to="/privoz" class="head__link" active-class="head__link--current">Привоз</RouterLink>
           <RouterLink to="/podbor" class="head__link" active-class="head__link--current">Подбор</RouterLink>
           <RouterLink to="/cases" class="head__link" active-class="head__link--current">Кейсы</RouterLink>
         </nav>
-        <RouterLink class="head__cta" :to="{ path: '/', hash: '#contact' }">Оставить заявку</RouterLink>
+
+        <RouterLink class="head__cta head__cta--desktop" :to="{ path: '/', hash: '#contact' }">Оставить заявку</RouterLink>
+
+        <button
+          type="button"
+          class="head__burger"
+          :class="{ 'head__burger--open': mobileMenuOpen }"
+          :aria-expanded="mobileMenuOpen ? 'true' : 'false'"
+          aria-controls="mobile-menu"
+          aria-label="Открыть меню"
+          @click="toggleMobileMenu"
+        >
+          <span class="head__burger-line" />
+          <span class="head__burger-line" />
+          <span class="head__burger-line" />
+        </button>
       </div>
     </div>
-    <nav class="head__mob" aria-label="Разделы страницы">
-      <RouterLink to="/" class="head__mob-link" exact-active-class="head__mob-link--current">Главная</RouterLink>
-      <RouterLink to="/privoz" class="head__mob-link" active-class="head__mob-link--current">Привоз</RouterLink>
-      <RouterLink to="/podbor" class="head__mob-link" active-class="head__mob-link--current">Подбор</RouterLink>
-      <RouterLink to="/cases" class="head__mob-link" active-class="head__mob-link--current">Кейсы</RouterLink>
-    </nav>
+
+    <Transition name="head-menu">
+      <div v-if="mobileMenuOpen" id="mobile-menu" class="head__mob-shell">
+        <div class="head__mob-panel">
+          <RouterLink class="head__mob-cta" :to="{ path: '/', hash: '#contact' }" @click="closeMobileMenu">
+            Оставить заявку
+          </RouterLink>
+
+          <nav class="head__mob" aria-label="Разделы страницы">
+            <RouterLink to="/" class="head__mob-link" exact-active-class="head__mob-link--current" @click="closeMobileMenu">
+              Главная
+            </RouterLink>
+            <RouterLink to="/privoz" class="head__mob-link" active-class="head__mob-link--current" @click="closeMobileMenu">
+              Привоз
+            </RouterLink>
+            <RouterLink to="/podbor" class="head__mob-link" active-class="head__mob-link--current" @click="closeMobileMenu">
+              Подбор
+            </RouterLink>
+            <RouterLink to="/cases" class="head__mob-link" active-class="head__mob-link--current" @click="closeMobileMenu">
+              Кейсы
+            </RouterLink>
+          </nav>
+        </div>
+      </div>
+    </Transition>
   </header>
 </template>
 
@@ -73,8 +136,18 @@ const darkHeroTop = computed(
   border-bottom: 1px solid var(--line-light);
 }
 
+.head--menu.head--solid {
+  background: rgba(255, 255, 255, 0.94);
+}
+
 .head--dark:not(.head--solid) {
   background: transparent;
+}
+
+.head--dark.head--menu:not(.head--solid) {
+  background: rgba(8, 9, 11, 0.88);
+  backdrop-filter: saturate(160%) blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .head__top {
@@ -204,8 +277,7 @@ const darkHeroTop = computed(
   color: #fff;
   background: var(--text);
   border-color: #f5c542;
-  transition:
-    opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .head--dark:not(.head--solid) .head__cta {
@@ -214,8 +286,13 @@ const darkHeroTop = computed(
   border-color: #f5c542;
 }
 
+.head__cta--desktop {
+  display: none;
+}
+
 @media (min-width: 820px) {
   .head__cta {
+    display: inline-flex;
     margin-left: 0;
   }
 }
@@ -224,69 +301,142 @@ const darkHeroTop = computed(
   opacity: 0.88;
 }
 
-.head__mob {
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 0.35rem max(1rem, env(safe-area-inset-left, 0px)) 0.65rem max(1rem, env(safe-area-inset-right, 0px));
-  max-width: var(--content-max);
-  margin: 0 auto;
-  border-top: 1px solid transparent;
+.head__burger {
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  border: 1px solid var(--line-light);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+  cursor: pointer;
 }
 
-.head__mob::-webkit-scrollbar {
-  display: none;
+.head--dark:not(.head--solid) .head__burger {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(12, 13, 15, 0.76);
+  color: #fff;
 }
 
-.head--solid .head__mob {
-  border-top-color: var(--line-light);
+.head__burger-line {
+  width: 16px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.head--dark:not(.head--solid) .head__mob {
-  border-top-color: rgba(255, 255, 255, 0.12);
+.head__burger--open .head__burger-line:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+
+.head__burger--open .head__burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.head__burger--open .head__burger-line:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
 }
 
 @media (min-width: 820px) {
-  .head__mob {
+  .head__burger,
+  .head__mob-shell {
     display: none;
   }
+}
 
-  .head--solid .head__mob {
-    border-top: none;
-  }
+.head__mob-shell {
+  padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0.9rem max(1rem, env(safe-area-inset-right, 0px));
+}
+
+.head__mob-panel {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0.9rem;
+  border: 1px solid var(--line-light);
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 22px 48px -32px rgba(0, 0, 0, 0.34);
+}
+
+.head--dark:not(.head--solid) .head__mob-panel {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(12, 13, 15, 0.94);
+  box-shadow: 0 28px 54px -34px rgba(0, 0, 0, 0.8);
+}
+
+.head__mob-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-bottom: 0.85rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.95rem;
+  background: var(--yellow);
+  color: var(--yellow-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.head__mob {
+  display: grid;
+  gap: 0.2rem;
 }
 
 .head__mob-link {
-  flex: 0 0 auto;
-  font-size: 0.75rem;
+  display: block;
+  padding: 0.75rem 0.2rem;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--muted);
+  letter-spacing: -0.01em;
+  color: var(--text);
   text-decoration: none;
-  white-space: nowrap;
-  padding: 0.35rem 0;
 }
 
 .head--dark:not(.head--solid) .head__mob-link {
-  color: rgba(245, 245, 247, 0.72);
+  color: rgba(245, 245, 247, 0.8);
 }
 
 .head__mob-link:active {
-  color: var(--text);
+  background: rgba(15, 15, 16, 0.06);
 }
 
 .head__mob-link--current {
-  color: var(--text);
+  background: rgba(15, 15, 16, 0.06);
   font-weight: 600;
 }
 
 .head--dark:not(.head--solid) .head__mob-link:active {
-  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .head--dark:not(.head--solid) .head__mob-link--current {
   color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.head-menu-enter-active,
+.head-menu-leave-active {
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.head-menu-enter-from,
+.head-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }
 </style>

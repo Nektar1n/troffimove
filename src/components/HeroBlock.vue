@@ -65,6 +65,22 @@ onMounted(() => {
             <h1 class="hero__title" :class="{ 'is-in': mounted }">
               Подбор, выкуп и привоз авто <span class="hero__title-em">под ключ</span>
             </h1>
+            <div class="hero__inline-media" aria-hidden="true">
+              <picture>
+                <source :srcset="mobileHeroPhoto" media="(max-width: 899px)" />
+                <img
+                  :src="mainHeroPhoto"
+                  class="hero__inline-img"
+                  width="1920"
+                  height="800"
+                  alt=""
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </picture>
+              <div class="hero__inline-veil" />
+            </div>
             <div class="hero__cta">
               <div class="hero__actions" :class="{ 'is-in': mounted }">
                 <a class="btn btn--primary" href="#contact">Написать нам</a>
@@ -194,28 +210,31 @@ onMounted(() => {
 
 @media (max-width: 899px) {
   .hero__swiss {
-    min-height: calc(min(108svh, 56rem) - (8.1rem + env(safe-area-inset-top, 0px)) - 2.75rem);
+    min-height: auto;
   }
 
   .hero__stage {
-    min-height: min(108svh, 56rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: auto;
+    background:
+      radial-gradient(circle at top right, rgba(245, 196, 18, 0.16), transparent 34%),
+      linear-gradient(180deg, #07080a 0%, #0a0b0d 100%);
   }
 
-  .hero__bg-img {
-    inset: 0.9rem 0 0;
-    height: calc(100% - 0.9rem);
-    object-fit: contain;
-    object-position: center bottom;
-    transform: translateY(-4.2rem);
+  .hero__media {
+    display: none;
   }
 
   .hero__fore {
-    padding-top: calc(8.1rem + env(safe-area-inset-top, 0px));
-    padding-bottom: 2.75rem;
+    order: 1;
+    padding-top: calc(9.8rem + env(safe-area-inset-top, 0px));
+    padding-bottom: 0;
   }
 
   .hero__cta {
-    margin-top: auto;
+    margin-top: 0.95rem;
   }
 
   .hero__actions {
@@ -228,6 +247,10 @@ onMounted(() => {
     width: 100%;
     min-width: 0;
     padding-inline: 0.9rem;
+  }
+
+  .hero__eyebrow {
+    display: none;
   }
 
   .hero__subcta {
@@ -260,8 +283,8 @@ onMounted(() => {
 }
 
 @media (max-width: 380px) {
-  .hero__bg-img {
-    transform: translateY(-6.4rem);
+  .hero__fore {
+    padding-top: calc(10.25rem + env(safe-area-inset-top, 0px));
   }
 }
 
@@ -273,6 +296,24 @@ onMounted(() => {
   background:
     linear-gradient(90deg, rgba(5, 6, 7, 0.92) 0%, rgba(5, 6, 7, 0.58) 42%, rgba(5, 6, 7, 0.14) 72%),
     linear-gradient(180deg, rgba(5, 6, 7, 0.3) 0%, rgba(5, 6, 7, 0.1) 44%, rgba(5, 6, 7, 0.78) 100%);
+}
+
+.hero__inline-media {
+  display: none;
+}
+
+.hero__inline-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__inline-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero__fore {
@@ -707,6 +748,29 @@ onMounted(() => {
 }
 
 @media (max-width: 899px) {
+  .hero__inline-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: min(28rem, 100%);
+    aspect-ratio: 16 / 10;
+    margin: 1rem 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.5rem;
+    box-shadow: 0 28px 56px -36px rgba(0, 0, 0, 0.92);
+    overflow: hidden;
+  }
+
+  .hero__inline-img {
+    object-position: 50% 24%;
+  }
+
+  .hero__inline-veil {
+    background:
+      linear-gradient(180deg, rgba(5, 6, 7, 0.08) 0%, rgba(5, 6, 7, 0.1) 44%, rgba(5, 6, 7, 0.46) 100%),
+      linear-gradient(90deg, rgba(5, 6, 7, 0.08) 0%, rgba(5, 6, 7, 0) 30%, rgba(5, 6, 7, 0.14) 100%);
+  }
+
   .hero__fore {
     padding-bottom: 1.8rem;
   }
@@ -727,6 +791,12 @@ onMounted(() => {
 
   .hero__subcta {
     margin-top: 0.7rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__inline-img {
+    object-position: 50% 20%;
   }
 }
 

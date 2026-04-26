@@ -134,10 +134,21 @@ const jpBrands = computed(() => brandSets.jp);
       <figcaption class="routes__truck-cap">
         <div class="routes__truck-box">
           <h2 id="routes-heading" class="routes__truck-heading">
-            Дорога к вашему авто
+            Привоз авто под ключ
             <span class="routes__truck-amp"> — </span>
-            <span class="routes__truck-accent">с нами везде</span>
+            <span class="routes__truck-accent">без посредников</span>
           </h2>
+          <div class="routes__truck-inline-media" aria-hidden="true">
+            <img
+              :src="imgTruck"
+              class="routes__truck-inline-img"
+              width="1600"
+              height="900"
+              alt=""
+              decoding="async"
+            />
+            <div class="routes__truck-inline-veil" />
+          </div>
           <p class="routes__truck-deck">
             Европа, Россия, Корея, Япония: контроль груза и сроков на всём пути
           </p>
@@ -377,6 +388,24 @@ const jpBrands = computed(() => brandSets.jp);
   opacity: 1;
 }
 
+.routes__truck-inline-media {
+  display: none;
+}
+
+.routes__truck-inline-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.routes__truck-inline-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .routes__truck-cap {
   position: absolute;
   inset: 0;
@@ -524,6 +553,80 @@ const jpBrands = computed(() => brandSets.jp);
 .btn--ghost:hover {
   border-color: rgba(255, 255, 255, 0.24);
   background: rgba(18, 19, 22, 0.9);
+}
+
+@media (max-width: 899px) {
+  .routes__truck {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    padding: 0 0 1.15rem;
+    background:
+      radial-gradient(circle at top right, rgba(245, 196, 18, 0.16), transparent 34%),
+      linear-gradient(180deg, #07080a 0%, #0a0b0d 100%);
+  }
+
+  .routes__truck-surface {
+    display: none;
+  }
+
+  .routes__truck-cap {
+    position: relative;
+    inset: auto;
+    order: 1;
+    padding: calc(9.7rem + env(safe-area-inset-top, 0px)) 0 0.95rem;
+  }
+
+  .routes__truck-heading {
+    max-width: 100%;
+    font-size: clamp(2.3rem, 10vw, 3.35rem);
+    line-height: 1.02;
+  }
+
+  .routes__truck-inline-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: min(28rem, 100%);
+    aspect-ratio: 16 / 10;
+    margin: 1rem 0 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.5rem;
+    box-shadow: 0 28px 56px -36px rgba(0, 0, 0, 0.92);
+    overflow: hidden;
+  }
+
+  .routes__truck-inline-img {
+    object-position: 58% 54%;
+  }
+
+  .routes__truck-inline-veil {
+    background:
+      linear-gradient(180deg, rgba(5, 6, 7, 0.12) 0%, rgba(5, 6, 7, 0.12) 42%, rgba(5, 6, 7, 0.56) 100%),
+      linear-gradient(90deg, rgba(5, 6, 7, 0.06) 0%, rgba(5, 6, 7, 0) 34%, rgba(5, 6, 7, 0.14) 100%);
+  }
+
+  .routes__truck-deck {
+    max-width: 23rem;
+    margin-bottom: 1rem;
+    font-size: 0.98rem;
+    line-height: 1.48;
+  }
+
+  .routes__truck-actions {
+    gap: 0.75rem;
+  }
+
+  .btn {
+    min-height: 46px;
+    padding: 0.78rem 1.15rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .routes__truck-cap {
+    padding-top: calc(10.15rem + env(safe-area-inset-top, 0px));
+  }
 }
 
 @media (max-height: 520px) and (orientation: landscape) {
