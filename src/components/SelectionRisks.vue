@@ -111,7 +111,7 @@ const items = [
   font-style: italic;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.86);
+  color: rgba(233, 190, 95, 0.86);
 }
 
 .risks__title {

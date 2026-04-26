@@ -168,7 +168,7 @@ import SocialLinks from './SocialLinks.vue';
 }
 
 .foot :deep(.soc--footer .soc__link:hover) {
-  border-color: rgba(245, 196, 18, 0.55);
+  border-color: rgba(233, 190, 95, 0.55);
   background: rgba(255, 255, 255, 0.06);
 }
 </style>

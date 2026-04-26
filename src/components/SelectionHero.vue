@@ -83,6 +83,13 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   background: #0a0a0c;
 }
 
+/* 21:9 и шире: полный 100dvh + cover сильно режут кадр — ниже слой и мягче сдвиг фото */
+@media (min-aspect-ratio: 2 / 1) {
+  .pick-hero {
+    --pick-hero-slab: min(100dvh, clamp(560px, 78dvh, 940px));
+  }
+}
+
 .pick-hero__shot {
   position: relative;
   z-index: 0;
@@ -124,6 +131,13 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   .pick-hero__img {
     object-position: 50% 94%;
     transform: scaleX(-1) translateY(3.25rem);
+  }
+}
+
+@media (min-width: 900px) and (min-aspect-ratio: 2 / 1) {
+  .pick-hero__img {
+    object-position: 50% 82%;
+    transform: scaleX(-1) translateY(1.85rem);
   }
 }
 
@@ -229,7 +243,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   font-style: italic;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.92);
+  color: rgba(233, 190, 95, 0.92);
 }
 
 @media (min-width: 900px) {
@@ -298,7 +312,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     min-height: auto;
     padding: 0 0 max(1.4rem, calc(0.7rem + env(safe-area-inset-bottom, 0px)));
     background:
-      radial-gradient(circle at top right, rgba(245, 196, 18, 0.16), transparent 34%),
+      radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
       linear-gradient(180deg, #08090b 0%, #0a0b0d 100%);
   }
 

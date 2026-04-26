@@ -118,7 +118,7 @@ function caseContactTarget(type) {
   font-style: italic;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.9);
+  color: rgba(233, 190, 95, 0.9);
 }
 
 .cases-page__title {

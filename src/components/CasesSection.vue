@@ -276,7 +276,7 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .sec--dark .card__tag {
-  color: rgba(245, 196, 18, 0.86);
+  color: rgba(233, 190, 95, 0.86);
 }
 
 .card__model {
@@ -338,7 +338,7 @@ const isDark = computed(() => props.tone === 'dark');
 
 .sec--dark .card__cta {
   color: rgba(245, 245, 247, 0.88);
-  border-bottom-color: rgba(245, 196, 18, 0.72);
+  border-bottom-color: rgba(233, 190, 95, 0.72);
 }
 
 .sec--dark .card__cta:hover {

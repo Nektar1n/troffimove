@@ -152,6 +152,24 @@ onMounted(() => {
   overflow-x: clip;
 }
 
+/* Ультраширокий + высокий экран: не тянуть секцию на 100dvh — иначе под обрезанной
+   сценой (max 860px) остаётся сплошной «подвал» из --hero-bg */
+@media (min-aspect-ratio: 2 / 1) {
+  .hero {
+    min-height: auto;
+  }
+}
+
+@media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
+  .hero__stage {
+    min-height: min(88dvh, min(1040px, 92vh));
+  }
+
+  .hero__bg-img {
+    object-position: 40% 44%;
+  }
+}
+
 .hero::before {
   content: '';
   position: absolute;
@@ -222,7 +240,7 @@ onMounted(() => {
     gap: 1rem;
     min-height: auto;
     background:
-      radial-gradient(circle at top right, rgba(245, 196, 18, 0.16), transparent 34%),
+      radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
       linear-gradient(180deg, #07080a 0%, #0a0b0d 100%);
   }
 
@@ -450,7 +468,7 @@ onMounted(() => {
 }
 
 .hero__byline-sep {
-  color: rgba(245, 196, 18, 0.55);
+  color: rgba(233, 190, 95, 0.55);
   font-weight: 500;
   padding: 0 0.1em;
 }
@@ -563,7 +581,7 @@ onMounted(() => {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.92);
+  color: rgba(233, 190, 95, 0.92);
   margin: 0 0 0.85rem;
   opacity: 0;
   transform: translateY(8px);
@@ -602,7 +620,7 @@ onMounted(() => {
   font-size: clamp(0.9rem, 2.2vw, 1.02rem);
   font-style: italic;
   line-height: 1.45;
-  color: rgba(245, 196, 18, 0.88);
+  color: rgba(233, 190, 95, 0.88);
   margin: 0 0 1rem;
   max-width: min(32rem, 100%);
   opacity: 0;
@@ -655,7 +673,7 @@ onMounted(() => {
 }
 
 .hero :deep(.soc__link:hover) {
-  border-color: rgba(245, 196, 18, 0.4);
+  border-color: rgba(233, 190, 95, 0.4);
   background: rgba(18, 19, 22, 0.92);
 }
 

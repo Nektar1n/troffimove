@@ -190,7 +190,7 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__mark {
-  background: #f5c542;
+  background: var(--yellow);
   color: #111;
 }
 
@@ -276,14 +276,14 @@ watch(mobileMenuOpen, (isOpen) => {
   text-decoration: none;
   color: #fff;
   background: var(--text);
-  border-color: #f5c542;
+  border-color: var(--yellow);
   transition: opacity 0.2s ease;
 }
 
 .head--dark:not(.head--solid) .head__cta {
-  background: #f5c542;
+  background: var(--yellow);
   color: #111;
-  border-color: #f5c542;
+  border-color: var(--yellow);
 }
 
 .head__cta--desktop {

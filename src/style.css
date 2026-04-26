@@ -5,17 +5,17 @@
   --muted: #6e6e73;
   --line: #c8c8cd;
   --line-light: #dedee3;
-  /* Акценты: жёлтый + чёрный как основная пара бренда */
-  --accent: #d4a012;
-  --yellow: #f5c412;
-  --yellow-hover: #ffd54a;
+  /* Акцент: Sunray #e9be5f + hover чуть светлее */
+  --accent: #c9a23a;
+  --yellow: #e9be5f;
+  --yellow-hover: #f2ce78;
   --yellow-ink: #111;
   --surface-dark: #0c0c0e;
   --surface-dark-2: #161618;
   --surface-panel: #0f1013;
   --surface-panel-2: #14161a;
   --border-dark: rgba(255, 255, 255, 0.1);
-  --border-dark-strong: rgba(245, 196, 18, 0.24);
+  --border-dark-strong: rgba(233, 190, 95, 0.28);
   --text-on-dark: rgba(245, 245, 247, 0.94);
   --muted-on-dark: rgba(245, 245, 247, 0.62);
   --radius-s: 0.7rem;
@@ -106,7 +106,7 @@ body {
 }
 
 ::selection {
-  background: rgba(245, 196, 18, 0.35);
+  background: rgba(233, 190, 95, 0.38);
   color: var(--text);
 }
 

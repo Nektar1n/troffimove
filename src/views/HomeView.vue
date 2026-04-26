@@ -123,7 +123,7 @@ import ContactForm from '../components/ContactForm.vue';
   letter-spacing: 0.02em;
   color: var(--yellow-ink);
   background: var(--yellow);
-  border: 1px solid #d4a012;
+  border: 1px solid color-mix(in srgb, var(--yellow) 72%, var(--text) 28%);
   border-radius: 999px;
   width: max-content;
   max-width: 100%;

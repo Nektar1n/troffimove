@@ -296,7 +296,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .scheme {
-  --scheme-line: color-mix(in srgb, var(--yellow, #f5c412) 52%, white 48%);
+  --scheme-line: color-mix(in srgb, var(--yellow, #e9be5f) 52%, white 48%);
   --scheme-text: #f7f7f8;
   --scheme-muted: rgba(247, 247, 248, 0.78);
   --scheme-surface: #101114;
@@ -336,7 +336,7 @@ onBeforeUnmount(() => {
   letter-spacing: -0.045em;
   font-weight: 600;
   font-style: italic;
-  color: var(--yellow, #f5c412);
+  color: var(--yellow, #e9be5f);
 }
 
 .scheme__board {
@@ -408,7 +408,7 @@ onBeforeUnmount(() => {
 .scheme__node--anchor {
   width: 0.5rem;
   height: 0.5rem;
-  background: rgba(245, 196, 18, 0.82);
+  background: rgba(233, 190, 95, 0.82);
 }
 
 .scheme__node--port {
@@ -456,14 +456,14 @@ onBeforeUnmount(() => {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.45rem;
-  background: rgba(245, 196, 18, 0.12);
-  border: 1px solid rgba(245, 196, 18, 0.22);
+  background: rgba(233, 190, 95, 0.12);
+  border: 1px solid rgba(233, 190, 95, 0.22);
 }
 
 .scheme__callout-icon svg {
   width: 0.95rem;
   height: 0.95rem;
-  stroke: var(--yellow, #f5c412);
+  stroke: var(--yellow, #e9be5f);
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -474,7 +474,7 @@ onBeforeUnmount(() => {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.86);
+  color: rgba(233, 190, 95, 0.86);
   opacity: 1;
 }
 
@@ -559,7 +559,7 @@ onBeforeUnmount(() => {
     font-size: 0.72rem;
     font-weight: 800;
     color: var(--yellow-ink, #111);
-    background: var(--yellow, #f5c412);
+    background: var(--yellow, #e9be5f);
   }
 
   .scheme__mobile-title {
@@ -576,7 +576,7 @@ onBeforeUnmount(() => {
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--yellow, #f5c412) 82%, white 18%);
+    color: color-mix(in srgb, var(--yellow, #e9be5f) 82%, white 18%);
   }
 
   .scheme__mobile-text {

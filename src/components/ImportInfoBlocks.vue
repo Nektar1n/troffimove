@@ -247,7 +247,7 @@ const faq = [
 }
 
 .im__sec--light .im__kicker {
-  color: var(--yellow, #c9a010);
+  color: var(--yellow, #e9be5f);
 }
 
 .im__sec--light .im__intro {
@@ -263,7 +263,7 @@ const faq = [
 }
 
 .im__sec--light .im__step-n {
-  color: var(--yellow, #c9a010);
+  color: var(--yellow, #e9be5f);
 }
 
 .im__sec--light .im__step {
@@ -285,7 +285,7 @@ const faq = [
   font-style: italic;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(245, 196, 18, 0.9);
+  color: rgba(233, 190, 95, 0.9);
 }
 
 .im__h2 {

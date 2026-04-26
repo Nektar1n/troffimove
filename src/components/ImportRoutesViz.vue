@@ -566,7 +566,7 @@ const jpBrands = computed(() => brandSets.jp);
     min-height: auto;
     padding: 0 0 1.15rem;
     background:
-      radial-gradient(circle at top right, rgba(245, 196, 18, 0.16), transparent 34%),
+      radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
       linear-gradient(180deg, #07080a 0%, #0a0b0d 100%);
   }
 
@@ -639,6 +639,17 @@ const jpBrands = computed(() => brandSets.jp);
   }
 }
 
+/* Ультраширокий: выше баннер с фурой (был жёсткий max 720px), спокойнее кроп по ширине */
+@media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
+  .routes__truck {
+    --routes-hero-slab: clamp(380px, min(64dvh, 52vw), 960px);
+  }
+
+  .routes__truck-img {
+    object-position: 52% 52%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .routes__truck-surface,
   .routes__truck-cap {
@@ -670,6 +681,17 @@ const jpBrands = computed(() => brandSets.jp);
 @media (min-width: 1100px) {
   .routes__stage {
     max-width: min(1200px, 100%);
+  }
+}
+
+@media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
+  .routes__content {
+    background: var(--routes-bg);
+  }
+
+  .routes__stage {
+    max-width: min(1400px, 100%);
+    min-height: clamp(240px, min(26vw, 26dvh), 440px);
   }
 }
 
@@ -714,7 +736,7 @@ const jpBrands = computed(() => brandSets.jp);
 
 .routes__echo {
   fill: none;
-  stroke: rgba(245, 196, 18, 0.45);
+  stroke: rgba(233, 190, 95, 0.45);
   stroke-width: 1.05;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -882,7 +904,7 @@ const jpBrands = computed(() => brandSets.jp);
   width: 100%;
   height: 100%;
   border-radius: 999px;
-  border: 1px solid rgba(245, 196, 18, 0.42);
+  border: 1px solid rgba(233, 190, 95, 0.42);
   transform: translate(-50%, -50%) scale(0.9);
   opacity: 0;
   pointer-events: none;
@@ -900,7 +922,7 @@ const jpBrands = computed(() => brandSets.jp);
 .routes__node--lit .routes__logo {
   color: rgba(255, 255, 255, 0.96);
   background: var(--routes-surface-2);
-  border-color: rgba(245, 196, 18, 0.26);
+  border-color: rgba(233, 190, 95, 0.26);
   opacity: 1;
 }
 
@@ -925,8 +947,8 @@ const jpBrands = computed(() => brandSets.jp);
   animation: routes-dot-ignite 0.68s cubic-bezier(0.22, 1, 0.32, 1) both;
   box-shadow:
     0 0 0 1px #0c0c0e,
-    0 0 0 3px rgba(245, 196, 18, 0.35),
-    0 0 0 0 rgba(245, 196, 18, 0);
+    0 0 0 3px rgba(233, 190, 95, 0.35),
+    0 0 0 0 rgba(233, 190, 95, 0);
 }
 
 @keyframes routes-dot-ignite {
@@ -934,24 +956,24 @@ const jpBrands = computed(() => brandSets.jp);
     transform: scale(0.72);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 2px rgba(245, 196, 18, 0.25),
-      0 0 0 0 rgba(245, 196, 18, 0.35);
+      0 0 0 2px rgba(233, 190, 95, 0.25),
+      0 0 0 0 rgba(233, 190, 95, 0.35);
   }
 
   55% {
     transform: scale(1.2);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 3px rgba(245, 196, 18, 0.45),
-      0 0 28px rgba(245, 196, 18, 0.35);
+      0 0 0 3px rgba(233, 190, 95, 0.45),
+      0 0 28px rgba(233, 190, 95, 0.35);
   }
 
   100% {
     transform: scale(1.08);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 3px rgba(245, 196, 18, 0.3),
-      0 0 18px rgba(245, 196, 18, 0.2);
+      0 0 0 3px rgba(233, 190, 95, 0.3),
+      0 0 18px rgba(233, 190, 95, 0.2);
   }
 }
 
@@ -970,16 +992,16 @@ const jpBrands = computed(() => brandSets.jp);
     transform: scale(1.08);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 3px rgba(245, 196, 18, 0.28),
-      0 0 18px rgba(245, 196, 18, 0.15);
+      0 0 0 3px rgba(233, 190, 95, 0.28),
+      0 0 18px rgba(233, 190, 95, 0.15);
   }
 
   50% {
     transform: scale(1.08);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 3px rgba(245, 196, 18, 0.4),
-      0 0 22px rgba(245, 196, 18, 0.22);
+      0 0 0 3px rgba(233, 190, 95, 0.4),
+      0 0 22px rgba(233, 190, 95, 0.22);
   }
 }
 
@@ -989,16 +1011,16 @@ const jpBrands = computed(() => brandSets.jp);
     transform: scale(1.08);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 5px rgba(245, 196, 18, 0.38),
-      0 0 28px rgba(245, 196, 18, 0.22);
+      0 0 0 5px rgba(233, 190, 95, 0.38),
+      0 0 28px rgba(233, 190, 95, 0.22);
   }
 
   50% {
     transform: scale(1.18);
     box-shadow:
       0 0 0 1px #0c0c0e,
-      0 0 0 7px rgba(245, 196, 18, 0.5),
-      0 0 40px rgba(245, 196, 18, 0.34);
+      0 0 0 7px rgba(233, 190, 95, 0.5),
+      0 0 40px rgba(233, 190, 95, 0.34);
   }
 }
 
@@ -1034,11 +1056,11 @@ const jpBrands = computed(() => brandSets.jp);
 }
 
 .routes__node--ru .routes__dot {
-  background: rgba(245, 196, 18, 0.72);
+  background: rgba(233, 190, 95, 0.72);
   box-shadow:
     0 0 0 1px #0c0c0e,
-    0 0 0 4px rgba(245, 196, 18, 0.14),
-    0 0 22px rgba(245, 196, 18, 0.16);
+    0 0 0 4px rgba(233, 190, 95, 0.14),
+    0 0 22px rgba(233, 190, 95, 0.16);
 }
 
 .routes__marker--ru {
@@ -1049,8 +1071,8 @@ const jpBrands = computed(() => brandSets.jp);
 .routes__node--ru.routes__node--lit .routes__dot {
   box-shadow:
     0 0 0 1px #0c0c0e,
-    0 0 0 5px rgba(245, 196, 18, 0.42),
-    0 0 32px rgba(245, 196, 18, 0.34);
+    0 0 0 5px rgba(233, 190, 95, 0.42),
+    0 0 32px rgba(233, 190, 95, 0.34);
 }
 
 .routes__node--kr {
@@ -1152,7 +1174,7 @@ const jpBrands = computed(() => brandSets.jp);
     background: var(--yellow);
     transform: none;
     animation: none !important;
-    box-shadow: 0 0 0 1px #0c0c0e, 0 0 0 3px rgba(245, 196, 18, 0.35);
+    box-shadow: 0 0 0 1px #0c0c0e, 0 0 0 3px rgba(233, 190, 95, 0.35);
   }
 
   .routes--woven .routes__path,

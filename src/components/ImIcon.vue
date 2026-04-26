@@ -96,7 +96,7 @@ const s = computed(() => map[props.size] || 22);
 .im-icon {
   flex-shrink: 0;
   display: block;
-  color: rgba(245, 196, 18, 0.95);
+  color: rgba(233, 190, 95, 0.95);
 }
 
 .im-icon--l {
