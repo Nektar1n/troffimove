@@ -1,8 +1,6 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-
-/** Сбрасывается при полной перезагрузке страницы (F5 / новый заход), сохраняется при SPA-переходах в той же вкладке */
-const playedOnceThisPageLoad = new Set();
+import { hasTypewriterPlayed, markTypewriterPlayed } from '../utils/typewriterOnceSession.js';
 
 const props = defineProps({
   phrase: { type: String, required: true },
@@ -13,7 +11,7 @@ const props = defineProps({
   active: { type: Boolean, default: true },
   /** длинная фраза: перенос строк вместо одной nowrap-линии (иначе клип на узком экране) */
   wrap: { type: Boolean, default: false },
-  /** один раз за «жизнь» загрузки страницы: без повтора при SPA; перезагрузка вкладки — снова с анимацией */
+  /** без повтора при SPA и при переключении вкладок браузера (sessionStorage); сброс при reload (см. main.js) */
   once: { type: Boolean, default: false },
   /** уникальный ключ; если пусто — от phrase (риск коллизии при повторе фразы) */
   onceId: { type: String, default: '' },
@@ -23,18 +21,14 @@ const typed = ref('');
 const caret = ref(false);
 const hasStarted = ref(false);
 
-function playOnceKey() {
-  return props.onceId?.trim() || props.phrase;
-}
-
 function readAlreadyPlayed() {
   if (!props.once) return false;
-  return playedOnceThisPageLoad.has(playOnceKey());
+  return hasTypewriterPlayed(props.onceId, props.phrase);
 }
 
 function markPlayed() {
   if (!props.once) return;
-  playedOnceThisPageLoad.add(playOnceKey());
+  markTypewriterPlayed(props.onceId, props.phrase);
 }
 
 /** Уже смотрели в этой вкладке — сразу полный текст, без таймеров */
