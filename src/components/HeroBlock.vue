@@ -66,7 +66,7 @@ onMounted(() => {
             <p class="hero__eyebrow" :class="{ 'is-in': mounted }">Troffimove Auto · Корея · Европа · Япония</p>
             <h1 class="hero__title" :class="{ 'is-in': mounted }">
               Подбор, выкуп и привоз авто
-              <TitleKeyTypewriter class="hero__title-em" phrase="под ключ" />
+              <TitleKeyTypewriter class="hero__title-em" phrase="под ключ" once once-id="home-hero-accent" />
             </h1>
             <div class="hero__inline-media" aria-hidden="true">
               <picture>
