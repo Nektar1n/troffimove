@@ -611,10 +611,10 @@ const jpBrands = computed(() => brandSets.jp);
   }
 
   .routes__truck-deck {
-    max-width: 23rem;
+    max-width: 100%;
     margin-bottom: 1rem;
-    font-size: 0.98rem;
-    line-height: 1.48;
+    font-size: clamp(0.68rem, 3.1vw, 0.78rem);
+    line-height: 1.38;
   }
 
   .routes__truck-actions {

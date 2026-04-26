@@ -120,8 +120,10 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 }
 
 @media (min-width: 900px) {
+  /* Ниже в кадре — воздух между заголовком и машиной */
   .pick-hero__img {
-    object-position: 50% 74%;
+    object-position: 50% 94%;
+    transform: scaleX(-1) translateY(3.25rem);
   }
 }
 
@@ -364,10 +366,10 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   }
 
   .pick-hero__lead {
-    max-width: 25rem;
+    max-width: 100%;
     margin-bottom: 1rem;
-    font-size: 0.98rem;
-    line-height: 1.48;
+    font-size: clamp(0.68rem, 3.1vw, 0.78rem);
+    line-height: 1.38;
   }
 
   .pick-hero__actions {
