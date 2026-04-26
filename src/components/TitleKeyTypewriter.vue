@@ -1,6 +1,9 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+/** Сбрасывается при полной перезагрузке страницы (F5 / новый заход), сохраняется при SPA-переходах в той же вкладке */
+const playedOnceThisPageLoad = new Set();
+
 const props = defineProps({
   phrase: { type: String, required: true },
   startDelayMs: { type: Number, default: 420 },
@@ -10,7 +13,7 @@ const props = defineProps({
   active: { type: Boolean, default: true },
   /** длинная фраза: перенос строк вместо одной nowrap-линии (иначе клип на узком экране) */
   wrap: { type: Boolean, default: false },
-  /** один раз за сессию вкладки (sessionStorage), без повтора при SPA-навигации */
+  /** один раз за «жизнь» загрузки страницы: без повтора при SPA; перезагрузка вкладки — снова с анимацией */
   once: { type: Boolean, default: false },
   /** уникальный ключ; если пусто — от phrase (риск коллизии при повторе фразы) */
   onceId: { type: String, default: '' },
@@ -20,29 +23,18 @@ const typed = ref('');
 const caret = ref(false);
 const hasStarted = ref(false);
 
-const STORAGE_NS = 'troffimove-tw-once:';
-
-function storageKey() {
-  const id = props.onceId?.trim() || props.phrase;
-  return `${STORAGE_NS}${id}`;
+function playOnceKey() {
+  return props.onceId?.trim() || props.phrase;
 }
 
 function readAlreadyPlayed() {
-  if (!props.once || typeof sessionStorage === 'undefined') return false;
-  try {
-    return sessionStorage.getItem(storageKey()) === '1';
-  } catch {
-    return false;
-  }
+  if (!props.once) return false;
+  return playedOnceThisPageLoad.has(playOnceKey());
 }
 
 function markPlayed() {
-  if (!props.once || typeof sessionStorage === 'undefined') return;
-  try {
-    sessionStorage.setItem(storageKey(), '1');
-  } catch {
-    /* private mode и т.п. */
-  }
+  if (!props.once) return;
+  playedOnceThisPageLoad.add(playOnceKey());
 }
 
 /** Уже смотрели в этой вкладке — сразу полный текст, без таймеров */
