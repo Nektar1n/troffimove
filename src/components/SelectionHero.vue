@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
+import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 </script>
 
 <template>
@@ -25,7 +26,14 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
           <p class="pick-hero__eyebrow">Выезд · диагностика · отчёт</p>
           <h1 id="pick-hero-title" class="pick-hero__title">
             Подбор и проверка:
-            <span class="pick-hero__title-accent">видим автомобили насквозь</span>
+            <TitleKeyTypewriter
+              class="pick-hero__title-accent"
+              phrase="видим автомобили насквозь"
+              wrap
+              :start-delay-ms="210"
+              :char-delay-ms="46"
+              :caret-hide-delay-ms="260"
+            />
           </h1>
           <div class="pick-hero__inline-media" aria-hidden="true">
             <img
@@ -235,7 +243,7 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: #fff;
-  text-wrap: balance;
+  text-wrap: wrap;
 }
 
 @media (min-width: 900px) {
@@ -245,12 +253,6 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
     font-size: clamp(3rem, 5vw, 5rem);
     line-height: 1.02;
   }
-}
-
-.pick-hero__title-accent {
-  font-weight: 700;
-  font-style: italic;
-  color: var(--yellow);
 }
 
 .pick-hero__lead {
@@ -312,8 +314,10 @@ import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
 
   .pick-hero__title {
     max-width: 100%;
+    min-width: 0;
     font-size: clamp(2.3rem, 10vw, 3.4rem);
     line-height: 1.02;
+    overflow-wrap: anywhere;
   }
 
   .pick-hero__inline-media {

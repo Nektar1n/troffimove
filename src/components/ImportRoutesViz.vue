@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onUnmounted, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
+import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 import { useInView } from '../composables/useInView.js';
 import { normalizeBrandSvg } from '../utils/svgNormalize.js';
 import imgTruck from '../assets/фура.png';
@@ -136,7 +137,14 @@ const jpBrands = computed(() => brandSets.jp);
           <h2 id="routes-heading" class="routes__truck-heading">
             Привоз авто под ключ
             <span class="routes__truck-amp"> — </span>
-            <span class="routes__truck-accent">без посредников</span>
+            <TitleKeyTypewriter
+              class="routes__truck-accent"
+              phrase="без посредников"
+              :active="visible"
+              :start-delay-ms="210"
+              :char-delay-ms="46"
+              :caret-hide-delay-ms="260"
+            />
           </h2>
           <div class="routes__truck-inline-media" aria-hidden="true">
             <img
@@ -477,7 +485,7 @@ const jpBrands = computed(() => brandSets.jp);
   line-height: 1.05;
   letter-spacing: -0.045em;
   color: #fff;
-  text-wrap: balance;
+  text-wrap: wrap;
   text-align: left;
 }
 
@@ -492,12 +500,6 @@ const jpBrands = computed(() => brandSets.jp);
   font-weight: 500;
   color: rgba(245, 245, 247, 0.32);
   letter-spacing: 0.02em;
-}
-
-.routes__truck-accent {
-  font-weight: 700;
-  font-style: italic;
-  color: var(--yellow);
 }
 
 .routes__truck-deck {

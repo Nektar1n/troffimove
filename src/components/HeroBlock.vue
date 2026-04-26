@@ -4,12 +4,14 @@ import { RouterLink } from 'vue-router';
 import mainHeroPhoto from '../assets/главныйгерой.jpg';
 import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
+import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 import { STATS_LINE, formatStatValue } from '../data/statsLine.js';
 import { useStatsCountup } from '../composables/useStatsCountup.js';
 import { useInView } from '../composables/useInView.js';
 
 const mounted = ref(false);
 const statCountStarted = ref(false);
+
 const { el: heroDownRef, visible: heroDownInView } = useInView({
   rootMargin: '0px 0px -8% 0px',
   threshold: 0.12,
@@ -63,7 +65,8 @@ onMounted(() => {
           <div class="hero__swiss">
             <p class="hero__eyebrow" :class="{ 'is-in': mounted }">Troffimove Auto · Корея · Европа · Япония</p>
             <h1 class="hero__title" :class="{ 'is-in': mounted }">
-              Подбор, выкуп и привоз авто <span class="hero__title-em">под ключ</span>
+              Подбор, выкуп и привоз авто
+              <TitleKeyTypewriter class="hero__title-em" phrase="под ключ" />
             </h1>
             <div class="hero__inline-media" aria-hidden="true">
               <picture>
@@ -81,6 +84,11 @@ onMounted(() => {
               </picture>
               <div class="hero__inline-veil" />
             </div>
+            <p class="hero__lead" :class="{ 'is-in': mounted }">
+              Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
+              организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную
+              сумму без «доплат по факту».
+            </p>
             <div class="hero__cta">
               <div class="hero__actions" :class="{ 'is-in': mounted }">
                 <a class="btn btn--primary" href="#contact">Написать нам</a>
@@ -90,11 +98,6 @@ onMounted(() => {
                 <RouterLink class="hero__subcta-link" to="/podbor">Подбор и проверка б/у на месте →</RouterLink>
               </p>
             </div>
-            <p class="hero__lead" :class="{ 'is-in': mounted }">
-              Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
-              организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную
-              сумму без «доплат по факту».
-            </p>
             <div class="hero__meta">
               <SocialLinks class="hero__soc" :class="{ 'is-in': mounted }" variant="hero" />
               <p class="hero__byline">Дмитрий Темирович<span class="hero__byline-sep" aria-hidden="true"></span> </p>
@@ -437,10 +440,6 @@ onMounted(() => {
     margin-bottom: 0;
   }
 
-  .hero__lead {
-    display: none;
-  }
-  
   .hero__down {
     padding-bottom: 2rem;
   }
@@ -585,7 +584,8 @@ onMounted(() => {
   letter-spacing: -0.045em;
   margin: 0 0 0.5rem;
   color: #fff;
-  text-wrap: balance;
+  /* balance пересчитывается при каждом символе typewriter → лишняя третья строка на мобилке */
+  text-wrap: wrap;
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -596,12 +596,6 @@ onMounted(() => {
 .hero__title.is-in {
   opacity: 1;
   transform: translateY(0);
-}
-
-.hero__title-em {
-  font-weight: 700;
-  font-style: italic;
-  color: var(--yellow);
 }
 
 .hero__kicker {
@@ -791,6 +785,14 @@ onMounted(() => {
 
   .hero__subcta {
     margin-top: 0.7rem;
+  }
+
+  /* После базового .hero__lead — иначе clamp(1rem…) перебивает мобильный размер */
+  .hero__lead {
+    margin-top: 0.75rem;
+    max-width: 100%;
+    font-size: clamp(0.68rem, 3.1vw, 0.78rem);
+    line-height: 1.38;
   }
 }
 
