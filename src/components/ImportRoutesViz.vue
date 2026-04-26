@@ -141,6 +141,8 @@ const jpBrands = computed(() => brandSets.jp);
               class="routes__truck-accent"
               phrase="без посредников"
               :active="visible"
+              once
+              once-id="home-routes-truck-accent"
               :start-delay-ms="210"
               :char-delay-ms="46"
               :caret-hide-delay-ms="260"

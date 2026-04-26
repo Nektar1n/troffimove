@@ -10,10 +10,49 @@ const props = defineProps({
   active: { type: Boolean, default: true },
   /** длинная фраза: перенос строк вместо одной nowrap-линии (иначе клип на узком экране) */
   wrap: { type: Boolean, default: false },
+  /** один раз за сессию вкладки (sessionStorage), без повтора при SPA-навигации */
+  once: { type: Boolean, default: false },
+  /** уникальный ключ; если пусто — от phrase (риск коллизии при повторе фразы) */
+  onceId: { type: String, default: '' },
 });
 
 const typed = ref('');
 const caret = ref(false);
+const hasStarted = ref(false);
+
+const STORAGE_NS = 'troffimove-tw-once:';
+
+function storageKey() {
+  const id = props.onceId?.trim() || props.phrase;
+  return `${STORAGE_NS}${id}`;
+}
+
+function readAlreadyPlayed() {
+  if (!props.once || typeof sessionStorage === 'undefined') return false;
+  try {
+    return sessionStorage.getItem(storageKey()) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markPlayed() {
+  if (!props.once || typeof sessionStorage === 'undefined') return;
+  try {
+    sessionStorage.setItem(storageKey(), '1');
+  } catch {
+    /* private mode и т.п. */
+  }
+}
+
+/** Уже смотрели в этой вкладке — сразу полный текст, без таймеров */
+function hydrateIfAlreadyPlayed() {
+  if (!readAlreadyPlayed()) return false;
+  typed.value = props.phrase;
+  caret.value = false;
+  hasStarted.value = true;
+  return true;
+}
 
 let startTimer = null;
 let charTimer = null;
@@ -34,11 +73,10 @@ function clearTimers() {
   }
 }
 
-const hasStarted = ref(false);
-
 function applyReducedMotion() {
   typed.value = props.phrase;
   caret.value = false;
+  if (props.once) markPlayed();
 }
 
 function runTypewriter() {
@@ -59,6 +97,7 @@ function runTypewriter() {
           clearInterval(charTimer);
           charTimer = null;
         }
+        markPlayed();
         caretTimer = window.setTimeout(() => {
           caretTimer = null;
           caret.value = false;
@@ -86,13 +125,16 @@ function tryStartOnce() {
 }
 
 onMounted(() => {
+  if (hydrateIfAlreadyPlayed()) return;
   tryStartOnce();
 });
 
 watch(
   () => props.active,
   (v) => {
-    if (v) tryStartOnce();
+    if (!v) return;
+    if (hydrateIfAlreadyPlayed()) return;
+    tryStartOnce();
   },
 );
 

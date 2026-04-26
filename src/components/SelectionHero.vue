@@ -30,6 +30,8 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
               class="pick-hero__title-accent"
               phrase="видим автомобили насквозь"
               wrap
+              once
+              once-id="page-podbor-hero-accent"
               :start-delay-ms="210"
               :char-delay-ms="46"
               :caret-hide-delay-ms="260"
