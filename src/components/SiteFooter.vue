@@ -28,7 +28,7 @@ import SocialLinks from './SocialLinks.vue';
           <RouterLink to="/">Главная</RouterLink>
           <RouterLink to="/privoz">Привоз</RouterLink>
           <RouterLink to="/podbor">Подбор</RouterLink>
-          <RouterLink to="/cases">Кейсы</RouterLink>
+          <RouterLink to="/cases">Успешные сделки</RouterLink>
           <RouterLink :to="{ path: '/', hash: '#reviews' }">Отзывы</RouterLink>
           <RouterLink :to="{ path: '/', hash: '#faq' }">Вопросы и ответы</RouterLink>
           <RouterLink :to="{ path: '/', hash: '#contact' }">Заявка</RouterLink>

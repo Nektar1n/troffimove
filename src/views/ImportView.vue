@@ -12,11 +12,11 @@ import ContactForm from '../components/ContactForm.vue';
     <ImportInfoBlocks />
     <CasesSection
       section-id="import-cases"
-      title="Кейсы привоза"
+      title="Успешные сделки: привоз"
       lead="Несколько примеров, как проходит выкуп, логистика и доставка авто до РФ по разным направлениям."
       scope="import"
       tone="dark"
-      cta-label="Смотреть все кейсы привоза"
+      cta-label="Смотреть все сделки привоза"
       :cta-to="{ path: '/cases', query: { type: 'import' } }"
       :card-cta-to="{ path: '/privoz', hash: '#contact' }"
     />

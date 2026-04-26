@@ -15,7 +15,7 @@ const props = defineProps({
   },
   lead: {
     type: String,
-    default: 'Реальные этапы кейсов.',
+    default: 'Реальные этапы сделок.',
   },
   scope: {
     type: String,
@@ -27,7 +27,7 @@ const props = defineProps({
   },
   ctaLabel: {
     type: String,
-    default: 'Все кейсы',
+    default: 'Все сделки',
   },
   ctaTo: {
     type: [String, Object],
@@ -65,7 +65,7 @@ const isDark = computed(() => props.tone === 'dark');
             :src="c.image"
             width="800"
             height="500"
-            :alt="`Иллюстрация к кейсу: ${c.model}`"
+            :alt="`Иллюстрация к сделке: ${c.model}`"
             :loading="i === 0 ? 'eager' : 'lazy'"
             :fetchpriority="i === 0 ? 'high' : undefined"
             decoding="async"
@@ -241,10 +241,6 @@ const isDark = computed(() => props.tone === 'dark');
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #f7f7f5;
-}
-
-.sec--dark .card__media {
   background: var(--surface-dark);
 }
 
@@ -253,7 +249,7 @@ const isDark = computed(() => props.tone === 'dark');
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
 }

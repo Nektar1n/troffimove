@@ -60,7 +60,7 @@ const router = createRouter({
       path: '/cases',
       name: 'cases',
       component: CasesView,
-      meta: { title: 'Кейсы', description: PAGE_DESCRIPTIONS.cases },
+      meta: { title: 'Успешные сделки', description: PAGE_DESCRIPTIONS.cases },
     },
     {
       path: '/legal',

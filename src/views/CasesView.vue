@@ -7,7 +7,7 @@ const route = useRoute();
 const router = useRouter();
 
 const filters = [
-  { id: CASE_TYPES.all, label: 'Все кейсы' },
+  { id: CASE_TYPES.all, label: 'Все сделки' },
   { id: CASE_TYPES.import, label: 'Привоз' },
   { id: CASE_TYPES.selection, label: 'Подбор' },
 ];
@@ -36,14 +36,14 @@ function caseContactTarget(type) {
   <main class="cases-page">
     <section class="cases-page__hero">
       <div class="cases-page__inner">
-        <p class="cases-page__kicker">Кейсы</p>
+        <p class="cases-page__kicker">Успешные сделки</p>
         <h1 class="cases-page__title">Привоз и подбор: реальные сделки и реальные осмотры</h1>
         <p class="cases-page__lead">
-          Все кейсы в одном месте. Можно смотреть вместе или отдельно по направлениям: привоз авто и подбор б/у на
+          Все успешные сделки в одном месте. Можно смотреть вместе или отдельно по направлениям: привоз авто и подбор б/у на
           месте.
         </p>
 
-        <div class="cases-page__filters" role="tablist" aria-label="Фильтр кейсов">
+        <div class="cases-page__filters" role="tablist" aria-label="Фильтр сделок">
           <button
             v-for="filter in filters"
             :key="filter.id"
@@ -69,7 +69,7 @@ function caseContactTarget(type) {
                 :src="item.image"
                 width="800"
                 height="500"
-                :alt="`Иллюстрация к кейсу: ${item.model}`"
+                :alt="`Иллюстрация к сделке: ${item.model}`"
                 loading="lazy"
                 decoding="async"
               />
@@ -203,7 +203,7 @@ function caseContactTarget(type) {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: var(--bg-subtle);
+  background: var(--surface-dark);
 }
 
 .cases-card__img {
@@ -211,7 +211,7 @@ function caseContactTarget(type) {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 

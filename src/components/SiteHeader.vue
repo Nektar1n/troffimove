@@ -30,9 +30,13 @@ onUnmounted(() => {
   }
 });
 
-/** Тёмная прозрачная шапка: главная (hero), подбор (тёмный hero), привоз (тёмный блок маршрутов сверху). */
+/** Тёмная прозрачная шапка: hero/верх страницы тёмный — светлые ссылки до прокрутки (иначе сливаются с фоном). */
 const darkHeroTop = computed(
-  () => route.name === 'home' || route.name === 'selection' || route.name === 'import',
+  () =>
+    route.name === 'home' ||
+    route.name === 'selection' ||
+    route.name === 'import' ||
+    route.name === 'cases',
 );
 
 watch(
@@ -71,7 +75,7 @@ watch(mobileMenuOpen, (isOpen) => {
           <RouterLink to="/" class="head__link" exact-active-class="head__link--current">Главная</RouterLink>
           <RouterLink to="/privoz" class="head__link" active-class="head__link--current">Привоз</RouterLink>
           <RouterLink to="/podbor" class="head__link" active-class="head__link--current">Подбор</RouterLink>
-          <RouterLink to="/cases" class="head__link" active-class="head__link--current">Кейсы</RouterLink>
+          <RouterLink to="/cases" class="head__link" active-class="head__link--current">Успешные сделки</RouterLink>
         </nav>
 
         <RouterLink class="head__cta head__cta--desktop" :to="{ path: '/', hash: '#contact' }">Оставить заявку</RouterLink>
@@ -110,7 +114,7 @@ watch(mobileMenuOpen, (isOpen) => {
               Подбор
             </RouterLink>
             <RouterLink to="/cases" class="head__mob-link" active-class="head__mob-link--current" @click="closeMobileMenu">
-              Кейсы
+              Успешные сделки
             </RouterLink>
           </nav>
         </div>

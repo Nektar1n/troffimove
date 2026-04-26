@@ -15,11 +15,11 @@ import ContactForm from '../components/ContactForm.vue';
     <SelectionServices />
     <CasesSection
       section-id="selection-cases"
-      title="Кейсы подбора"
+      title="Успешные сделки: подбор"
       lead="Примеры выездных проверок, сопровождения сделок и подбора б/у на местном рынке."
       scope="selection"
       tone="dark"
-      cta-label="Смотреть все кейсы подбора"
+      cta-label="Смотреть все сделки подбора"
       :cta-to="{ path: '/cases', query: { type: 'selection' } }"
       :card-cta-to="{ path: '/podbor', hash: '#contact' }"
     />
