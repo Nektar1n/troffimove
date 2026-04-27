@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router';
 import FaqSection from '../components/FaqSection.vue';
 import HeroBlock from '../components/HeroBlock.vue';
+import HomeHeroStats from '../components/HomeHeroStats.vue';
 import CasesSection from '../components/CasesSection.vue';
 import ReviewsSection from '../components/ReviewsSection.vue';
 import ContactForm from '../components/ContactForm.vue';
@@ -10,6 +11,7 @@ import ContactForm from '../components/ContactForm.vue';
 <template>
   <main>
     <HeroBlock />
+    <HomeHeroStats />
 
     <section class="home-split" aria-label="Направления работы">
       <div class="home-split__inner">

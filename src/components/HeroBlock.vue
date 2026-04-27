@@ -1,38 +1,10 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue';
-import { RouterLink } from 'vue-router';
+import { onMounted, ref } from 'vue';
 import mainHeroPhoto from '../assets/главныйгерой.jpg';
 import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
 import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
-import { STATS_LINE, formatStatValue } from '../data/statsLine.js';
-import { useStatsCountup } from '../composables/useStatsCountup.js';
-import { useInView } from '../composables/useInView.js';
-
 const mounted = ref(false);
-const statCountStarted = ref(false);
-
-const { el: heroDownRef, visible: heroDownInView } = useInView({
-  rootMargin: '0px 0px -8% 0px',
-  threshold: 0.12,
-});
-
-const { values: statValues, done: statCountDone, start: startStatCount } = useStatsCountup();
-
-const statNumberLines = computed(() =>
-  statValues.value.map((v, i) => formatStatValue(i, v, statCountDone.value))
-);
-
-watch(
-  heroDownInView,
-  (v) => {
-    if (v && !statCountStarted.value) {
-      statCountStarted.value = true;
-      startStatCount();
-    }
-  },
-  { immediate: true },
-);
 
 onMounted(() => {
   requestAnimationFrame(() => {
@@ -94,35 +66,11 @@ onMounted(() => {
                 <a class="btn btn--primary" href="#contact">Написать нам</a>
                 <a class="btn btn--ghost" href="#cases">Примеры сделок</a>
               </div>
-              <p class="hero__subcta" :class="{ 'is-in': mounted }">
-                <RouterLink class="hero__subcta-link" to="/podbor">Подбор и проверка б/у на месте →</RouterLink>
-              </p>
             </div>
             <div class="hero__meta">
               <SocialLinks class="hero__soc" :class="{ 'is-in': mounted }" variant="hero" />
               <p class="hero__byline">Дмитрий Темирович<span class="hero__byline-sep" aria-hidden="true"></span> </p>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero__down" ref="heroDownRef">
-      <div class="hero__inner">
-        <div
-          id="stats"
-          class="hero__stats"
-          :class="{ 'hero__stats--in': heroDownInView }"
-          aria-label="Показатели"
-        >
-          <div
-            v-for="(s, i) in STATS_LINE"
-            :key="s.t"
-            class="hero__stat"
-            :style="{ transitionDelay: `${i * 0.08}s` }"
-          >
-            <span class="hero__stat-n">{{ statNumberLines[i] }}</span>
-            <span class="hero__stat-t">{{ s.t }}</span>
           </div>
         </div>
       </div>
@@ -140,7 +88,6 @@ onMounted(() => {
 
   position: relative;
   z-index: 0;
-  min-height: min(100vh, 100dvh);
   /* Без max-width: иначе фон «обрезан» полосами по бокам */
   width: 100%;
   max-width: none;
@@ -150,24 +97,6 @@ onMounted(() => {
   color: var(--hero-text);
   border-bottom: none;
   overflow-x: clip;
-}
-
-/* Ультраширокий + высокий экран: не тянуть секцию на 100dvh — иначе под обрезанной
-   сценой (max 860px) остаётся сплошной «подвал» из --hero-bg */
-@media (min-aspect-ratio: 2 / 1) {
-  .hero {
-    min-height: auto;
-  }
-}
-
-@media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
-  .hero__stage {
-    min-height: min(88dvh, min(1040px, 92vh));
-  }
-
-  .hero__bg-img {
-    object-position: 40% 44%;
-  }
 }
 
 .hero::before {
@@ -205,6 +134,23 @@ onMounted(() => {
   transform: translate3d(0, 0, 0);
 }
 
+@media (min-width: 900px) {
+  .hero__stage {
+    min-height: min(100dvh, 1080px);
+  }
+}
+
+/* После базовой высоты десктопа: ультраширокий экран — ниже сцена */
+@media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
+  .hero__stage {
+    min-height: min(88dvh, min(1040px, 92vh));
+  }
+
+  .hero__bg-img {
+    object-position: 40% 44%;
+  }
+}
+
 .hero__media {
   position: absolute;
   inset: 0;
@@ -230,6 +176,10 @@ onMounted(() => {
 }
 
 @media (max-width: 899px) {
+  .hero::before {
+    border-bottom: none;
+  }
+
   .hero__swiss {
     min-height: auto;
   }
@@ -239,6 +189,7 @@ onMounted(() => {
     flex-direction: column;
     gap: 1rem;
     min-height: auto;
+    box-shadow: none;
     background:
       radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
       linear-gradient(180deg, #07080a 0%, #0a0b0d 100%);
@@ -272,11 +223,6 @@ onMounted(() => {
 
   .hero__eyebrow {
     display: none;
-  }
-
-  .hero__subcta {
-    margin-top: 0.8rem;
-    text-align: left;
   }
 
   .hero__meta {
@@ -457,118 +403,12 @@ onMounted(() => {
   .hero__swiss .hero__cta {
     margin-bottom: 0;
   }
-
-  .hero__down {
-    padding-bottom: 2rem;
-  }
-
-  .hero__stats {
-    margin-top: 0.25rem;
-  }
 }
 
 .hero__byline-sep {
   color: rgba(233, 190, 95, 0.55);
   font-weight: 500;
   padding: 0 0.1em;
-}
-
-.hero__down {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  padding: 0 0 2.5rem;
-}
-
-@media (min-width: 900px) {
-  .hero__down {
-    padding: 0 0 3.5rem;
-  }
-}
-
-/* Как в StatsRow: тёмный фон на всю ширину экрана + сетка 2×2 / 4 в ряд */
-.hero__stats {
-  position: relative;
-  z-index: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem 1rem;
-  margin: 0 0 1.75rem;
-  padding: 1.5rem 0 2rem;
-  background: transparent;
-}
-
-@media (min-width: 720px) {
-  .hero__stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
-    padding: 1.5rem 0 2.25rem;
-  }
-}
-
-.hero__stats::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  max-width: 100vw;
-  transform: translateX(-50%);
-  z-index: -1;
-  pointer-events: none;
-  /* Как .hero::before, не --surface-dark-2 (сероватый) */
-  background: #0a0b0d;
-  border-top: 1px solid var(--hero-border);
-  border-bottom: 1px solid var(--hero-border);
-}
-
-.hero__stat {
-  padding: 0.9rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@media (min-width: 720px) {
-  .hero__stat {
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.25rem 1.75rem;
-  }
-
-  .hero__stat:first-child {
-    padding-left: 0;
-  }
-
-  .hero__stat:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
-}
-
-.hero__stats--in .hero__stat {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero__stat-n {
-  font-weight: 600;
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  letter-spacing: -0.03em;
-  color: rgba(245, 245, 247, 0.95);
-  font-variant-numeric: tabular-nums;
-}
-
-.hero__stat-t {
-  font-size: 0.8125rem;
-  line-height: 1.35;
-  color: rgba(245, 245, 247, 0.48);
-  max-width: 12rem;
 }
 
 .hero__cta {
@@ -693,33 +533,6 @@ onMounted(() => {
   transform: translateY(0);
 }
 
-.hero__subcta {
-  margin: 0.85rem 0 0;
-  font-size: 0.8rem;
-  font-weight: 500;
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 0.55s ease 0.2s,
-    transform 0.55s ease 0.2s;
-}
-
-.hero__subcta.is-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero__subcta-link {
-  color: rgba(245, 245, 247, 0.84);
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-}
-
-.hero__subcta-link:hover {
-  color: var(--yellow);
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -787,22 +600,8 @@ onMounted(() => {
     padding-bottom: 1.8rem;
   }
 
-  .hero__stats {
-    margin-bottom: 1.25rem;
-    padding-top: 1.25rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .hero__stat {
-    gap: 0.28rem;
-  }
-
   .hero__title {
     margin-bottom: 0.35rem;
-  }
-
-  .hero__subcta {
-    margin-top: 0.7rem;
   }
 
   /* После базового .hero__lead — иначе clamp(1rem…) перебивает мобильный размер */
@@ -827,9 +626,7 @@ onMounted(() => {
   .hero__lead,
   .hero__soc,
   .hero__stage,
-  .hero__actions,
-  .hero__subcta,
-  .hero__stat {
+  .hero__actions {
     opacity: 1;
     transform: none;
     transition: none;
