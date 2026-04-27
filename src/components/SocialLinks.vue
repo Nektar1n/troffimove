@@ -4,12 +4,14 @@ import { socialUrls } from '../config/site.js';
 import { getSocialSvg } from '../utils/socialSvgs.js';
 
 defineProps({
-  /** 'hero' — компактная строка у текста; 'footer' — чуть крупнее */
+  /** 'hero' — иконки в ряд; 'hero-messengers' — подпись «Мы в соцсетях:» + IG/TG/VK; 'footer' — в подвале */
   variant: {
     type: String,
     default: 'hero',
   },
 });
+
+const messengerIds = new Set(['instagram', 'telegram', 'vk']);
 
 const items = computed(() => {
   const list = [

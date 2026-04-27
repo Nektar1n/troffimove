@@ -56,11 +56,17 @@ onMounted(() => {
               </picture>
               <div class="hero__inline-veil" />
             </div>
-            <p class="hero__lead" :class="{ 'is-in': mounted }">
-              Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
-              организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную
-              сумму без «доплат по факту».
-            </p>
+            <div class="hero__quote" :class="{ 'is-in': mounted }">
+              <span class="hero__quote-mark" aria-hidden="true">“</span>
+              <p class="hero__lead">
+                Один контрагент по договору: ищем лот на аукционах и площадках, проверяем продавца и историю, согласуем цену,
+                организуем оплату, выкуп, доставку до РФ, таможню и постановку на учёт. Фиксируем этапы, сроки и финальную
+                сумму без «доплат по факту».
+              </p>
+              <p class="hero__lead-attrib">— Дмитрий Темирович</p>
+            </div>
+          </div>
+          <div class="hero__dock">
             <div class="hero__cta">
               <div class="hero__actions" :class="{ 'is-in': mounted }">
                 <a class="btn btn--primary" href="#contact">Написать нам</a>
@@ -68,8 +74,10 @@ onMounted(() => {
               </div>
             </div>
             <div class="hero__meta">
-              <SocialLinks class="hero__soc" :class="{ 'is-in': mounted }" variant="hero" />
-              <p class="hero__byline">Дмитрий Темирович<span class="hero__byline-sep" aria-hidden="true"></span> </p>
+              <div class="hero__soc-row">
+                <span class="hero__soc-label">Мы в соцсетях:</span>
+                <SocialLinks class="hero__soc" :class="{ 'is-in': mounted }" variant="hero" />
+              </div>
             </div>
           </div>
         </div>
@@ -120,6 +128,8 @@ onMounted(() => {
   z-index: 1;
   width: 100%;
   min-height: min(78vh, 860px);
+  display: flex;
+  flex-direction: column;
   background: var(--hero-bg);
   opacity: 0;
   transform: translate3d(0, 4px, 0);
@@ -180,13 +190,7 @@ onMounted(() => {
     border-bottom: none;
   }
 
-  .hero__swiss {
-    min-height: auto;
-  }
-
   .hero__stage {
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
     min-height: auto;
     box-shadow: none;
@@ -201,12 +205,24 @@ onMounted(() => {
 
   .hero__fore {
     order: 1;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     padding-top: calc(9.8rem + env(safe-area-inset-top, 0px));
     padding-bottom: 0;
   }
 
-  .hero__cta {
-    margin-top: 0.95rem;
+  .hero__inner {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100svh - 6.75rem);
+  }
+
+  .hero__swiss {
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   .hero__actions {
@@ -218,35 +234,29 @@ onMounted(() => {
   .btn {
     width: 100%;
     min-width: 0;
-    padding-inline: 0.9rem;
+    min-height: 3.1rem;
+    padding-block: 0.85rem;
+    padding-inline: 0.95rem;
+    font-size: clamp(0.98rem, 3.5vw, 1.1rem);
   }
 
   .hero__eyebrow {
     display: none;
   }
 
-  .hero__meta {
-    margin-top: 1rem;
-  }
-
   .hero__soc {
     margin-top: 0;
   }
 
-  .hero :deep(.soc) {
+  .hero__dock :deep(.soc) {
     gap: 0.45rem;
   }
 
-  .hero :deep(.soc__link) {
+  .hero__dock :deep(.soc__link) {
     width: 40px;
     height: 40px;
   }
 
-  .hero__byline {
-    margin-top: 0.8rem;
-    font-size: 0.74rem;
-    color: rgba(245, 245, 247, 0.5);
-  }
 }
 
 @media (max-width: 380px) {
@@ -286,14 +296,21 @@ onMounted(() => {
 .hero__fore {
   position: relative;
   z-index: 2;
-  display: block;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   width: 100%;
-  padding: calc(7.5rem + env(safe-area-inset-top, 0px)) 0 2.5rem;
+  padding: calc(7.5rem + env(safe-area-inset-top, 0px)) 0 1.85rem;
   box-sizing: border-box;
   pointer-events: auto;
 }
 
 .hero__inner {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   max-width: var(--content-max);
   margin: 0 auto;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
@@ -308,7 +325,9 @@ onMounted(() => {
 
 @media (min-width: 900px) {
   .hero__fore {
-    padding: calc(6.5rem + env(safe-area-inset-top, 0px)) 0 3rem;
+    flex: 1;
+    min-height: 0;
+    padding: calc(6.5rem + env(safe-area-inset-top, 0px)) 0 max(1.15rem, env(safe-area-inset-bottom, 0px));
   }
 
   .hero__inner {
@@ -320,8 +339,10 @@ onMounted(() => {
 /* 12 колонок: слева 10 (заголовок), справа 2 (узкий лид) — от ≥900px */
 .hero__swiss {
   min-width: 0;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 @media (min-width: 900px) {
@@ -331,6 +352,11 @@ onMounted(() => {
     column-gap: 1.75rem;
     row-gap: 0;
     align-items: start;
+    align-content: start;
+    /* Иначе колонка тянется на всю высоту героя — док «улетает» вниз, сдвиги margin незаметны */
+    flex: 0 1 auto;
+    min-height: 0;
+    padding-bottom: clamp(2.75rem, 7vh, 5.65rem);
     /* Узкая мера для жёлтой строки (заголовок — отдельно, --hero-title-w) */
     --hero-left-prose: min(32rem, 100%);
     --hero-title-w: min(64rem, 100%);
@@ -349,14 +375,6 @@ onMounted(() => {
     line-height: 1.02;
   }
 
-  .hero__swiss .hero__cta {
-    grid-column: 1 / 11;
-    grid-row: 3;
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-    align-self: start;
-  }
-
   .hero__swiss .hero__kicker {
     grid-column: 1 / 11;
     grid-row: 4;
@@ -365,50 +383,98 @@ onMounted(() => {
     max-width: var(--hero-left-prose);
   }
 
-  .hero__swiss .hero__lead {
+  .hero__swiss .hero__quote {
     grid-column: 11 / 13;
-    grid-row: 2 / 6;
+    grid-row: 2 / 5;
     max-width: none;
     margin: 0;
     align-self: start;
-    font-size: clamp(0.86rem, 0.9vw, 0.95rem);
-    line-height: 1.5;
   }
 
-  .hero__swiss .hero__meta {
-    display: block;
-    grid-column: 1 / 11;
-    grid-row: 5;
-    margin-top: 1.35rem;
+  .hero__swiss .hero__quote .hero__lead,
+  .hero__swiss .hero__quote .hero__lead-attrib {
+    font-size: clamp(0.86rem, 0.9vw, 0.98rem);
+    line-height: 1.55;
+    color: #fff;
+    text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero__swiss .hero__quote .hero__lead-attrib {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .hero__swiss .hero__quote-mark {
+    font-size: clamp(3.1rem, 4.8vw, 4.25rem);
+    line-height: 0.68;
+    margin-bottom: 0.35rem;
+    color: #ffd057;
+    text-shadow: 0 0 32px rgba(233, 190, 95, 0.45);
   }
 }
 
 .hero__meta {
   min-width: 0;
+  margin: 0;
 }
 
-.hero__byline {
-  margin: 0.85rem 0 0;
-  max-width: 40rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: rgba(245, 245, 247, 0.58);
+.hero__dock {
+  margin-top: auto;
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding-top: 0.75rem;
 }
 
-@media (max-width: 899px) {
-  .hero__byline {
-    margin-top: 0.8rem;
+@media (min-width: 900px) {
+  .hero__dock {
+    margin-top: clamp(4.85rem, 14vh, 9rem);
+    gap: 0.8rem;
+    padding-top: 0;
   }
-
-  .hero__swiss .hero__cta {
-    margin-bottom: 0;
-  }
 }
 
-.hero__byline-sep {
-  color: rgba(233, 190, 95, 0.55);
+.hero__soc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+}
+
+.hero__soc-label {
+  font-size: 0.875rem;
   font-weight: 500;
-  padding: 0 0.1em;
+  letter-spacing: 0.02em;
+  color: rgba(245, 245, 247, 0.72);
+}
+
+.hero__dock :deep(.soc--hero) {
+  margin-top: 0;
+}
+
+.hero__dock :deep(.soc__link) {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 6px;
+  color: #fff;
+  background: rgba(8, 9, 11, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero__dock :deep(.soc__link:hover) {
+  border-color: rgba(233, 190, 95, 0.5);
+  background: rgba(18, 19, 22, 0.78);
+}
+
+.hero__dock .btn--ghost {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(8, 9, 11, 0.38);
+}
+
+.hero__dock .btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(18, 19, 22, 0.72);
 }
 
 .hero__cta {
@@ -475,11 +541,7 @@ onMounted(() => {
   transform: translateY(0);
 }
 
-.hero__lead {
-  font-size: clamp(1rem, 2.8vw, 1.0625rem);
-  line-height: 1.5;
-  color: var(--hero-muted);
-  margin: 0;
+.hero__quote {
   max-width: 44rem;
   opacity: 0;
   transform: translateY(12px);
@@ -488,9 +550,40 @@ onMounted(() => {
     transform 0.55s ease 0.1s;
 }
 
-.hero__lead.is-in {
+.hero__quote.is-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+.hero__quote-mark {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.35rem, 7vw, 3.1rem);
+  line-height: 0.72;
+  font-weight: 400;
+  color: #f2c75c;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 28px rgba(233, 190, 95, 0.22);
+}
+
+.hero__lead {
+  font-size: clamp(1rem, 2.8vw, 1.0625rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.97);
+  margin: 0;
+  max-width: 44rem;
+  font-weight: 400;
+}
+
+.hero__lead-attrib {
+  margin: 0.75rem 0 0;
+  max-width: 44rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.02rem);
+  line-height: 1.45;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.94);
+  letter-spacing: 0.01em;
 }
 
 .hero__soc {
@@ -506,21 +599,10 @@ onMounted(() => {
   transform: translateY(0);
 }
 
-.hero :deep(.soc__link) {
-  border-color: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  background: rgba(13, 14, 16, 0.78);
-}
-
-.hero :deep(.soc__link:hover) {
-  border-color: rgba(233, 190, 95, 0.4);
-  background: rgba(18, 19, 22, 0.92);
-}
-
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: 0.75rem;
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -537,11 +619,11 @@ onMounted(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0.7rem 1.2rem;
-  border-radius: 0.9rem;
+  min-height: clamp(3rem, 5.5vw, 3.65rem);
+  padding: clamp(0.85rem, 1.9vw, 1.05rem) clamp(1.15rem, 3.2vw, 1.85rem);
+  border-radius: clamp(0.95rem, 1.9vw, 1.2rem);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: clamp(1rem, 2.3vw, 1.2rem);
   letter-spacing: 0.01em;
   text-decoration: none;
   transition:
@@ -597,19 +679,27 @@ onMounted(() => {
   }
 
   .hero__fore {
-    padding-bottom: 1.8rem;
+    padding-bottom: 1.35rem;
   }
 
   .hero__title {
     margin-bottom: 0.35rem;
   }
 
-  /* После базового .hero__lead — иначе clamp(1rem…) перебивает мобильный размер */
-  .hero__lead {
+  .hero__quote {
     margin-top: 0.75rem;
     max-width: 100%;
-    font-size: clamp(0.68rem, 3.1vw, 0.78rem);
-    line-height: 1.38;
+  }
+
+  .hero__quote .hero__lead,
+  .hero__quote .hero__lead-attrib {
+    font-size: clamp(0.72rem, 3.2vw, 0.82rem);
+    line-height: 1.42;
+  }
+
+  .hero__quote-mark {
+    font-size: clamp(2.1rem, 9vw, 2.65rem);
+    margin-bottom: 0.2rem;
   }
 }
 
@@ -623,7 +713,7 @@ onMounted(() => {
   .hero__eyebrow,
   .hero__title,
   .hero__kicker,
-  .hero__lead,
+  .hero__quote,
   .hero__soc,
   .hero__stage,
   .hero__actions {
