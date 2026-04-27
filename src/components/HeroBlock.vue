@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import mainHeroPhoto from '../assets/главныйгерой.jpg';
+import desktopHeroPhoto from '../assets/ГлавноеФотоТроффимов.png';
 import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
 import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
@@ -20,7 +20,7 @@ onMounted(() => {
         <picture>
           <source :srcset="mobileHeroPhoto" media="(max-width: 899px)" />
           <img
-            :src="mainHeroPhoto"
+            :src="desktopHeroPhoto"
             class="hero__bg-img"
             width="1920"
             height="800"
@@ -44,7 +44,7 @@ onMounted(() => {
               <picture>
                 <source :srcset="mobileHeroPhoto" media="(max-width: 899px)" />
                 <img
-                  :src="mainHeroPhoto"
+                  :src="desktopHeroPhoto"
                   class="hero__inline-img"
                   width="1920"
                   height="800"
@@ -371,8 +371,8 @@ onMounted(() => {
     grid-column: 1 / 11;
     grid-row: 2;
     max-width: var(--hero-title-w);
-    font-size: clamp(3rem, 5vw, 5rem);
-    line-height: 1.02;
+    font-size: clamp(3.45rem, 6.2vw, 6.25rem);
+    line-height: 1.01;
   }
 
   .hero__swiss .hero__kicker {
@@ -503,8 +503,8 @@ onMounted(() => {
 
 .hero__title {
   font-weight: 600;
-  font-size: clamp(2.4rem, 7.6vw, 3.9rem);
-  line-height: 1.05;
+  font-size: clamp(2.85rem, 8.8vw, 4.55rem);
+  line-height: 1.04;
   letter-spacing: -0.045em;
   margin: 0 0 0.5rem;
   color: #fff;

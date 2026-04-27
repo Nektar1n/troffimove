@@ -2,7 +2,7 @@
   <div class="im">
     <section id="import-process" class="im__sec im__sec--light" aria-labelledby="im-process-h">
       <div class="im__inner">
-        <p class="im__kicker">Как идёт сделка</p>
+        <p class="im__kicker">Этапы сделки</p>
         <h2 id="im-process-h" class="im__h2 im__h2--process">Путь от заявки до передачи авто</h2>
         <p class="im__intro">
           Ниже — ориентир по этапам. Фактические сроки и стоимость согласуем в договоре: у каждого поставщика
@@ -247,7 +247,14 @@ const faq = [
 }
 
 .im__sec--light .im__kicker {
-  color: var(--yellow, #e9be5f);
+  margin: 0 0 0.55rem;
+  font-size: clamp(2.35rem, 4.6vw, 3.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+  font-style: italic;
+  text-transform: none;
+  color: var(--text);
 }
 
 .im__sec--light .im__intro {
@@ -276,16 +283,6 @@ const faq = [
     background: transparent;
     border-color: transparent;
   }
-}
-
-.im__kicker {
-  margin: 0 0 0.4rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(233, 190, 95, 0.9);
 }
 
 .im__h2 {
@@ -600,5 +597,17 @@ details[open] .im__summary::after {
   line-height: 1.5;
   color: rgba(245, 245, 247, 0.6);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 1199px) {
+  .im__sec--light .im__kicker {
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+  }
+}
+
+@media (max-width: 899px) {
+  .im__sec--light .im__kicker {
+    font-size: clamp(1.65rem, 7.4vw, 2.2rem);
+  }
 }
 </style>
