@@ -51,7 +51,7 @@ const items = [
                 :alt="item.alt"
                 width="1100"
                 height="614"
-                loading="eager"
+                :loading="i === 0 ? 'eager' : 'lazy'"
                 decoding="async"
                 :fetchpriority="i === 0 ? 'high' : 'low'"
               />

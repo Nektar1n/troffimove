@@ -23,8 +23,8 @@
                 :alt="`Иллюстрация: ${s.t}`"
                 width="1000"
                 height="558"
-                :loading="i < 2 ? 'eager' : 'lazy'"
-                :fetchpriority="i === 0 ? 'high' : 'low'"
+                loading="lazy"
+                fetchpriority="low"
                 decoding="async"
               />
             </figure>

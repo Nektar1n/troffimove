@@ -1,15 +1,15 @@
-import imgPrivoz1 from '../assets/privoz_1.png';
-import imgPrivoz2 from '../assets/privoz_2.png';
-import imgPrivoz3 from '../assets/privoz_3.png';
+import imgPrivoz1 from '../assets/privoz_1.jpg';
+import imgPrivoz2 from '../assets/privoz_2.jpg';
+import imgPrivoz3 from '../assets/privoz_3.jpg';
 import imgPrivoz4 from '../assets/privoz_4.jpeg';
 import imgPrivoz5 from '../assets/privoz_5.jpeg';
 import imgPrivoz6 from '../assets/privoz_6.jpeg';
-import imgPodbor1 from '../assets/podbor_1.png';
-import imgPodbor2 from '../assets/podbor_2.png';
-import imgPodbor3 from '../assets/podbor_3.png';
-import imgPodbor4 from '../assets/podbor_4.png';
-import imgPodbor5 from '../assets/podbor_5.png';
-import imgPodbor6 from '../assets/podbor_6.png';
+import imgPodbor1 from '../assets/podbor_1.jpg';
+import imgPodbor2 from '../assets/podbor_2.jpg';
+import imgPodbor3 from '../assets/podbor_3.jpg';
+import imgPodbor4 from '../assets/podbor_4.jpg';
+import imgPodbor5 from '../assets/podbor_5.jpg';
+import imgPodbor6 from '../assets/podbor_6.jpg';
 
 export const CASE_TYPES = {
   all: 'all',

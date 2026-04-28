@@ -16,7 +16,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
           height="768"
           alt="BMW: осмотр автомобиля перед сделкой"
           loading="eager"
-          decoding="sync"
+          decoding="async"
           fetchpriority="high"
         />
         <div class="pick-hero__overlay" aria-hidden="true" />
@@ -44,9 +44,9 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
               width="1376"
               height="768"
               alt=""
-              loading="eager"
-              decoding="sync"
-              fetchpriority="high"
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
             />
             <div class="pick-hero__inline-veil" />
           </div>

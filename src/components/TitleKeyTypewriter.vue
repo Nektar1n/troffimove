@@ -143,8 +143,10 @@ onBeforeUnmount(() => {
   display: inline-grid;
   grid-template: 1fr / 1fr;
   vertical-align: baseline;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-style: italic;
+  font-style: normal;
+  letter-spacing: -0.04em;
   color: var(--yellow);
   white-space: nowrap;
   --title-caret-w: 0.08em;

@@ -214,6 +214,7 @@ onBeforeUnmount(() => {
         alt=""
         loading="eager"
         decoding="async"
+        fetchpriority="low"
         aria-hidden="true"
       />
 
@@ -408,10 +409,10 @@ onBeforeUnmount(() => {
 .hero__title-line {
   display: block;
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
   font-style: normal;
   letter-spacing: -0.045em;
-  line-height: 1.02;
+  line-height: 0.9;
 }
 
 .hero__title-line--1 {
@@ -476,6 +477,7 @@ onBeforeUnmount(() => {
   max-height: none;
   object-fit: contain;
   object-position: bottom center;
+  filter: brightness(0.92) saturate(0.94);
   display: block;
   pointer-events: none;
 }
@@ -705,7 +707,7 @@ onBeforeUnmount(() => {
     display: block;
     max-width: 100%;
     min-width: 0;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .hero__title-accent {
