@@ -1,36 +1,169 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import desktopHeroPhoto from '../assets/субаОтлично.jpg';
 import trofimCutout from '../assets/вырезаныйТроффим.png';
 import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
 import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
+/**
+ * Parallax / разбор ghost-заголовка при скролле (только десктоп).
+ * Поставьте true, чтобы вернуть анимацию — остальной код уже на месте.
+ */
+const ENABLE_HERO_GHOST_SCROLL = false;
+
 const mounted = ref(false);
+const heroStage = ref(null);
+const heroTitle = ref(null);
+
+let scrollRaf = 0;
+let reduceMotionQuery = null;
+let mobileQuery = null;
+
+function buildGhostLetters(text) {
+  const chars = Array.from(text);
+  const lastIndex = Math.max(chars.length - 1, 1);
+  const center = lastIndex / 2;
+
+  return chars.map((char, index) => {
+    const distanceFromCenter = Math.abs(index - center) / center;
+    const centerWeight = 1 - Math.min(distanceFromCenter, 1);
+    const speed = 0.54 + Math.pow(centerWeight, 1.65) * 0.92;
+
+    return {
+      id: `${char}-${index}`,
+      char: char === ' ' ? '\u00A0' : char,
+      speed: Number(speed.toFixed(3)),
+    };
+  });
+}
+
+const ghostLineOneLetters = buildGhostLetters('Подбор, выкуп и привоз');
+const ghostLineTwoLetters = buildGhostLetters('авто под ключ');
+
+function setGhostMotionVars({
+  parallax = 0,
+  blur = 0,
+  opacityOne = 0.1,
+  opacityTwo = 0.05,
+} = {}) {
+  if (!heroTitle.value) return;
+
+  const style = heroTitle.value.style;
+  style.setProperty('--hero-ghost-parallax', `${parallax}px`);
+  style.setProperty('--hero-ghost-blur', `${blur}px`);
+  style.setProperty('--hero-ghost-opacity-one', opacityOne);
+  style.setProperty('--hero-ghost-opacity-two', opacityTwo);
+}
+
+function resetGhostMotion() {
+  setGhostMotionVars();
+}
+
+function updateGhostParallax() {
+  scrollRaf = 0;
+
+  if (!ENABLE_HERO_GHOST_SCROLL) {
+    resetGhostMotion();
+    return;
+  }
+
+  if (!heroStage.value || reduceMotionQuery?.matches || mobileQuery?.matches) {
+    resetGhostMotion();
+    return;
+  }
+
+  const rect = heroStage.value.getBoundingClientRect();
+  const scrolledInsideHero = Math.min(Math.max(-rect.top, 0), rect.height * 1.35);
+  const progress = rect.height > 0 ? scrolledInsideHero / rect.height : 0;
+
+  setGhostMotionVars({
+    parallax: Math.min(scrolledInsideHero * 1.18, 780),
+    blur: Math.min(Math.max(progress - 0.78, 0) * 6, 3.2),
+    opacityOne: Math.max(0.025, 0.1 - Math.max(progress - 1.02, 0) * 0.14),
+    opacityTwo: Math.max(0.012, 0.05 - Math.max(progress - 1.02, 0) * 0.07),
+  });
+}
+
+function scheduleGhostParallax() {
+  if (scrollRaf) return;
+  scrollRaf = requestAnimationFrame(updateGhostParallax);
+}
 
 onMounted(() => {
+  if (ENABLE_HERO_GHOST_SCROLL) {
+    reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mobileQuery = window.matchMedia('(max-width: 899px)');
+  }
+
   requestAnimationFrame(() => {
     mounted.value = true;
+    updateGhostParallax();
   });
+
+  if (ENABLE_HERO_GHOST_SCROLL) {
+    window.addEventListener('scroll', scheduleGhostParallax, { passive: true });
+    window.addEventListener('resize', scheduleGhostParallax, { passive: true });
+  }
+});
+
+onBeforeUnmount(() => {
+  if (!ENABLE_HERO_GHOST_SCROLL) return;
+
+  window.removeEventListener('scroll', scheduleGhostParallax);
+  window.removeEventListener('resize', scheduleGhostParallax);
+  if (scrollRaf) cancelAnimationFrame(scrollRaf);
 });
 </script>
 
 <template>
   <section class="hero">
-    <div class="hero__stage" :class="{ 'is-in': mounted }">
+    <div ref="heroStage" class="hero__stage" :class="{ 'is-in': mounted }">
       <div class="hero__wash" aria-hidden="true" />
 
       <!-- z: заголовок и ghost под машиной и фигурой (макет Figma) -->
       <div class="hero__masthead">
         <div class="hero__head">
-          <h1 class="hero__title" :class="{ 'is-in': mounted }">
+          <h1
+            ref="heroTitle"
+            class="hero__title"
+            :class="{ 'is-in': mounted }"
+          >
             <span class="hero__title-ghost hero__title-ghost--one" aria-hidden="true">
-              <span class="hero__title-line hero__title-line--1">Подбор, выкуп и привоз</span>
-              <span class="hero__title-line hero__title-line--2"><span class="hero__title-auto">авто</span> <span class="hero__title-key">под ключ</span></span>
+              <span class="hero__title-line hero__title-line--1">
+                <span
+                  v-for="letter in ghostLineOneLetters"
+                  :key="`one-1-${letter.id}`"
+                  class="hero__ghost-letter"
+                  :style="{ '--letter-speed': letter.speed }"
+                >{{ letter.char }}</span>
+              </span>
+              <span class="hero__title-line hero__title-line--2">
+                <span
+                  v-for="letter in ghostLineTwoLetters"
+                  :key="`one-2-${letter.id}`"
+                  class="hero__ghost-letter"
+                  :style="{ '--letter-speed': letter.speed }"
+                >{{ letter.char }}</span>
+              </span>
             </span>
             <span class="hero__title-ghost hero__title-ghost--two" aria-hidden="true">
-              <span class="hero__title-line hero__title-line--1">Подбор, выкуп и привоз</span>
-              <span class="hero__title-line hero__title-line--2"><span class="hero__title-auto">авто</span> <span class="hero__title-key">под ключ</span></span>
+              <span class="hero__title-line hero__title-line--1">
+                <span
+                  v-for="letter in ghostLineOneLetters"
+                  :key="`two-1-${letter.id}`"
+                  class="hero__ghost-letter"
+                  :style="{ '--letter-speed': letter.speed }"
+                >{{ letter.char }}</span>
+              </span>
+              <span class="hero__title-line hero__title-line--2">
+                <span
+                  v-for="letter in ghostLineTwoLetters"
+                  :key="`two-2-${letter.id}`"
+                  class="hero__ghost-letter"
+                  :style="{ '--letter-speed': letter.speed }"
+                >{{ letter.char }}</span>
+              </span>
             </span>
             <span class="hero__title-live">
               <span class="hero__title-line hero__title-line--1">Подбор, выкуп и привоз</span>
@@ -116,16 +249,19 @@ onMounted(() => {
 .hero {
   --hero-warm: #726c63;
   --hero-warm-deep: #514b43;
+  --hero-top: #767067;
   --hero-text: #fff;
   --hero-text-dim: rgba(255, 255, 255, 0.92);
 
   position: relative;
   z-index: 0;
   width: 100%;
+  background-color: var(--hero-top);
   max-width: none;
   margin: 0;
   padding: 0;
-  overflow-x: clip;
+  /* overflow-x: clip на .page — иначе здесь Y становится auto и режет parallax-заголовок снизу */
+  overflow: visible;
   color: var(--hero-text);
 }
 
@@ -133,11 +269,13 @@ onMounted(() => {
   position: relative;
   width: 100%;
   min-height: min(100dvh, 1120px);
+  background-color: var(--hero-top);
   padding-top: calc(7rem + env(safe-area-inset-top, 0px));
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: 0;
   padding-bottom: 0;
   box-sizing: border-box;
+  overflow: visible;
   opacity: 0;
   transform: translate3d(0, 6px, 0);
   transition:
@@ -157,8 +295,13 @@ onMounted(() => {
   top: 0;
   left: 0;
   right: 0;
-  height: clamp(7rem, 18vh, 13rem);
-  background: linear-gradient(180deg, rgba(118, 112, 103, 0.92) 0%, rgba(118, 112, 103, 0.58) 46%, rgba(118, 112, 103, 0) 100%);
+  height: clamp(7rem, 19vh, 13rem);
+  background: linear-gradient(
+    180deg,
+    rgba(118, 112, 103, 0.78) 0%,
+    rgba(118, 112, 103, 0.45) 52%,
+    rgba(118, 112, 103, 0) 100%
+  );
   pointer-events: none;
 }
 
@@ -168,7 +311,7 @@ onMounted(() => {
   z-index: 0;
   background:
     radial-gradient(ellipse at 50% 62%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 62%),
-    linear-gradient(180deg, #767067 0%, var(--hero-warm) 34%, var(--hero-warm-deep) 100%);
+    linear-gradient(180deg, var(--hero-top) 0%, var(--hero-warm) 34%, var(--hero-warm-deep) 100%);
   pointer-events: none;
 }
 
@@ -181,6 +324,7 @@ onMounted(() => {
   padding: 0 max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
   margin-bottom: 0;
   min-height: clamp(12rem, 31vh, 20.5rem);
+  overflow: visible;
 }
 
 .hero__head {
@@ -189,15 +333,21 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   width: 100%;
+  overflow: visible;
 }
 
 .hero__title {
   --hero-ghost-step: clamp(2.4rem, 6vw, 5.8rem);
+  --hero-ghost-parallax: 0px;
+  --hero-ghost-blur: 0px;
+  --hero-ghost-opacity-one: 0.1;
+  --hero-ghost-opacity-two: 0.05;
 
   position: relative;
   margin: 0;
   text-align: center;
   max-width: min(98vw, 88rem);
+  overflow: visible;
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -221,17 +371,32 @@ onMounted(() => {
   z-index: 1;
   display: block;
   color: #fff;
+  filter: blur(var(--hero-ghost-blur));
+  overflow: visible;
   pointer-events: none;
   user-select: none;
+  will-change: transform, opacity, filter;
+}
+
+.hero__title-ghost .hero__title-line {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0;
+}
+
+.hero__ghost-letter {
+  display: inline-block;
+  transform: translate3d(0, calc(var(--hero-ghost-parallax) * var(--letter-speed)), 0);
 }
 
 .hero__title-ghost--one {
-  opacity: 0.1;
+  opacity: var(--hero-ghost-opacity-one);
   transform: translate3d(0, var(--hero-ghost-step), 0);
 }
 
 .hero__title-ghost--two {
-  opacity: 0.05;
+  opacity: var(--hero-ghost-opacity-two);
   transform: translate3d(0, calc(var(--hero-ghost-step) * 2), 0);
 }
 
@@ -243,7 +408,7 @@ onMounted(() => {
 .hero__title-line {
   display: block;
   color: #fff;
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
   letter-spacing: -0.045em;
   line-height: 1.02;
@@ -287,7 +452,14 @@ onMounted(() => {
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(118, 112, 103, 0.72) 0%, rgba(114, 108, 99, 0.58) 22%, rgba(90, 84, 76, 0.18) 54%, rgba(28, 25, 22, 0.34) 100%),
+    linear-gradient(
+      180deg,
+      rgba(118, 112, 103, 0.76) 0%,
+      rgba(118, 112, 103, 0.62) 18%,
+      rgba(114, 108, 99, 0.48) 32%,
+      rgba(90, 84, 76, 0.16) 54%,
+      rgba(28, 25, 22, 0.34) 100%
+    ),
     linear-gradient(90deg, rgba(90, 84, 76, 0.34) 0%, rgba(40, 36, 32, 0.02) 50%, rgba(90, 84, 76, 0.28) 100%);
   pointer-events: none;
 }

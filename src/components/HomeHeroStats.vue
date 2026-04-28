@@ -50,7 +50,7 @@ watch(
 <style scoped>
 .home-hero-stats {
   position: relative;
-  z-index: 0;
+  z-index: 6;
   width: 100%;
   max-width: none;
   margin: 0;
