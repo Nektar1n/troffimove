@@ -416,7 +416,7 @@ onBeforeUnmount(() => {
 }
 
 .hero__title-line--1 {
-  font-size: clamp(3.2rem, 8.65vw, 8rem);
+  font-size: clamp(3rem, 8.2vw, 7.6rem);
   white-space: nowrap;
 }
 
@@ -426,7 +426,7 @@ onBeforeUnmount(() => {
   align-items: baseline;
   gap: 0.14em;
   margin-top: -0.02em;
-  font-size: clamp(3.2rem, 8.65vw, 8rem);
+  font-size: clamp(3rem, 8.2vw, 7.6rem);
 }
 
 .hero__car-wrap {
@@ -489,7 +489,7 @@ onBeforeUnmount(() => {
   left: calc(50% + clamp(4.5rem, 10vw, 9rem));
   right: max(0.75rem, env(safe-area-inset-right, 0px));
   margin: 0;
-  font-size: clamp(0.66rem, 1.05vw, 0.8rem);
+  font-size: clamp(0.62rem, 0.96vw, 0.75rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -534,7 +534,7 @@ onBeforeUnmount(() => {
 
 .hero__lead {
   margin: 0;
-  font-size: clamp(0.8rem, 1vw, 0.92rem);
+  font-size: clamp(0.76rem, 0.92vw, 0.86rem);
   line-height: 1.48;
   font-weight: 600;
   color: var(--hero-text);
@@ -542,7 +542,7 @@ onBeforeUnmount(() => {
 
 .hero__lead-attrib {
   margin: 0.55rem 0 0;
-  font-size: clamp(0.78rem, 0.96vw, 0.88rem);
+  font-size: clamp(0.74rem, 0.88vw, 0.82rem);
   font-weight: 700;
   color: var(--hero-text-dim);
 }
