@@ -416,7 +416,7 @@ onBeforeUnmount(() => {
 }
 
 .hero__title-line--1 {
-  font-size: clamp(3rem, 8.2vw, 7.6rem);
+  font-size: clamp(2.55rem, 6.97vw, 6.46rem);
   white-space: nowrap;
 }
 
@@ -426,7 +426,7 @@ onBeforeUnmount(() => {
   align-items: baseline;
   gap: 0.14em;
   margin-top: -0.02em;
-  font-size: clamp(3rem, 8.2vw, 7.6rem);
+  font-size: clamp(2.55rem, 6.97vw, 6.46rem);
 }
 
 .hero__car-wrap {
@@ -690,7 +690,7 @@ onBeforeUnmount(() => {
     text-align: left;
     margin: 0 0 0.5rem;
     font-weight: 600;
-    font-size: clamp(2.3rem, 10vw, 3.4rem);
+    font-size: clamp(1.95rem, 8.5vw, 2.9rem);
     line-height: 1.02;
     letter-spacing: -0.045em;
     color: #fff;
