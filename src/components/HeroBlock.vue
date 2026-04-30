@@ -816,6 +816,64 @@ onBeforeUnmount(() => {
   }
 }
 
+@media (min-width: 1920px) {
+  .hero__masthead {
+    min-height: clamp(11rem, 24vh, 17rem);
+  }
+
+  .hero__title {
+    max-width: min(86vw, 74rem);
+  }
+
+  .hero__title-line--1,
+  .hero__title-line--2 {
+    font-size: clamp(2.3rem, 4.9vw, 5.35rem);
+  }
+
+  .hero__car {
+    object-position: 50% 50%;
+    transform: scale(1.22);
+  }
+
+  .hero__car-mist {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(118, 112, 103, 0.54) 0%,
+        rgba(118, 112, 103, 0.42) 18%,
+        rgba(114, 108, 99, 0.3) 34%,
+        rgba(90, 84, 76, 0.1) 56%,
+        rgba(28, 25, 22, 0.26) 100%
+      ),
+      linear-gradient(90deg, rgba(90, 84, 76, 0.24) 0%, rgba(40, 36, 32, 0.01) 50%, rgba(90, 84, 76, 0.2) 100%);
+  }
+
+  .hero__eyebrow {
+    left: calc(50% + clamp(3.5rem, 6vw, 7rem));
+    right: max(1rem, calc(50% - 36.5rem));
+  }
+
+  .hero__quote {
+    left: max(2.5rem, calc(50% - 35rem));
+    width: min(24rem, 24vw);
+    max-width: min(24rem, calc(50vw - 6.5rem));
+  }
+
+  .hero__bar {
+    left: max(1rem, calc(50% - 36.5rem));
+    right: max(1rem, calc(50% - 36.5rem));
+    padding-right: 0;
+  }
+
+  .hero__bar-soc {
+    max-width: 13.5rem;
+  }
+
+  .hero__actions {
+    margin-left: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero__stage,
   .hero__title,
