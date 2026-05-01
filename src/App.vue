@@ -78,13 +78,13 @@ import { isNavigationLoading } from './state/navigationLoading.js';
 .page-enter-active,
 .page-leave-active {
   transition:
-    opacity 0.38s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.38s cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity 0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  transform: translateY(5px);
+  transform: translateY(2px);
 }
 </style>
