@@ -672,7 +672,7 @@ const jpBrands = computed(() => brandSets.jp);
 /* Ультраширокий: выше баннер с фурой (был жёсткий max 720px), спокойнее кроп по ширине */
 @media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
   .routes__truck {
-    --routes-hero-slab: 100dvh;
+    --routes-hero-slab: clamp(380px, 58dvh, 760px);
   }
 
   .routes__truck-img {
