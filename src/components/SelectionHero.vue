@@ -26,6 +26,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
           <p class="pick-hero__eyebrow">Выезд · диагностика · отчёт</p>
           <h1 id="pick-hero-title" class="pick-hero__title">
             Подбор и проверка:
+            <br />
             <TitleKeyTypewriter
               class="pick-hero__title-accent"
               phrase="видим автомобили насквозь"
@@ -121,7 +122,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   max-width: none;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 72%;
+  object-position: 50% 39%;
   /* смотрит вправо: исходник ориентирован влево */
   transform: scaleX(-1);
 }
@@ -129,15 +130,15 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 @media (min-width: 900px) {
   /* Ниже в кадре — воздух между заголовком и машиной */
   .pick-hero__img {
-    object-position: 50% 94%;
-    transform: scaleX(-1) translateY(3.25rem);
+    object-position: 50% 59%;
+    transform: scaleX(-1) translateY(0);
   }
 }
 
 @media (min-width: 900px) and (min-aspect-ratio: 2 / 1) {
   .pick-hero__img {
-    object-position: 50% 82%;
-    transform: scaleX(-1) translateY(1.85rem);
+    object-position: 50% 53%;
+    transform: scaleX(-1) translateY(-0.25rem);
   }
 }
 
@@ -146,8 +147,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(5, 6, 7, 0.92) 0%, rgba(5, 6, 7, 0.54) 46%, rgba(5, 6, 7, 0.14) 72%),
-    linear-gradient(180deg, rgba(5, 6, 7, 0.28) 0%, rgba(5, 6, 7, 0.12) 44%, rgba(5, 6, 7, 0.8) 100%);
+    linear-gradient(180deg, rgba(5, 6, 7, 0.58) 0%, rgba(5, 6, 7, 0.36) 34%, rgba(5, 6, 7, 0.1) 58%, rgba(5, 6, 7, 0.02) 100%);
   pointer-events: none;
   opacity: 1;
 }
@@ -264,6 +264,14 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   text-wrap: wrap;
 }
 
+.pick-hero__title :deep(.typewriter__line) {
+  white-space: nowrap;
+}
+
+.pick-hero__title-accent {
+  color: inherit;
+}
+
 @media (min-width: 900px) {
   .pick-hero__title {
     grid-column: 1 / 11;
@@ -290,6 +298,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     align-self: start;
     font-size: clamp(0.86rem, 0.9vw, 0.95rem);
     line-height: 1.5;
+    color: rgba(245, 245, 247, 0.62);
   }
 }
 
@@ -338,16 +347,19 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     overflow-wrap: anywhere;
   }
 
+  .pick-hero__title :deep(.typewriter__line) {
+    white-space: normal;
+  }
+
   .pick-hero__inline-media {
     position: relative;
     display: block;
-    width: calc(100% + max(1rem, env(safe-area-inset-left, 0px)) + max(1rem, env(safe-area-inset-right, 0px)));
-    max-width: none;
+    width: 100%;
+    max-width: min(28rem, 100%);
     aspect-ratio: 16 / 10;
-    margin: 1rem calc(-1 * max(1rem, env(safe-area-inset-right, 0px))) 1rem
-      calc(-1 * max(1rem, env(safe-area-inset-left, 0px)));
-    border: 0;
-    border-radius: 0;
+    margin: 0.9rem 0 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.5rem;
     box-shadow: none;
     overflow: hidden;
     background: #0a0a0c;
@@ -355,24 +367,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
   .pick-hero__inline-media::before,
   .pick-hero__inline-media::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .pick-hero__inline-media::before {
-    top: 0;
-    height: clamp(2.25rem, 14%, 4.5rem);
-    background: linear-gradient(180deg, #0a0a0c 0%, rgba(10, 10, 12, 0) 100%);
-  }
-
-  .pick-hero__inline-media::after {
-    bottom: 0;
-    height: clamp(2.75rem, 22%, 6rem);
-    background: linear-gradient(0deg, #0a0a0c 0%, rgba(10, 10, 12, 0) 100%);
+    display: none;
   }
 
   .pick-hero__inline-veil {

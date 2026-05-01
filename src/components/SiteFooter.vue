@@ -1,10 +1,11 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import SocialLinks from './SocialLinks.vue';
+import footerBackground from '../assets/бмвНаташи.jpeg';
 </script>
 
 <template>
-  <footer class="foot">
+  <footer class="foot" :style="{ '--foot-bg-image': `url(${footerBackground})` }">
     <div class="foot__inner">
       <div class="foot__brand">
         <span class="foot__mark">T</span>
@@ -48,15 +49,44 @@ import SocialLinks from './SocialLinks.vue';
 
 <style scoped>
 .foot {
+  --foot-image-height-ratio: 0.375;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
   border-top: 1px solid var(--line-light);
-  background: var(--surface-dark);
+  background-color: #0a0b0d;
+  background-image: var(--foot-bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: rgba(255, 255, 255, 0.88);
+  min-height: max(11rem, calc(100vw * var(--foot-image-height-ratio)));
   padding: 2rem max(1rem, env(safe-area-inset-left, 0px)) calc(1.5rem + env(safe-area-inset-bottom, 0px))
     max(1rem, env(safe-area-inset-right, 0px));
 }
 
+.foot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 7, 9, 0.54) 0%, rgba(6, 7, 9, 0.44) 45%, rgba(6, 7, 9, 0.62) 100%),
+    rgba(8, 9, 11, 0.3);
+  pointer-events: none;
+}
+
+.foot__inner,
+.foot__bar {
+  position: relative;
+  z-index: 1;
+}
+
 @media (min-width: 720px) {
   .foot {
+    min-height: max(12rem, calc(100vw * var(--foot-image-height-ratio)));
     padding: 2.5rem max(1.25rem, env(safe-area-inset-left, 0px)) 1.5rem max(1.25rem, env(safe-area-inset-right, 0px));
   }
 }
@@ -154,7 +184,8 @@ import SocialLinks from './SocialLinks.vue';
 
 .foot__bar {
   max-width: var(--content-max);
-  margin: 0 auto;
+  width: 100%;
+  margin: auto auto 0;
   padding-top: 1.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.75rem;

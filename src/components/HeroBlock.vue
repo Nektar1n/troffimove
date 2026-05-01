@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import desktopHeroPhoto from '../assets/субаОтлично.jpg';
+import desktopHeroPhoto from '../assets/главнаяПрод.jpg';
 import trofimCutout from '../assets/вырезаныйТроффим.png';
 import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
@@ -442,8 +442,8 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 152%;
-  transform: scale(1.1) translateY(16vh);
+  object-position: 50% 180%;
+  transform: scale(1.29) translateY(22vh);
   transform-origin: 50% 100%;
   filter: saturate(0.82) contrast(0.94) brightness(0.98);
 }
@@ -550,15 +550,15 @@ onBeforeUnmount(() => {
 .hero__bar {
   position: absolute;
   z-index: 7;
-  left: max(1rem, env(safe-area-inset-left, 0px));
-  right: 0;
+  left: max(1rem, calc((100vw - var(--content-max)) / 2));
+  right: max(1rem, calc((100vw - var(--content-max)) / 2));
   bottom: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: 0.75rem 1rem;
-  padding: 0 max(1rem, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) 0;
+  padding: 0 0 max(1rem, env(safe-area-inset-bottom, 0px)) 0;
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -594,6 +594,20 @@ onBeforeUnmount(() => {
   margin-left: auto;
 }
 
+@media (min-width: 1200px) and (max-width: 1700px) {
+  .hero__bar {
+    gap: 0.65rem 0.8rem;
+  }
+
+  .hero__bar-soc {
+    max-width: 14rem;
+  }
+
+  .btn {
+    min-width: clamp(10.75rem, 14vw, 12.75rem);
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -613,6 +627,18 @@ onBeforeUnmount(() => {
     color 0.2s ease;
 }
 
+.btn::after {
+  content: '\2192';
+  display: inline-block;
+  margin-left: 0.55rem;
+  font-size: 0.95em;
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0.9;
+  transform: translateX(0);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
 .btn--primary {
   color: var(--yellow-ink);
   background: var(--yellow);
@@ -630,9 +656,18 @@ onBeforeUnmount(() => {
   background: rgba(12, 13, 15, 0.72);
 }
 
+.btn--ghost::after {
+  content: '\2197';
+}
+
 .btn--ghost:hover {
   border-color: rgba(255, 255, 255, 0.24);
   background: rgba(18, 19, 22, 0.9);
+}
+
+.btn:hover::after {
+  transform: translateX(0.14rem);
+  opacity: 1;
 }
 
 .hero :deep(.soc__link) {
@@ -831,8 +866,8 @@ onBeforeUnmount(() => {
   }
 
   .hero__car {
-    object-position: 50% 50%;
-    transform: scale(1.22);
+    object-position: 50% 69%;
+    transform: scale(1.44) translateY(3vh);
   }
 
   .hero__car-mist {
@@ -857,12 +892,6 @@ onBeforeUnmount(() => {
     left: max(2.5rem, calc(50% - 35rem));
     width: min(24rem, 24vw);
     max-width: min(24rem, calc(50vw - 6.5rem));
-  }
-
-  .hero__bar {
-    left: max(1rem, calc(50% - 36.5rem));
-    right: max(1rem, calc(50% - 36.5rem));
-    padding-right: 0;
   }
 
   .hero__bar-soc {

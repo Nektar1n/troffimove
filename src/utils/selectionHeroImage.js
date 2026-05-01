@@ -1,4 +1,4 @@
-import selectionHeroUrl from '../assets/желтаяауди.webp';
+import selectionHeroUrl from '../assets/подборПрод.jpg';
 
 const preloaded = new Set();
 

@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
-import autoScheme from '../assets/автоСхема.png';
+import autoScheme from '../assets/новаяЛеонардоБибика.jpg';
 
 const zones = [
   {
