@@ -685,6 +685,10 @@ onBeforeUnmount(() => {
 }
 
 @media (min-width: 1600px) {
+  .scheme__title {
+    left: clamp(1rem, 2.2vw, 2rem);
+  }
+
   .scheme__board {
     width: min(1640px, calc(100vw - 3rem));
     margin-left: auto;
