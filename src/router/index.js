@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { DEFAULT_DESCRIPTION, PAGE_DESCRIPTIONS, applyPageMeta } from '../seo/siteMeta.js';
-import { ensureSelectionHeroImagePreload } from '../utils/selectionHeroImage.js';
+import { preloadCriticalImagesForRoute } from '../utils/criticalRouteImages.js';
+import { setNavigationLoading } from '../state/navigationLoading.js';
 import HomeView from '../views/HomeView.vue';
 import ImportView from '../views/ImportView.vue';
 import LegalView from '../views/LegalView.vue';
@@ -73,13 +74,13 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to) => {
-  if (to.name === 'selection') {
-    ensureSelectionHeroImagePreload();
-  }
+router.beforeEach(async (to) => {
+  setNavigationLoading(true);
+  await preloadCriticalImagesForRoute(String(to.name || ''));
 });
 
 router.afterEach((to) => {
+  setNavigationLoading(false);
   const base = 'Troffimove Auto';
   const t = to.meta?.title;
   const fullTitle = t ? `${t} · ${base}` : base;
@@ -87,6 +88,10 @@ router.afterEach((to) => {
   const desc = to.meta?.description || DEFAULT_DESCRIPTION;
   const pathUrl = typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : '';
   applyPageMeta(desc, fullTitle, pathUrl || undefined);
+});
+
+router.onError(() => {
+  setNavigationLoading(false);
 });
 
 export default router;

@@ -1,46 +1,22 @@
 <script setup>
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
 import { RouterView } from 'vue-router';
 import SeoJsonLd from './components/SeoJsonLd.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import SiteFooter from './components/SiteFooter.vue';
-import { preloadCriticalImagesForRoute } from './utils/criticalRouteImages.js';
-
-const route = useRoute();
-const routeReady = ref(false);
-let loadToken = 0;
-
-watch(
-  () => route.name,
-  async (routeName) => {
-    const token = ++loadToken;
-    routeReady.value = false;
-
-    await preloadCriticalImagesForRoute(String(routeName || ''));
-
-    if (token !== loadToken) return;
-    routeReady.value = true;
-  },
-  { immediate: true },
-);
+import { isNavigationLoading } from './state/navigationLoading.js';
 </script>
 
 <template>
   <div class="page">
-    <div v-if="!routeReady" class="page__loader" role="status" aria-live="polite" aria-label="Загрузка">
-      <span class="page__loader-dot" />
-    </div>
-    <template v-else>
-      <SeoJsonLd />
-      <SiteHeader />
-      <RouterView v-slot="{ Component, route }">
-        <Transition name="page" mode="out-in">
-          <component :is="Component" :key="route.path" />
-        </Transition>
-      </RouterView>
-      <SiteFooter />
-    </template>
+    <div class="page__top-progress" :class="{ 'page__top-progress--active': isNavigationLoading }" aria-hidden="true" />
+    <SeoJsonLd />
+    <SiteHeader />
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="page" mode="out-in">
+        <component :is="Component" :key="route.path" />
+      </Transition>
+    </RouterView>
+    <SiteFooter />
   </div>
 </template>
 
@@ -53,20 +29,34 @@ watch(
   overflow-x: clip;
 }
 
-.page__loader {
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  background: var(--bg);
+.page__top-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.page__loader-dot {
-  width: 12px;
-  height: 12px;
+.page__top-progress::before {
+  content: '';
+  display: block;
+  width: 30%;
+  height: 100%;
   border-radius: 999px;
   background: var(--yellow);
-  animation: page-loader-pulse 0.95s ease-in-out infinite;
+  transform: translateX(-120%);
+}
+
+.page__top-progress--active {
+  opacity: 1;
+}
+
+.page__top-progress--active::before {
+  animation: top-progress-sweep 1.05s ease-in-out infinite;
 }
 
 .page :deep(main) {
@@ -75,16 +65,13 @@ watch(
 </style>
 
 <style>
-@keyframes page-loader-pulse {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: scale(0.92);
+@keyframes top-progress-sweep {
+  0% {
+    transform: translateX(-120%);
   }
 
-  50% {
-    opacity: 1;
-    transform: scale(1.14);
+  100% {
+    transform: translateX(440%);
   }
 }
 
