@@ -56,12 +56,12 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--line-light);
-  background-color: #0a0b0d;
+  background-color: var(--color-graphite);
   background-image: var(--foot-bg-image);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgb(var(--color-milk-rgb) / 0.88);
   min-height: max(11rem, calc(100vw * var(--foot-image-height-ratio)));
   padding: 2rem max(1rem, env(safe-area-inset-left, 0px)) calc(1.5rem + env(safe-area-inset-bottom, 0px))
     max(1rem, env(safe-area-inset-right, 0px));
@@ -131,13 +131,13 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   font-weight: 600;
   font-size: 1rem;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--color-milk);
 }
 
 .foot__sub {
   font-size: 0.8125rem;
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgb(var(--color-milk-rgb) / 0.55);
   margin-top: 0.35rem;
 }
 
@@ -146,7 +146,7 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   max-width: 20rem;
   font-size: 0.8rem;
   line-height: 1.4;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(var(--color-milk-rgb) / 0.5);
 }
 
 .foot__cols {
@@ -160,7 +160,7 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgb(var(--color-milk-rgb) / 0.45);
   margin-bottom: 0.5rem;
 }
 
@@ -168,7 +168,7 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
 .foot__cols a {
   margin: 0.2rem 0;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgb(var(--color-milk-rgb) / 0.88);
 }
 
 .foot__cols a {
@@ -187,19 +187,19 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   width: 100%;
   margin: auto auto 0;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgb(var(--color-milk-rgb) / 0.1);
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgb(var(--color-milk-rgb) / 0.45);
 }
 
 .foot :deep(.soc--footer .soc__link) {
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgb(var(--color-milk-rgb) / 0.22);
   color: var(--yellow);
-  background: rgba(0, 0, 0, 0.35);
+  background: rgb(var(--color-graphite-rgb) / 0.35);
 }
 
 .foot :deep(.soc--footer .soc__link:hover) {
   border-color: rgba(233, 190, 95, 0.55);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgb(var(--color-milk-rgb) / 0.06);
 }
 </style>

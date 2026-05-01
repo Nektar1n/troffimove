@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
-import autoScheme from '../assets/новаяЛеонардоБибика.jpg';
+import autoScheme from '../assets/леонардоБмвГрафит.jpg';
 
 const zones = [
   {
@@ -297,15 +297,15 @@ onBeforeUnmount(() => {
 <style scoped>
 .scheme {
   --scheme-line: color-mix(in srgb, var(--yellow, #e9be5f) 52%, white 48%);
-  --scheme-text: #f7f7f8;
-  --scheme-muted: rgba(247, 247, 248, 0.78);
-  --scheme-surface: #101114;
-  --scheme-border: rgba(255, 255, 255, 0.1);
+  --scheme-text: var(--color-milk);
+  --scheme-muted: rgb(var(--color-milk-rgb) / 0.78);
+  --scheme-surface: var(--color-graphite);
+  --scheme-border: rgb(var(--color-milk-rgb) / 0.1);
 
   position: relative;
   z-index: 0;
   padding: 0 0 2rem;
-  background: #050607;
+  background: var(--color-graphite);
   border-bottom: 0;
   overflow: hidden;
 }
@@ -345,7 +345,7 @@ onBeforeUnmount(() => {
   height: clamp(35rem, 56vw, 54rem);
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: #050607;
+  background: var(--color-graphite);
   border-top: none;
   border-bottom: none;
   box-shadow: none;
@@ -357,7 +357,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(5, 6, 7, 0.3) 0%, rgba(5, 6, 7, 0.08) 24%, rgba(5, 6, 7, 0.24) 58%, rgba(5, 6, 7, 0.88) 100%);
+    linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.3) 0%, rgb(var(--color-graphite-rgb) / 0.08) 24%, rgb(var(--color-graphite-rgb) / 0.24) 58%, rgb(var(--color-graphite-rgb) / 0.88) 100%);
   opacity: 1;
   pointer-events: none;
   z-index: 2;
@@ -370,7 +370,7 @@ onBeforeUnmount(() => {
   right: 0;
   bottom: 0;
   height: clamp(7rem, 16vw, 11rem);
-  background: linear-gradient(180deg, rgba(5, 6, 7, 0) 0%, rgba(5, 6, 7, 0.58) 42%, #050607 100%);
+  background: linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0) 0%, rgb(var(--color-graphite-rgb) / 0.58) 42%, var(--color-graphite) 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -414,7 +414,7 @@ onBeforeUnmount(() => {
 .scheme__node--port {
   width: 0.42rem;
   height: 0.42rem;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgb(var(--color-milk-rgb) / 0.72);
 }
 
 .scheme__car {
@@ -438,7 +438,7 @@ onBeforeUnmount(() => {
   border-radius: 0.72rem;
   background: rgba(16, 17, 20, 0.94);
   border: 1px solid var(--scheme-border);
-  box-shadow: 0 16px 28px -24px rgba(0, 0, 0, 0.82);
+  box-shadow: 0 16px 28px -24px rgb(var(--color-graphite-rgb) / 0.82);
 }
 
 .scheme__callout-top {
@@ -484,7 +484,7 @@ onBeforeUnmount(() => {
   line-height: 1.16;
   letter-spacing: -0.03em;
   font-weight: 600;
-  color: #fff;
+  color: var(--color-milk);
 }
 
 .scheme__callout-text {
@@ -558,7 +558,7 @@ onBeforeUnmount(() => {
     border-radius: 0.5rem;
     font-size: 0.72rem;
     font-weight: 800;
-    color: var(--yellow-ink, #111);
+    color: var(--yellow-ink, var(--color-graphite));
     background: var(--yellow, #e9be5f);
   }
 

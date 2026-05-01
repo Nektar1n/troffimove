@@ -135,13 +135,13 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--solid {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgb(var(--color-milk-rgb) / 0.88);
   backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid var(--line-light);
 }
 
 .head--menu.head--solid {
-  background: rgba(255, 255, 255, 0.94);
+  background: rgb(var(--color-milk-rgb) / 0.94);
 }
 
 .head--dark:not(.head--solid) {
@@ -151,7 +151,7 @@ watch(mobileMenuOpen, (isOpen) => {
 .head--dark.head--menu:not(.head--solid) {
   background: rgba(8, 9, 11, 0.88);
   backdrop-filter: saturate(160%) blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgb(var(--color-milk-rgb) / 0.08);
 }
 
 .head__top {
@@ -176,7 +176,7 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__logo {
-  color: #f5f5f7;
+  color: var(--color-milk);
 }
 
 .head__mark {
@@ -189,13 +189,13 @@ watch(mobileMenuOpen, (isOpen) => {
   font-size: 0.9rem;
   letter-spacing: -0.03em;
   background: var(--text);
-  color: #fff;
+  color: var(--color-milk);
   flex-shrink: 0;
 }
 
 .head--dark:not(.head--solid) .head__mark {
   background: var(--yellow);
-  color: #111;
+  color: var(--color-graphite);
 }
 
 .head__word {
@@ -223,7 +223,7 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__tag {
-  color: rgba(245, 245, 247, 0.5);
+  color: rgb(var(--color-milk-rgb) / 0.5);
 }
 
 .head__nav {
@@ -246,7 +246,7 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__link {
-  color: rgba(245, 245, 247, 0.72);
+  color: rgb(var(--color-milk-rgb) / 0.72);
 }
 
 .head__link:hover {
@@ -259,11 +259,11 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__link:hover {
-  color: #fff;
+  color: var(--color-milk);
 }
 
 .head--dark:not(.head--solid) .head__link--current {
-  color: #fff;
+  color: var(--color-milk);
 }
 
 .head__cta {
@@ -278,7 +278,7 @@ watch(mobileMenuOpen, (isOpen) => {
   justify-content: center;
   border-radius: 980px;
   text-decoration: none;
-  color: #fff;
+  color: var(--color-milk);
   background: var(--text);
   border-color: var(--yellow);
   transition: opacity 0.2s ease;
@@ -286,7 +286,7 @@ watch(mobileMenuOpen, (isOpen) => {
 
 .head--dark:not(.head--solid) .head__cta {
   background: var(--yellow);
-  color: #111;
+  color: var(--color-graphite);
   border-color: var(--yellow);
 }
 
@@ -317,15 +317,15 @@ watch(mobileMenuOpen, (isOpen) => {
   padding: 0;
   border: 1px solid var(--line-light);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgb(var(--color-milk-rgb) / 0.92);
   color: var(--text);
   cursor: pointer;
 }
 
 .head--dark:not(.head--solid) .head__burger {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(12, 13, 15, 0.76);
-  color: #fff;
+  border-color: rgb(var(--color-milk-rgb) / 0.12);
+  background: rgb(var(--color-graphite-rgb) / 0.76);
+  color: var(--color-milk);
 }
 
 .head__burger-line {
@@ -367,14 +367,14 @@ watch(mobileMenuOpen, (isOpen) => {
   padding: 0.9rem;
   border: 1px solid var(--line-light);
   border-radius: 1.1rem;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 22px 48px -32px rgba(0, 0, 0, 0.34);
+  background: rgb(var(--color-milk-rgb) / 0.96);
+  box-shadow: 0 22px 48px -32px rgb(var(--color-graphite-rgb) / 0.34);
 }
 
 .head--dark:not(.head--solid) .head__mob-panel {
-  border-color: rgba(255, 255, 255, 0.1);
-  background: rgba(12, 13, 15, 0.94);
-  box-shadow: 0 28px 54px -34px rgba(0, 0, 0, 0.8);
+  border-color: rgb(var(--color-milk-rgb) / 0.1);
+  background: rgb(var(--color-graphite-rgb) / 0.94);
+  box-shadow: 0 28px 54px -34px rgb(var(--color-graphite-rgb) / 0.8);
 }
 
 .head__mob-cta {
@@ -410,7 +410,7 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__mob-link {
-  color: rgba(245, 245, 247, 0.8);
+  color: rgb(var(--color-milk-rgb) / 0.8);
 }
 
 .head__mob-link:active {
@@ -423,12 +423,12 @@ watch(mobileMenuOpen, (isOpen) => {
 }
 
 .head--dark:not(.head--solid) .head__mob-link:active {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgb(var(--color-milk-rgb) / 0.06);
 }
 
 .head--dark:not(.head--solid) .head__mob-link--current {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-milk);
+  background: rgb(var(--color-milk-rgb) / 0.06);
 }
 
 .head-menu-enter-active,

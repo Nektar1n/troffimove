@@ -17,25 +17,30 @@
     Arial,
     sans-serif;
 
-  --bg: #fafafa;
+  --color-graphite-rgb: 45 44 44;
+  --color-milk-rgb: 245 241 233;
+  --color-graphite: rgb(var(--color-graphite-rgb));
+  --color-milk: rgb(var(--color-milk-rgb));
+
+  --bg: var(--color-milk);
   --bg-subtle: #ececee;
-  --text: #0a0a0a;
+  --text: var(--color-graphite);
   --muted: #6e6e73;
   --line: #c8c8cd;
-  --line-light: #dedee3;
+  --line-light: rgb(var(--color-milk-rgb) / 0.55);
   /* Акцент: Sunray #e9be5f + hover чуть светлее */
   --accent: #c9a23a;
   --yellow: #e9be5f;
   --yellow-hover: #f2ce78;
-  --yellow-ink: #111;
-  --surface-dark: #0c0c0e;
-  --surface-dark-2: #161618;
-  --surface-panel: #0f1013;
-  --surface-panel-2: #14161a;
-  --border-dark: rgba(255, 255, 255, 0.1);
+  --yellow-ink: var(--color-graphite);
+  --surface-dark: var(--color-graphite);
+  --surface-dark-2: var(--color-graphite);
+  --surface-panel: var(--color-graphite);
+  --surface-panel-2: var(--color-graphite);
+  --border-dark: rgb(var(--color-milk-rgb) / 0.1);
   --border-dark-strong: rgba(233, 190, 95, 0.28);
-  --text-on-dark: rgba(245, 245, 247, 0.94);
-  --muted-on-dark: rgba(245, 245, 247, 0.62);
+  --text-on-dark: rgb(var(--color-milk-rgb) / 0.94);
+  --muted-on-dark: rgb(var(--color-milk-rgb) / 0.7);
   --radius-s: 0.7rem;
   --radius-m: 0.9rem;
   --radius-l: 1rem;

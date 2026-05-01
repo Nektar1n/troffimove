@@ -37,7 +37,6 @@ function caseContactTarget(type) {
     <section class="cases-page__hero">
       <div class="cases-page__inner">
         <p class="cases-page__kicker">Успешные сделки</p>
-        <h1 class="cases-page__title">Привоз и подбор: реальные сделки и реальные осмотры</h1>
         <p class="cases-page__lead">
           Все успешные сделки в одном месте. Можно смотреть вместе или отдельно по направлениям: привоз авто и подбор б/у на
           месте.
@@ -151,7 +150,7 @@ function caseContactTarget(type) {
   border-radius: var(--radius-m);
   border: 1px solid var(--border-dark);
   background: var(--surface-panel);
-  color: rgba(245, 245, 247, 0.72);
+  color: rgb(var(--color-milk-rgb) / 0.72);
   font: inherit;
   font-size: 0.82rem;
   font-weight: 600;
@@ -162,7 +161,7 @@ function caseContactTarget(type) {
 
 .cases-page__filter--on {
   background: var(--surface-panel-2);
-  color: #fff;
+  color: var(--color-milk);
   border-color: var(--border-dark-strong);
   box-shadow: inset 3px 0 0 var(--yellow);
 }
@@ -196,7 +195,7 @@ function caseContactTarget(type) {
   overflow: hidden;
   border: 1px solid var(--line-light);
   border-radius: 12px;
-  background: #fff;
+  background: var(--color-milk);
 }
 
 .cases-card__media {

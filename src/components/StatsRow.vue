@@ -35,8 +35,8 @@ watch(
 
 <style scoped>
 .stats {
-  --stats-bg: #0a0b0d;
-  --stats-border: rgba(255, 255, 255, 0.1);
+  --stats-bg: var(--color-graphite);
+  --stats-border: rgb(var(--color-milk-rgb) / 0.1);
 
   position: relative;
   z-index: 0;
@@ -110,14 +110,14 @@ watch(
   font-weight: 600;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: -0.03em;
-  color: rgba(245, 245, 247, 0.95);
+  color: rgb(var(--color-milk-rgb) / 0.95);
   font-variant-numeric: tabular-nums;
 }
 
 .stats__t {
   font-size: 0.8125rem;
   line-height: 1.35;
-  color: rgba(245, 245, 247, 0.48);
+  color: rgb(var(--color-milk-rgb) / 0.48);
   max-width: 12rem;
 }
 

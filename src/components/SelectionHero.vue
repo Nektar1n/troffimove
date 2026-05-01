@@ -77,11 +77,11 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   margin-left: calc(50% - 50vw);
   position: relative;
   z-index: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #f5f5f7;
+  border-bottom: 0;
+  color: var(--color-milk);
   overflow-x: clip;
   overflow-y: visible;
-  background: #0a0a0c;
+  background: var(--color-graphite);
 }
 
 /* 21:9 и шире: полный 100dvh + cover сильно режут кадр — ниже слой и мягче сдвиг фото */
@@ -102,7 +102,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   padding: 0;
   min-height: calc(var(--pick-head-clear) + var(--pick-hero-slab));
   border: 0;
-  background: #0a0a0c;
+  background: var(--color-graphite);
 }
 
 .pick-hero__surface {
@@ -113,7 +113,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   left: 0;
   z-index: 0;
   overflow: hidden;
-  background: #0a0a0c;
+  background: var(--color-graphite);
 }
 
 .pick-hero__img {
@@ -147,7 +147,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(5, 6, 7, 0.58) 0%, rgba(5, 6, 7, 0.36) 34%, rgba(5, 6, 7, 0.1) 58%, rgba(5, 6, 7, 0.02) 100%);
+    linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.58) 0%, rgb(var(--color-graphite-rgb) / 0.36) 34%, rgb(var(--color-graphite-rgb) / 0.1) 58%, rgb(var(--color-graphite-rgb) / 0.02) 100%);
   pointer-events: none;
   opacity: 1;
 }
@@ -255,12 +255,12 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
 .pick-hero__title {
   margin: 0 0 0.5rem;
-  max-width: min(64rem, 100%);
+  max-width: min(86rem, 100%);
   font-weight: 600;
   font-size: clamp(2.4rem, 7.6vw, 3.9rem);
   line-height: 1.05;
   letter-spacing: -0.045em;
-  color: #fff;
+  color: var(--color-milk);
   text-wrap: wrap;
 }
 
@@ -274,10 +274,11 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
 @media (min-width: 900px) {
   .pick-hero__title {
-    grid-column: 1 / 11;
+    grid-column: 1 / 13;
     grid-row: 2;
     font-size: clamp(3rem, 5vw, 5rem);
     line-height: 1.02;
+    white-space: nowrap;
   }
 }
 
@@ -286,7 +287,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   max-width: 44rem;
   font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.62);
+  color: rgb(var(--color-milk-rgb) / 0.62);
 }
 
 @media (min-width: 900px) {
@@ -298,7 +299,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     align-self: start;
     font-size: clamp(0.86rem, 0.9vw, 0.95rem);
     line-height: 1.5;
-    color: rgba(245, 245, 247, 0.62);
+    color: rgb(var(--color-milk-rgb) / 0.62);
   }
 }
 
@@ -322,7 +323,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     padding: 0 0 max(1.4rem, calc(0.7rem + env(safe-area-inset-bottom, 0px)));
     background:
       radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
-      linear-gradient(180deg, #08090b 0%, #0a0b0d 100%);
+      linear-gradient(180deg, var(--color-graphite) 0%, var(--color-graphite) 100%);
   }
 
   .pick-hero__surface {
@@ -344,6 +345,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     min-width: 0;
     font-size: clamp(2.3rem, 10vw, 3.4rem);
     line-height: 1.02;
+    white-space: normal;
     overflow-wrap: anywhere;
   }
 
@@ -358,11 +360,11 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     max-width: min(28rem, 100%);
     aspect-ratio: 16 / 10;
     margin: 0.9rem 0 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid rgb(var(--color-milk-rgb) / 0.14);
     border-radius: 1.5rem;
     box-shadow: none;
     overflow: hidden;
-    background: #0a0a0c;
+    background: var(--color-graphite);
   }
 
   .pick-hero__inline-media::before,
@@ -434,14 +436,14 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 }
 
 .btn--ghost {
-  color: rgba(245, 245, 247, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(12, 13, 15, 0.72);
+  color: rgb(var(--color-milk-rgb) / 0.95);
+  border: 1px solid rgb(var(--color-milk-rgb) / 0.16);
+  background: rgb(var(--color-graphite-rgb) / 0.72);
 }
 
 .btn--ghost:hover {
-  border-color: rgba(255, 255, 255, 0.24);
-  background: rgba(18, 19, 22, 0.9);
+  border-color: rgb(var(--color-milk-rgb) / 0.24);
+  background: rgb(var(--color-graphite-rgb) / 0.9);
 }
 
 @media (max-height: 520px) and (orientation: landscape) {

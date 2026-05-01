@@ -47,9 +47,9 @@ const items = [
 <style scoped>
 .faq {
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
-  background: var(--bg-subtle);
-  border-top: 1px solid var(--line-light);
-  border-bottom: 1px solid var(--line-light);
+  background: var(--color-graphite);
+  border-top: 1px solid rgb(var(--color-milk-rgb) / 0.12);
+  border-bottom: 1px solid rgb(var(--color-milk-rgb) / 0.12);
 }
 
 @media (min-width: 720px) {
@@ -69,14 +69,14 @@ const items = [
   letter-spacing: -0.04em;
   line-height: 1.1;
   margin: 0 0 0.5rem;
-  color: var(--text);
+  color: var(--color-milk);
 }
 
 .faq__lead {
   margin: 0 0 1.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--muted);
+  color: rgb(var(--color-milk-rgb) / 0.72);
   max-width: 40rem;
 }
 
@@ -90,8 +90,8 @@ const items = [
 }
 
 .faq__details {
-  background: #fff;
-  border: 1px solid var(--line-light);
+  background: var(--color-graphite);
+  border: 1px solid rgb(var(--color-milk-rgb) / 0.14);
   border-radius: 8px;
   padding: 0.65rem 1rem 0.65rem;
 }
@@ -101,7 +101,7 @@ const items = [
   font-size: 0.9375rem;
   line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--text);
+  color: var(--color-milk);
   cursor: pointer;
   list-style: none;
   position: relative;
@@ -118,7 +118,7 @@ const items = [
   right: 0;
   top: 0.1em;
   font-weight: 500;
-  color: var(--muted);
+  color: rgb(var(--color-milk-rgb) / 0.72);
   font-size: 1.1rem;
   line-height: 1;
 }
@@ -131,8 +131,8 @@ const items = [
   margin: 0.75rem 0 0.35rem;
   font-size: 0.9rem;
   line-height: 1.55;
-  color: var(--text);
+  color: rgb(var(--color-milk-rgb) / 0.9);
   padding-top: 0.25rem;
-  border-top: 1px solid var(--line-light);
+  border-top: 1px solid rgb(var(--color-milk-rgb) / 0.14);
 }
 </style>

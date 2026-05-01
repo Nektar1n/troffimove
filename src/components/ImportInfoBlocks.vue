@@ -178,7 +178,7 @@ const faq = [
 .im {
   position: relative;
   z-index: 0;
-  color: rgba(245, 245, 247, 0.9);
+  color: rgb(var(--color-milk-rgb) / 0.9);
 }
 
 .im::before {
@@ -191,7 +191,7 @@ const faq = [
   max-width: 100vw;
   transform: translateX(-50%);
   z-index: -1;
-  background: #0a0a0b;
+  background: var(--color-graphite);
   pointer-events: none;
 }
 
@@ -212,7 +212,7 @@ const faq = [
   position: relative;
   z-index: 0;
   padding: 2.5rem 0 2.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgb(var(--color-milk-rgb) / 0.08);
 }
 
 .im__sec--tight {
@@ -237,7 +237,7 @@ const faq = [
   max-width: 100vw;
   transform: translateX(-50%);
   z-index: -1;
-  background: #fff;
+  background: var(--color-milk);
   pointer-events: none;
 }
 
@@ -274,8 +274,8 @@ const faq = [
 }
 
 .im__sec--light .im__step {
-  border-color: rgba(0, 0, 0, 0.08);
-  background: #f7f7f8;
+  border-color: rgb(var(--color-graphite-rgb) / 0.08);
+  background: var(--color-milk);
 }
 
 @media (min-width: 800px) {
@@ -291,7 +291,7 @@ const faq = [
   font-size: clamp(1.4rem, 2.5vw, 1.9rem);
   line-height: 1.12;
   letter-spacing: -0.03em;
-  color: #f5f5f7;
+  color: var(--color-milk);
 }
 
 .im__h2--process {
@@ -308,7 +308,7 @@ const faq = [
   max-width: 44rem;
   font-size: 0.9375rem;
   line-height: 1.55;
-  color: rgba(245, 245, 247, 0.62);
+  color: rgb(var(--color-milk-rgb) / 0.62);
 }
 
 .im__steps {
@@ -329,7 +329,7 @@ const faq = [
   padding: 1.05rem;
   border-radius: 12px;
   border: 1px solid var(--line-light, #dedee3);
-  background: rgba(0, 0, 0, 0.02);
+  background: rgb(var(--color-graphite-rgb) / 0.02);
 }
 
 @media (min-width: 800px) {
@@ -356,8 +356,8 @@ const faq = [
   border-radius: 10px;
   overflow: hidden;
   background: #ececf0;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgb(var(--color-graphite-rgb) / 0.06);
+  box-shadow: 0 4px 20px rgb(var(--color-graphite-rgb) / 0.07);
   aspect-ratio: 1000 / 558;
 }
 
@@ -407,7 +407,7 @@ const faq = [
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #f5f5f7;
+  color: var(--color-milk);
 }
 
 .im__step .im__h3 {
@@ -438,14 +438,14 @@ const faq = [
 }
 
 .im__h3--muted {
-  color: rgba(245, 245, 247, 0.45);
+  color: rgb(var(--color-milk-rgb) / 0.45);
 }
 
 .im__p {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.55;
-  color: rgba(245, 245, 247, 0.68);
+  color: rgb(var(--color-milk-rgb) / 0.68);
 }
 
 .im__split {
@@ -465,21 +465,21 @@ const faq = [
   min-width: 0;
   padding: 1rem 1.1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(var(--color-milk-rgb) / 0.1);
+  background: rgb(var(--color-graphite-rgb) / 0.2);
 }
 
 .im__col--out {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgb(var(--color-graphite-rgb) / 0.12);
   border-style: dashed;
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgb(var(--color-milk-rgb) / 0.14);
 }
 
 .im__ul {
   margin: 0;
   padding: 0 0 0 0.9rem;
   list-style: disc;
-  color: rgba(245, 245, 247, 0.78);
+  color: rgb(var(--color-milk-rgb) / 0.78);
   font-size: 0.875rem;
   line-height: 1.5;
   display: flex;
@@ -488,7 +488,7 @@ const faq = [
 }
 
 .im__ul--out {
-  color: rgba(245, 245, 247, 0.6);
+  color: rgb(var(--color-milk-rgb) / 0.6);
   list-style: square;
 }
 
@@ -507,7 +507,7 @@ const faq = [
   gap: 0.6rem;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.8);
+  color: rgb(var(--color-milk-rgb) / 0.8);
 }
 
 .im__check-ico {
@@ -533,9 +533,9 @@ const faq = [
 }
 
 .im__details {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(var(--color-milk-rgb) / 0.1);
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgb(var(--color-graphite-rgb) / 0.2);
   overflow: hidden;
 }
 
@@ -587,7 +587,7 @@ details[open] .im__summary::after {
 
 .im__summary:hover,
 .im__details[open] .im__summary {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgb(var(--color-milk-rgb) / 0.04);
 }
 
 .im__a {
@@ -595,8 +595,8 @@ details[open] .im__summary::after {
   padding: 0 0.9rem 0.9rem 0.9rem;
   font-size: 0.84rem;
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.6);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgb(var(--color-milk-rgb) / 0.6);
+  border-top: 1px solid rgb(var(--color-milk-rgb) / 0.06);
 }
 
 @media (max-width: 1199px) {

@@ -167,7 +167,7 @@ async function onSubmit(e) {
   margin: 0 auto;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) calc(2.5rem + env(safe-area-inset-bottom, 0px))
     max(1rem, env(safe-area-inset-right, 0px));
-  background: #fff;
+  background: var(--color-milk);
   border-top: 1px solid var(--line-light);
 }
 
@@ -232,7 +232,7 @@ async function onSubmit(e) {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
-  background: #fff;
+  background: var(--color-milk);
   color: var(--text);
   border: 1px solid var(--text);
   border-radius: 14px;
@@ -272,7 +272,7 @@ async function onSubmit(e) {
   padding: 0.75rem 0.85rem;
   border: 1px solid var(--text);
   border-radius: 8px;
-  background: #fff;
+  background: var(--color-milk);
   color: var(--text);
   outline: none;
   transition:
@@ -363,12 +363,12 @@ async function onSubmit(e) {
   line-height: 1.4;
   border: 1px solid var(--text);
   border-radius: 8px;
-  background: #fff;
+  background: var(--color-milk);
 }
 
 .toast--ok {
   color: var(--text);
-  background: #fff;
+  background: var(--color-milk);
 }
 
 .toast--err {

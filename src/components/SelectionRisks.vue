@@ -71,11 +71,11 @@ const items = [
 
 <style scoped>
 .risks {
-  --risks-bg: #050607;
-  --risks-surface: #0f1013;
-  --risks-border: rgba(255, 255, 255, 0.1);
-  --risks-text: #f6f7f9;
-  --risks-muted: rgba(246, 247, 249, 0.64);
+  --risks-bg: var(--color-graphite);
+  --risks-surface: var(--color-graphite);
+  --risks-border: rgb(var(--color-milk-rgb) / 0.1);
+  --risks-text: var(--color-milk);
+  --risks-muted: rgb(var(--color-milk-rgb) / 0.64);
 
   position: relative;
   z-index: 0;
@@ -155,7 +155,7 @@ const items = [
   border-radius: 0.95rem;
   overflow: hidden;
   border: 1px solid var(--risks-border);
-  box-shadow: 0 18px 32px -28px rgba(0, 0, 0, 0.82);
+  box-shadow: 0 18px 32px -28px rgb(var(--color-graphite-rgb) / 0.82);
   background: var(--risks-surface);
 }
 
@@ -215,19 +215,19 @@ const items = [
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(5, 6, 7, 0.42) 0%, transparent 46%);
+  background: linear-gradient(90deg, rgb(var(--color-graphite-rgb) / 0.42) 0%, transparent 46%);
   pointer-events: none;
   opacity: 1;
 }
 
 .risks__card--reverse .risks__shot::after {
-  background: linear-gradient(270deg, rgba(5, 6, 7, 0.42) 0%, transparent 46%);
+  background: linear-gradient(270deg, rgb(var(--color-graphite-rgb) / 0.42) 0%, transparent 46%);
 }
 
 @media (max-width: 899px) {
   .risks__shot::after,
   .risks__card--reverse .risks__shot::after {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 50%);
+    background: linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.35) 0%, transparent 50%);
   }
 }
 
@@ -271,7 +271,7 @@ const items = [
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.7);
+  color: rgb(var(--color-milk-rgb) / 0.7);
   max-width: 46ch;
 }
 

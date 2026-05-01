@@ -251,8 +251,8 @@ onBeforeUnmount(() => {
   --hero-warm: #726c63;
   --hero-warm-deep: #514b43;
   --hero-top: #767067;
-  --hero-text: #fff;
-  --hero-text-dim: rgba(255, 255, 255, 0.92);
+  --hero-text: var(--color-milk);
+  --hero-text-dim: rgb(var(--color-milk-rgb) / 0.92);
 
   position: relative;
   z-index: 0;
@@ -311,7 +311,7 @@ onBeforeUnmount(() => {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 62%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.035) 30%, rgba(255, 255, 255, 0) 62%),
+    radial-gradient(ellipse at 50% 62%, rgb(var(--color-milk-rgb) / 0.07) 0%, rgb(var(--color-milk-rgb) / 0.035) 30%, rgb(var(--color-milk-rgb) / 0) 62%),
     linear-gradient(180deg, var(--hero-top) 0%, var(--hero-warm) 34%, var(--hero-warm-deep) 100%);
   pointer-events: none;
 }
@@ -371,7 +371,7 @@ onBeforeUnmount(() => {
   inset: 0;
   z-index: 1;
   display: block;
-  color: #fff;
+  color: var(--color-milk);
   filter: blur(var(--hero-ghost-blur));
   overflow: visible;
   pointer-events: none;
@@ -408,7 +408,7 @@ onBeforeUnmount(() => {
 
 .hero__title-line {
   display: block;
-  color: #fff;
+  color: var(--color-milk);
   font-weight: 700;
   font-style: normal;
   letter-spacing: -0.045em;
@@ -461,7 +461,7 @@ onBeforeUnmount(() => {
       rgba(90, 84, 76, 0.16) 54%,
       rgba(28, 25, 22, 0.34) 100%
     ),
-    linear-gradient(90deg, rgba(90, 84, 76, 0.34) 0%, rgba(40, 36, 32, 0.02) 50%, rgba(90, 84, 76, 0.28) 100%);
+    linear-gradient(90deg, rgba(90, 84, 76, 0.34) 0%, rgb(var(--color-graphite-rgb) / 0.02) 50%, rgba(90, 84, 76, 0.28) 100%);
   pointer-events: none;
 }
 
@@ -583,7 +583,7 @@ onBeforeUnmount(() => {
 .hero__soc-label {
   font-size: 0.75rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgb(var(--color-milk-rgb) / 0.78);
   letter-spacing: 0.02em;
 }
 
@@ -651,9 +651,9 @@ onBeforeUnmount(() => {
 }
 
 .btn--ghost {
-  color: rgba(245, 245, 247, 0.95);
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(12, 13, 15, 0.72);
+  color: rgb(var(--color-milk-rgb) / 0.95);
+  border-color: rgb(var(--color-milk-rgb) / 0.16);
+  background: rgb(var(--color-graphite-rgb) / 0.72);
 }
 
 .btn--ghost::after {
@@ -661,8 +661,8 @@ onBeforeUnmount(() => {
 }
 
 .btn--ghost:hover {
-  border-color: rgba(255, 255, 255, 0.24);
-  background: rgba(18, 19, 22, 0.9);
+  border-color: rgb(var(--color-milk-rgb) / 0.24);
+  background: rgb(var(--color-graphite-rgb) / 0.9);
 }
 
 .btn:hover::after {
@@ -671,22 +671,22 @@ onBeforeUnmount(() => {
 }
 
 .hero :deep(.soc__link) {
-  border: 1px solid rgba(255, 255, 255, 0.38);
+  border: 1px solid rgb(var(--color-milk-rgb) / 0.38);
   border-radius: 4px;
-  color: #fff;
-  background: rgba(30, 28, 26, 0.22);
+  color: var(--color-milk);
+  background: rgb(var(--color-graphite-rgb) / 0.22);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
 .hero :deep(.soc__link:hover) {
-  border-color: rgba(255, 255, 255, 0.55);
-  background: rgba(30, 28, 26, 0.4);
+  border-color: rgb(var(--color-milk-rgb) / 0.55);
+  background: rgb(var(--color-graphite-rgb) / 0.4);
 }
 
 @media (max-width: 899px) {
   .hero {
-    background: #050607;
+    background: var(--color-graphite);
   }
 
   .hero__stage {
@@ -697,7 +697,7 @@ onBeforeUnmount(() => {
     flex-direction: column;
     background:
       radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
-      linear-gradient(180deg, #07080a 0%, #0a0b0d 100%);
+      linear-gradient(180deg, var(--color-graphite) 0%, var(--color-graphite) 100%);
   }
 
   .hero__stage::before {
@@ -728,7 +728,7 @@ onBeforeUnmount(() => {
     font-size: clamp(1.95rem, 8.5vw, 2.9rem);
     line-height: 1.02;
     letter-spacing: -0.045em;
-    color: #fff;
+    color: var(--color-milk);
     overflow-wrap: anywhere;
   }
 
@@ -758,7 +758,7 @@ onBeforeUnmount(() => {
     aspect-ratio: 16 / 10;
     height: auto;
     margin: 0.6rem 0 0;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid rgb(var(--color-milk-rgb) / 0.14);
     border-radius: 1.5rem;
     overflow: hidden;
     z-index: 3;
@@ -775,8 +775,8 @@ onBeforeUnmount(() => {
 
   .hero__car-mist {
     background:
-      linear-gradient(180deg, rgba(5, 6, 7, 0.08) 0%, rgba(5, 6, 7, 0.1) 44%, rgba(5, 6, 7, 0.46) 100%),
-      linear-gradient(90deg, rgba(5, 6, 7, 0.08) 0%, rgba(5, 6, 7, 0) 30%, rgba(5, 6, 7, 0.14) 100%);
+      linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.08) 0%, rgb(var(--color-graphite-rgb) / 0.1) 44%, rgb(var(--color-graphite-rgb) / 0.46) 100%),
+      linear-gradient(90deg, rgb(var(--color-graphite-rgb) / 0.08) 0%, rgb(var(--color-graphite-rgb) / 0) 30%, rgb(var(--color-graphite-rgb) / 0.14) 100%);
   }
 
   .hero__eyebrow {
@@ -880,7 +880,7 @@ onBeforeUnmount(() => {
         rgba(90, 84, 76, 0.1) 56%,
         rgba(28, 25, 22, 0.26) 100%
       ),
-      linear-gradient(90deg, rgba(90, 84, 76, 0.24) 0%, rgba(40, 36, 32, 0.01) 50%, rgba(90, 84, 76, 0.2) 100%);
+      linear-gradient(90deg, rgba(90, 84, 76, 0.24) 0%, rgb(var(--color-graphite-rgb) / 0.01) 50%, rgba(90, 84, 76, 0.2) 100%);
   }
 
   .hero__eyebrow {

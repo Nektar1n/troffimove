@@ -139,7 +139,7 @@ const reviews = [
   font-size: clamp(1.8rem, 4vw, 2.15rem);
   letter-spacing: -0.04em;
   line-height: 1.1;
-  color: #fff;
+  color: var(--color-milk);
 }
 
 .rev__sub {
@@ -179,7 +179,7 @@ const reviews = [
 
 .rev__count {
   font-size: 0.72rem;
-  color: rgba(245, 245, 247, 0.46);
+  color: rgb(var(--color-milk-rgb) / 0.46);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -226,7 +226,7 @@ const reviews = [
 .rev__name {
   font-weight: 600;
   font-size: 0.92rem;
-  color: #fff;
+  color: var(--color-milk);
 }
 
 .rev__meta {
@@ -246,14 +246,14 @@ const reviews = [
 
 .rev__date {
   font-size: 0.7rem;
-  color: rgba(245, 245, 247, 0.42);
+  color: rgb(var(--color-milk-rgb) / 0.42);
 }
 
 .rev__text {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: rgba(245, 245, 247, 0.8);
+  color: rgb(var(--color-milk-rgb) / 0.8);
 }
 
 .rev__cta {
@@ -292,7 +292,7 @@ const reviews = [
   margin: 0;
   text-align: center;
   font-size: 0.8125rem;
-  color: rgba(245, 245, 247, 0.46);
+  color: rgb(var(--color-milk-rgb) / 0.46);
   max-width: 26rem;
   margin-inline: auto;
 }

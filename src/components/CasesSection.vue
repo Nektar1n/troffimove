@@ -108,7 +108,7 @@ const isDark = computed(() => props.tone === 'dark');
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background: #fff;
+  background: var(--color-milk);
   border-bottom: 1px solid var(--line-light);
 }
 
@@ -195,7 +195,7 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .sec--dark .track::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgb(var(--color-milk-rgb) / 0.18);
 }
 
 .card {
@@ -203,7 +203,7 @@ const isDark = computed(() => props.tone === 'dark');
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--color-milk);
   border: 1px solid var(--line-light);
   border-radius: 10px;
   overflow: hidden;
@@ -281,7 +281,7 @@ const isDark = computed(() => props.tone === 'dark');
   letter-spacing: -0.02em;
   margin: 0 0 0.45rem;
   line-height: 1.3;
-  color: #000;
+  color: var(--color-graphite);
 }
 
 .sec--dark .card__model {
@@ -296,7 +296,7 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .sec--dark .card__meta {
-  color: rgba(245, 245, 247, 0.5);
+  color: rgb(var(--color-milk-rgb) / 0.5);
 }
 
 .card__text {
@@ -308,7 +308,7 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .sec--dark .card__text {
-  color: rgba(245, 245, 247, 0.76);
+  color: rgb(var(--color-milk-rgb) / 0.76);
 }
 
 .card__cta {
@@ -333,7 +333,7 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .sec--dark .card__cta {
-  color: rgba(245, 245, 247, 0.88);
+  color: rgb(var(--color-milk-rgb) / 0.88);
   border-bottom-color: rgba(233, 190, 95, 0.72);
 }
 

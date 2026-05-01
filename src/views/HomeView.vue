@@ -30,7 +30,7 @@ import ContactForm from '../components/ContactForm.vue';
 
     <CasesSection
       section-id="cases"
-      title="Успешные сделки: привоз и подбор"
+      title="Успешные сделки"
       lead="Смешанная выборка: часть сделок про привоз из Кореи, Японии и Европы, часть — про осмотр и сопровождение покупки на месте."
       scope="home"
       cta-label="Все сделки"
@@ -45,14 +45,14 @@ import ContactForm from '../components/ContactForm.vue';
 
 <style scoped>
 .home-split {
-  padding: 1.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.1rem max(1rem, env(safe-area-inset-right, 0px));
+  padding: 0.75rem max(1rem, env(safe-area-inset-left, 0px)) 2.1rem max(1rem, env(safe-area-inset-right, 0px));
   border-bottom: 1px solid var(--line-light);
   background: var(--bg);
 }
 
 @media (min-width: 720px) {
   .home-split {
-    padding-top: 1.65rem;
+    padding-top: 0.825rem;
     padding-bottom: 2.35rem;
   }
 }
@@ -80,7 +80,7 @@ import ContactForm from '../components/ContactForm.vue';
   border-radius: 10px;
   border: 1px solid var(--line);
   border-left: 3px solid var(--yellow);
-  background: #fff;
+  background: var(--color-milk);
   text-decoration: none;
   color: inherit;
   transition: border-color 0.2s ease, background 0.2s ease;

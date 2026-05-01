@@ -54,9 +54,9 @@ watch(
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 0 0 2.5rem;
+  padding: 0;
   background: transparent;
-  color: rgba(245, 245, 247, 0.92);
+  color: rgb(var(--color-milk-rgb) / 0.92);
 }
 
 .home-hero-stats__inner {
@@ -96,9 +96,9 @@ watch(
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background: #0a0b0d;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-graphite);
+  border-top: 1px solid rgb(var(--color-milk-rgb) / 0.1);
+  border-bottom: 1px solid rgb(var(--color-milk-rgb) / 0.1);
 }
 
 .home-hero-stats__item {
@@ -115,7 +115,7 @@ watch(
 
 @media (min-width: 720px) {
   .home-hero-stats__item {
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgb(var(--color-milk-rgb) / 0.1);
     padding: 0.25rem 1.75rem;
   }
 
@@ -138,14 +138,14 @@ watch(
   font-weight: 600;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: -0.03em;
-  color: rgba(245, 245, 247, 0.95);
+  color: rgb(var(--color-milk-rgb) / 0.95);
   font-variant-numeric: tabular-nums;
 }
 
 .home-hero-stats__t {
   font-size: 0.8125rem;
   line-height: 1.35;
-  color: rgba(245, 245, 247, 0.48);
+  color: rgb(var(--color-milk-rgb) / 0.48);
   max-width: 12rem;
 }
 
@@ -153,9 +153,9 @@ watch(
   .home-hero-stats {
     margin-top: -1px;
     padding-top: 0;
-    padding-bottom: 2rem;
+    padding-bottom: 0;
     /* без щели со светлым --bg страницы между героем и блоком */
-    background: #0a0b0d;
+    background: var(--color-graphite);
   }
 
   .home-hero-stats__grid {
@@ -171,7 +171,7 @@ watch(
 /* После базовых тёмных правил — иначе они перебивают светлую тему */
 @media (min-width: 900px) {
   .home-hero-stats {
-    padding: 0 0 3.5rem;
+    padding: 0;
     color: var(--text);
   }
 
@@ -185,7 +185,7 @@ watch(
   }
 
   .home-hero-stats__grid::before {
-    background: #fff;
+    background: var(--color-milk);
     border-top: 1px solid var(--line-light);
     border-bottom: 1px solid var(--line-light);
   }
@@ -196,7 +196,7 @@ watch(
 
   .home-hero-stats__n {
     font-size: clamp(2.5rem, 4.8vw, 3.75rem);
-    color: #0a0a0a;
+    color: var(--color-graphite);
   }
 
   .home-hero-stats__t {

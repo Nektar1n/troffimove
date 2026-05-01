@@ -117,14 +117,14 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 
 <style scoped>
 .svc {
-  --svc-bg: #050607;
-  --svc-surface: #0f1013;
-  --svc-surface-2: #14161a;
-  --svc-border: rgba(255, 255, 255, 0.1);
+  --svc-bg: var(--color-graphite);
+  --svc-surface: var(--color-graphite);
+  --svc-surface-2: var(--color-graphite);
+  --svc-border: rgb(var(--color-milk-rgb) / 0.1);
   --svc-border-strong: rgba(233, 190, 95, 0.28);
-  --svc-text: #f6f7f9;
-  --svc-muted: rgba(246, 247, 249, 0.7);
-  --svc-shadow: 0 20px 48px -40px rgba(0, 0, 0, 0.9);
+  --svc-text: var(--color-milk);
+  --svc-muted: rgb(var(--color-milk-rgb) / 0.7);
+  --svc-shadow: 0 20px 48px -40px rgb(var(--color-graphite-rgb) / 0.9);
 
   position: relative;
   padding: 2.5rem max(1rem, env(safe-area-inset-left, 0px)) 2.5rem max(1rem, env(safe-area-inset-right, 0px));
@@ -205,8 +205,8 @@ const activeService = computed(() => services.find((s) => s.id === current.value
 }
 
 .svc__tab:hover:not(.svc__tab--on) {
-  background: #15171b;
-  border-color: rgba(255, 255, 255, 0.16);
+  background: var(--color-graphite);
+  border-color: rgb(var(--color-milk-rgb) / 0.16);
   color: var(--svc-text);
 }
 
@@ -302,7 +302,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   min-width: 0;
   display: flex;
   flex-direction: column;
-  background: #0a0b0d;
+  background: var(--color-graphite);
   border-top: 1px solid var(--svc-border);
 }
 
@@ -356,7 +356,7 @@ const activeService = computed(() => services.find((s) => s.id === current.value
   font-weight: 500;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgb(var(--color-milk-rgb) / 0.62);
 }
 
 .svc__list {
