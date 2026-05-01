@@ -865,9 +865,14 @@ onBeforeUnmount(() => {
     font-size: clamp(2.3rem, 4.9vw, 5.35rem);
   }
 
+  .hero__car-wrap {
+    background: rgb(var(--color-milk-rgb) / 0.96);
+  }
+
   .hero__car {
-    object-position: 50% 118%;
-    transform: scale(1.2) translateY(12vh);
+    object-fit: contain;
+    object-position: 50% 100%;
+    transform: none;
   }
 
   .hero__car-mist {
