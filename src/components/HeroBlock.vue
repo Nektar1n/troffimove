@@ -852,10 +852,6 @@ onBeforeUnmount(() => {
 }
 
 @media (min-width: 1920px) {
-  .hero__stage {
-    min-height: min(90dvh, 980px);
-  }
-
   .hero__masthead {
     min-height: clamp(11rem, 24vh, 17rem);
   }
@@ -870,14 +866,13 @@ onBeforeUnmount(() => {
   }
 
   .hero__car-wrap {
-    inset: 0 0 clamp(4.5rem, 8vh, 7.5rem) 0;
     background: rgb(var(--color-milk-rgb) / 0.96);
   }
 
   .hero__car {
-    object-fit: cover;
-    object-position: 50% 22%;
-    transform: scale(1.03);
+    object-fit: contain;
+    object-position: 50% 100%;
+    transform: none;
   }
 
   .hero__car-mist {
