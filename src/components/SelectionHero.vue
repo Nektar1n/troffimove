@@ -231,6 +231,9 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     column-gap: 1.75rem;
     row-gap: 0;
     align-items: start;
+    align-content: start;
+    position: relative;
+    height: 100%;
     padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
   }
@@ -401,9 +404,12 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
 @media (min-width: 900px) {
   .pick-hero__actions {
-    grid-column: 1 / 11;
-    grid-row: 3;
-    margin-top: 1.1rem;
+    position: absolute;
+    right: max(1.5rem, env(safe-area-inset-right, 0px));
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    flex-wrap: nowrap;
+    gap: 0.75rem;
   }
 }
 
@@ -411,13 +417,15 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0.7rem 1.2rem;
+  min-height: 54px;
+  min-width: clamp(12rem, 18vw, 15rem);
+  padding: 0.9rem 1.55rem;
   border-radius: 0.9rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: clamp(1rem, 1.1vw, 1.08rem);
   letter-spacing: 0.01em;
   text-decoration: none;
+  border: 1px solid transparent;
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
