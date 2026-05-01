@@ -398,9 +398,10 @@ const jpBrands = computed(() => brandSets.jp);
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: transparent;
+  background:
+    linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.58) 0%, rgb(var(--color-graphite-rgb) / 0.36) 34%, rgb(var(--color-graphite-rgb) / 0.1) 58%, rgb(var(--color-graphite-rgb) / 0.02) 100%);
   pointer-events: none;
-  opacity: 0;
+  opacity: 1;
 }
 
 .routes__truck-inline-media {
@@ -620,7 +621,8 @@ const jpBrands = computed(() => brandSets.jp);
   }
 
   .routes__truck-inline-veil {
-    background: transparent;
+    background:
+      linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.58) 0%, rgb(var(--color-graphite-rgb) / 0.36) 34%, rgb(var(--color-graphite-rgb) / 0.1) 58%, rgb(var(--color-graphite-rgb) / 0.02) 100%);
   }
 
   .routes__truck-deck {
