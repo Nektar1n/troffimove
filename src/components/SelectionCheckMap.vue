@@ -686,7 +686,16 @@ onBeforeUnmount(() => {
 
 @media (min-width: 1600px) {
   .scheme__board {
+    width: min(1640px, calc(100vw - 3rem));
+    margin-left: auto;
+    margin-right: auto;
     height: clamp(38rem, 54vw, 58rem);
+    border-radius: 1rem;
+  }
+
+  .scheme__car {
+    object-fit: contain;
+    object-position: center 56%;
   }
 
   .scheme__callout {
