@@ -866,8 +866,8 @@ onBeforeUnmount(() => {
   }
 
   .hero__car {
-    object-position: 50% 69%;
-    transform: scale(1.44) translateY(3vh);
+    object-position: 50% 180%;
+    transform: scale(1.24) translateY(20vh);
   }
 
   .hero__car-mist {
