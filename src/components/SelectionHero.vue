@@ -136,9 +136,18 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 }
 
 @media (min-width: 900px) and (min-aspect-ratio: 2 / 1) {
+  .pick-hero {
+    --pick-hero-slab: clamp(480px, 62dvh, 760px);
+  }
+
+  .pick-hero__surface {
+    background: rgb(var(--color-milk-rgb) / 0.96);
+  }
+
   .pick-hero__img {
-    object-position: 50% 53%;
-    transform: scaleX(-1) translateY(-0.25rem);
+    object-fit: contain;
+    object-position: 50% 100%;
+    transform: scaleX(-1);
   }
 }
 
@@ -290,7 +299,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   max-width: 44rem;
   font-size: clamp(1rem, 2.8vw, 1.0625rem);
   line-height: 1.5;
-  color: rgb(var(--color-milk-rgb) / 0.62);
+  color: rgb(var(--color-milk-rgb) / 0.84);
 }
 
 @media (min-width: 900px) {
@@ -302,7 +311,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     align-self: start;
     font-size: clamp(0.86rem, 0.9vw, 0.95rem);
     line-height: 1.5;
-    color: rgb(var(--color-milk-rgb) / 0.62);
+    color: rgb(var(--color-milk-rgb) / 0.84);
   }
 }
 

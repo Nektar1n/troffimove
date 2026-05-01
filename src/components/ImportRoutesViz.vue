@@ -527,7 +527,7 @@ const jpBrands = computed(() => brandSets.jp);
   max-width: 44rem;
   font-size: clamp(0.98rem, 2.4vw, 1.02rem);
   line-height: 1.5;
-  color: rgb(var(--color-milk-rgb) / 0.62);
+  color: rgb(var(--color-milk-rgb) / 0.84);
   text-align: left;
 }
 

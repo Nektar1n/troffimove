@@ -852,10 +852,6 @@ onBeforeUnmount(() => {
 }
 
 @media (min-width: 1920px) {
-  .hero__stage {
-    min-height: 100dvh;
-  }
-
   .hero__masthead {
     min-height: clamp(11rem, 24vh, 17rem);
   }
