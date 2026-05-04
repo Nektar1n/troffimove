@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import desktopHeroPhoto from '../assets/главнаяПрод.jpg';
+import desktopHeroUltrawidePhoto from '../assets/расширеннаяГлавн.jpg';
 import trofimCutout from '../assets/вырезаныйТроффим.png';
 import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
@@ -192,6 +193,10 @@ onBeforeUnmount(() => {
       <div class="hero__car-wrap" aria-hidden="true">
         <picture>
           <source :srcset="mobileHeroPhoto" media="(max-width: 899px)" />
+          <source
+            :srcset="desktopHeroUltrawidePhoto"
+            media="(min-width: 900px) and (min-aspect-ratio: 21/9)"
+          />
           <img
             :src="desktopHeroPhoto"
             class="hero__car"

@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { selectionHeroUrl } from '../utils/selectionHeroImage.js';
+import { selectionHeroUltrawideUrl, selectionHeroUrl } from '../utils/selectionHeroImage.js';
 import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 </script>
 
@@ -9,16 +9,22 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   <section class="pick-hero pick-hero--in" aria-labelledby="pick-hero-title">
     <figure class="pick-hero__shot">
       <div class="pick-hero__surface">
-        <img
-          :src="selectionHeroUrl"
-          class="pick-hero__img"
-          width="1376"
-          height="768"
-          alt="BMW: осмотр автомобиля перед сделкой"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
+        <picture>
+          <source
+            :srcset="selectionHeroUltrawideUrl"
+            media="(min-width: 900px) and (min-aspect-ratio: 21/9)"
+          />
+          <img
+            :src="selectionHeroUrl"
+            class="pick-hero__img"
+            width="1376"
+            height="768"
+            alt="BMW: осмотр автомобиля перед сделкой"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
         <div class="pick-hero__overlay" aria-hidden="true" />
       </div>
       <figcaption class="pick-hero__cap">
@@ -39,16 +45,22 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
             />
           </h1>
           <div class="pick-hero__inline-media" aria-hidden="true">
-            <img
-              :src="selectionHeroUrl"
-              class="pick-hero__inline-img"
-              width="1376"
-              height="768"
-              alt=""
-              loading="lazy"
-              decoding="async"
-              fetchpriority="low"
-            />
+            <picture>
+              <source
+                :srcset="selectionHeroUltrawideUrl"
+                media="(min-width: 900px) and (min-aspect-ratio: 21/9)"
+              />
+              <img
+                :src="selectionHeroUrl"
+                class="pick-hero__inline-img"
+                width="1376"
+                height="768"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+              />
+            </picture>
             <div class="pick-hero__inline-veil" />
           </div>
           <p class="pick-hero__lead">
@@ -116,6 +128,12 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   background: var(--color-graphite);
 }
 
+.pick-hero__surface picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .pick-hero__img {
   display: block;
   width: 100%;
@@ -164,6 +182,12 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 .pick-hero__inline-media {
   display: none;
   position: relative;
+}
+
+.pick-hero__inline-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .pick-hero__inline-img {

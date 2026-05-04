@@ -1,4 +1,5 @@
 import selectionHeroUrl from '../assets/подборПрод.jpg';
+import selectionHeroUltrawideUrl from '../assets/расширеннаяПодбор.PNG';
 
 const preloaded = new Set();
 
@@ -17,4 +18,4 @@ export function ensureSelectionHeroImagePreload() {
   document.head.appendChild(link);
 }
 
-export { selectionHeroUrl };
+export { selectionHeroUrl, selectionHeroUltrawideUrl };

@@ -5,6 +5,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 import { useInView } from '../composables/useInView.js';
 import { normalizeBrandSvg } from '../utils/svgNormalize.js';
 import imgTruck from '../assets/фура.png';
+import imgTruckUltrawide from '../assets/расширеннаяФура.PNG';
 import audi from '../../node_modules/simple-icons/icons/audi.svg?raw';
 import bmw from '../../node_modules/simple-icons/icons/bmw.svg?raw';
 import volkswagen from '../../node_modules/simple-icons/icons/volkswagen.svg?raw';
@@ -123,14 +124,20 @@ const jpBrands = computed(() => brandSets.jp);
   >
     <figure class="routes__truck" :class="{ 'routes__truck--in': heroVisible }">
       <div class="routes__truck-surface">
-        <img
-          :src="imgTruck"
-          class="routes__truck-img"
-          width="1600"
-          height="900"
-          alt="Автовоз с автомобилями: доставка по маршруту"
-          decoding="async"
-        />
+        <picture>
+          <source
+            :srcset="imgTruckUltrawide"
+            media="(min-width: 900px) and (min-aspect-ratio: 21/9)"
+          />
+          <img
+            :src="imgTruck"
+            class="routes__truck-img"
+            width="1600"
+            height="900"
+            alt="Автовоз с автомобилями: доставка по маршруту"
+            decoding="async"
+          />
+        </picture>
         <div class="routes__truck-overlay" aria-hidden="true" />
       </div>
       <figcaption class="routes__truck-cap">
@@ -150,14 +157,20 @@ const jpBrands = computed(() => brandSets.jp);
             />
           </h2>
           <div class="routes__truck-inline-media" aria-hidden="true">
-            <img
-              :src="imgTruck"
-              class="routes__truck-inline-img"
-              width="1600"
-              height="900"
-              alt=""
-              decoding="async"
-            />
+            <picture>
+              <source
+                :srcset="imgTruckUltrawide"
+                media="(min-width: 900px) and (min-aspect-ratio: 21/9)"
+              />
+              <img
+                :src="imgTruck"
+                class="routes__truck-inline-img"
+                width="1600"
+                height="900"
+                alt=""
+                decoding="async"
+              />
+            </picture>
             <div class="routes__truck-inline-veil" />
           </div>
           <p class="routes__truck-deck">
@@ -385,6 +398,12 @@ const jpBrands = computed(() => brandSets.jp);
   transform: translate3d(0, 0, 0) scale(1);
 }
 
+.routes__truck-surface picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .routes__truck-img {
   display: block;
   width: 100%;
@@ -406,6 +425,12 @@ const jpBrands = computed(() => brandSets.jp);
 
 .routes__truck-inline-media {
   display: none;
+}
+
+.routes__truck-inline-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .routes__truck-inline-img {
