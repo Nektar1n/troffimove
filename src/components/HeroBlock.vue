@@ -753,8 +753,9 @@ onBeforeUnmount(() => {
     position: relative;
     inset: auto;
     order: 2;
-    width: 100%;
-    max-width: min(28rem, 100%);
+    align-self: center;
+    width: min(100%, 28rem);
+    max-width: 100%;
     aspect-ratio: 16 / 10;
     height: auto;
     margin: 0.6rem 0 0;

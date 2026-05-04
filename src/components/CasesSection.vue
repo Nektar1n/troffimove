@@ -169,8 +169,10 @@ const isDark = computed(() => props.tone === 'dark');
   display: flex;
   gap: 0.75rem;
   overflow-x: auto;
+  overflow-y: hidden;
   padding-bottom: 0.5rem;
-  scroll-snap-type: x mandatory;
+  /* proximity: на iOS mandatory часто «залипает» у предпоследней snap-точки */
+  scroll-snap-type: x proximity;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
 }
@@ -183,6 +185,14 @@ const isDark = computed(() => props.tone === 'dark');
     overflow: visible;
     padding-bottom: 0;
     scroll-snap-type: none;
+  }
+}
+
+@media (max-width: 959px) {
+  .track {
+    /* запас справа, чтобы последняя карточка целиком входила в scrollport + safe area */
+    padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
+    scroll-padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
 
@@ -199,8 +209,10 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .card {
-  flex: 0 0 min(340px, calc(100vw - 2.25rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  flex: 0 0 min(340px, 100%);
+  min-width: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: normal;
   display: flex;
   flex-direction: column;
   background: var(--color-milk);
