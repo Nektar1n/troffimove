@@ -177,11 +177,6 @@ const isDark = computed(() => props.tone === 'dark');
   -webkit-overflow-scrolling: touch;
 }
 
-.track::after {
-  content: '';
-  flex: 0 0 max(1rem, env(safe-area-inset-right, 0px));
-}
-
 @media (min-width: 960px) {
   .track {
     display: grid;
@@ -195,15 +190,8 @@ const isDark = computed(() => props.tone === 'dark');
 
 @media (max-width: 959px) {
   .track {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min(340px, calc(100% - 1.25rem));
+    display: flex;
     scroll-padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
-  }
-
-  .track::after {
-    width: max(1rem, env(safe-area-inset-right, 0px));
-    min-width: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
 
@@ -223,7 +211,6 @@ const isDark = computed(() => props.tone === 'dark');
   flex: 0 0 min(340px, 100%);
   min-width: 0;
   box-sizing: border-box;
-  width: min(340px, calc(100% - 1.25rem));
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   display: flex;
@@ -236,6 +223,12 @@ const isDark = computed(() => props.tone === 'dark');
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
   transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 959px) {
+  .card:last-child {
+    margin-inline-end: max(1rem, env(safe-area-inset-right, 0px));
+  }
 }
 
 .sec--dark .card {
