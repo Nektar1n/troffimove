@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { getFeaturedCases } from '../data/cases.js';
 import { useInView } from '../composables/useInView.js';
@@ -40,9 +40,45 @@ const props = defineProps({
 });
 
 const { el, visible } = useInView({ rootMargin: '0px 0px 18% 0px', threshold: 0.06 });
+const trackEl = ref(null);
+let resizeHandler = null;
 
 const cases = computed(() => getFeaturedCases(props.scope));
 const isDark = computed(() => props.tone === 'dark');
+
+function updateTrackEndSpacer() {
+  const track = trackEl.value;
+  if (!track) return;
+
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 959px)').matches;
+  if (!isMobile) {
+    track.style.setProperty('--track-end-spacer', '0px');
+    return;
+  }
+
+  const firstCard = track.querySelector('.card');
+  if (!firstCard) {
+    track.style.setProperty('--track-end-spacer', '0px');
+    return;
+  }
+
+  const trackWidth = track.clientWidth;
+  const cardWidth = firstCard.getBoundingClientRect().width;
+  const gap = Number.parseFloat(window.getComputedStyle(track).columnGap || '0') || 0;
+  const spacer = Math.max(trackWidth - cardWidth - gap, 0);
+  track.style.setProperty('--track-end-spacer', `${spacer}px`);
+}
+
+onMounted(async () => {
+  await nextTick();
+  updateTrackEndSpacer();
+  resizeHandler = () => updateTrackEndSpacer();
+  window.addEventListener('resize', resizeHandler, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+});
 </script>
 
 <template>
@@ -51,7 +87,7 @@ const isDark = computed(() => props.tone === 'dark');
       <h2 class="sec__title">{{ title }}</h2>
       <p class="sec__lead">{{ lead }}</p>
     </div>
-    <div class="track" tabindex="0">
+    <div ref="trackEl" class="track" tabindex="0">
       <article
         v-for="(c, i) in cases"
         :key="c.id"
@@ -166,6 +202,7 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 .track {
+  --track-end-spacer: 0px;
   display: flex;
   gap: 0.75rem;
   overflow-x: auto;
@@ -175,6 +212,11 @@ const isDark = computed(() => props.tone === 'dark');
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
+}
+
+.track::after {
+  content: '';
+  flex: 0 0 var(--track-end-spacer);
 }
 
 @media (min-width: 960px) {
@@ -190,9 +232,7 @@ const isDark = computed(() => props.tone === 'dark');
 
 @media (max-width: 959px) {
   .track {
-    gap: 0;
     display: flex;
-    scroll-snap-type: x mandatory;
     scroll-padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
@@ -225,14 +265,6 @@ const isDark = computed(() => props.tone === 'dark');
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
   transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@media (max-width: 959px) {
-  .card {
-    flex: 0 0 100%;
-    width: 100%;
-    scroll-snap-stop: always;
-  }
 }
 
 .sec--dark .card {
