@@ -134,8 +134,10 @@ function pad2(n) {
 
 const boardEl = ref(null);
 const dynamicPorts = ref({});
+const boardReady = ref(false);
 const calloutEls = new Map();
 let measureRaf = 0;
+let boardObserver = null;
 
 function setCalloutRef(id, el) {
   if (el) calloutEls.set(id, el);
@@ -198,11 +200,32 @@ onMounted(async () => {
   await nextTick();
   scheduleMeasure();
   window.addEventListener('resize', scheduleMeasure);
+
+  const board = boardEl.value;
+  if (!board) return;
+
+  if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+    boardObserver = new IntersectionObserver(
+      (entries) => {
+        const hit = entries.some((entry) => entry.isIntersecting);
+        if (!hit) return;
+        boardReady.value = true;
+        boardObserver?.disconnect();
+        boardObserver = null;
+      },
+      { threshold: 0.28, rootMargin: '0px 0px -6% 0px' },
+    );
+    boardObserver.observe(board);
+  } else {
+    boardReady.value = true;
+  }
 });
 
 onBeforeUnmount(() => {
   cancelAnimationFrame(measureRaf);
   window.removeEventListener('resize', scheduleMeasure);
+  boardObserver?.disconnect();
+  boardObserver = null;
 });
 </script>
 
@@ -211,30 +234,31 @@ onBeforeUnmount(() => {
     <div class="scheme__bleed" aria-hidden="true" />
 
     <div class="scheme__inner">
-      <div ref="boardEl" v-reveal="140" class="scheme__board">
+      <div ref="boardEl" v-reveal="140" class="scheme__board" :class="{ 'scheme__board--ready': boardReady }">
         <h2 id="scheme-title" class="scheme__title">Что проверяем</h2>
 
         <svg class="scheme__wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <polyline
-            v-for="zone in zones"
+            v-for="(zone, i) in zones"
             :key="`${zone.id}-wire`"
             class="scheme__wire"
             :points="wirePoints(zone)"
+            :style="{ '--wire-delay': `${i * 100}ms` }"
           />
         </svg>
 
         <div class="scheme__nodes" aria-hidden="true">
           <span
-            v-for="zone in zones"
+            v-for="(zone, i) in zones"
             :key="`${zone.id}-anchor-dot`"
             class="scheme__node scheme__node--anchor"
-            :style="{ left: `${zone.anchor.x}%`, top: `${zone.anchor.y}%` }"
+            :style="{ left: `${zone.anchor.x}%`, top: `${zone.anchor.y}%`, '--node-delay': `${i * 100}ms` }"
           />
           <span
-            v-for="zone in zones"
+            v-for="(zone, i) in zones"
             :key="`${zone.id}-port-dot`"
             class="scheme__node scheme__node--port"
-            :style="{ left: `${portPos(zone).x}%`, top: `${portPos(zone).y}%` }"
+            :style="{ left: `${portPos(zone).x}%`, top: `${portPos(zone).y}%`, '--node-delay': `${i * 100 + 180}ms` }"
           />
         </div>
 
@@ -255,7 +279,7 @@ onBeforeUnmount(() => {
           :ref="(el) => setCalloutRef(zone.id, el)"
           class="scheme__callout"
           :class="`scheme__callout--${zone.side}`"
-          :style="{ left: `${zone.card.x}%`, top: `${zone.card.y}%` }"
+          :style="{ left: `${zone.card.x}%`, top: `${zone.card.y}%`, '--callout-delay': `${i * 100 + 320}ms` }"
         >
           <div class="scheme__callout-top">
             <span class="scheme__callout-icon" aria-hidden="true">
@@ -397,24 +421,30 @@ onBeforeUnmount(() => {
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 0.58;
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+  filter: drop-shadow(0 0 0.2rem rgb(233 190 95 / 0.28));
 }
 
 .scheme__node {
   position: absolute;
   border-radius: 999px;
   transform: translate(-50%, -50%);
+  opacity: 0;
 }
 
 .scheme__node--anchor {
   width: 0.5rem;
   height: 0.5rem;
   background: rgba(233, 190, 95, 0.82);
+  box-shadow: 0 0 0 0 rgb(233 190 95 / 0.44);
 }
 
 .scheme__node--port {
   width: 0.42rem;
   height: 0.42rem;
   background: rgb(var(--color-milk-rgb) / 0.72);
+  box-shadow: 0 0 0 0 rgb(var(--color-milk-rgb) / 0.4);
 }
 
 .scheme__car {
@@ -439,6 +469,77 @@ onBeforeUnmount(() => {
   background: rgba(16, 17, 20, 0.94);
   border: 1px solid var(--scheme-border);
   box-shadow: 0 16px 28px -24px rgb(var(--color-graphite-rgb) / 0.82);
+  opacity: 0;
+  transform: translateY(0.25rem) scale(0.985);
+}
+
+.scheme__board--ready .scheme__wire {
+  animation: scheme-wire-draw 880ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: var(--wire-delay, 0ms);
+}
+
+.scheme__board--ready .scheme__node {
+  animation: scheme-node-pop 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--node-delay, 0ms);
+}
+
+.scheme__board--ready .scheme__node--anchor {
+  animation-name: scheme-node-pop, scheme-node-pulse;
+  animation-duration: 420ms, 2600ms;
+  animation-delay: var(--node-delay, 0ms), calc(var(--node-delay, 0ms) + 760ms);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1), ease-out;
+  animation-fill-mode: forwards, both;
+  animation-iteration-count: 1, infinite;
+}
+
+.scheme__board--ready .scheme__callout {
+  animation: scheme-callout-in 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--callout-delay, 0ms);
+}
+
+@keyframes scheme-wire-draw {
+  0% {
+    stroke-dashoffset: 140;
+    opacity: 0.05;
+  }
+  45% {
+    opacity: 0.85;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.58;
+  }
+}
+
+@keyframes scheme-node-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes scheme-node-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(233 190 95 / 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 0.75rem rgb(233 190 95 / 0);
+  }
+}
+
+@keyframes scheme-callout-in {
+  0% {
+    opacity: 0;
+    transform: translateY(0.25rem) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .scheme__callout-top {
@@ -496,6 +597,25 @@ onBeforeUnmount(() => {
 
 .scheme__mobile-list {
   display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scheme__wire {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .scheme__node {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .scheme__callout {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
 }
 
 @media (max-width: 1199px) {

@@ -177,6 +177,11 @@ const isDark = computed(() => props.tone === 'dark');
   -webkit-overflow-scrolling: touch;
 }
 
+.track::after {
+  content: '';
+  flex: 0 0 max(1rem, env(safe-area-inset-right, 0px));
+}
+
 @media (min-width: 960px) {
   .track {
     display: grid;
@@ -190,8 +195,6 @@ const isDark = computed(() => props.tone === 'dark');
 
 @media (max-width: 959px) {
   .track {
-    /* запас справа, чтобы последняя карточка целиком входила в scrollport + safe area */
-    padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
     scroll-padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
@@ -211,6 +214,7 @@ const isDark = computed(() => props.tone === 'dark');
 .card {
   flex: 0 0 min(340px, 100%);
   min-width: 0;
+  box-sizing: border-box;
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   display: flex;
