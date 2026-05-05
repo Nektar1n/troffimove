@@ -190,7 +190,9 @@ const isDark = computed(() => props.tone === 'dark');
 
 @media (max-width: 959px) {
   .track {
+    gap: 0;
     display: flex;
+    scroll-snap-type: x mandatory;
     scroll-padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
@@ -226,8 +228,10 @@ const isDark = computed(() => props.tone === 'dark');
 }
 
 @media (max-width: 959px) {
-  .card:last-child {
-    margin-inline-end: max(1rem, env(safe-area-inset-right, 0px));
+  .card {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-stop: always;
   }
 }
 
