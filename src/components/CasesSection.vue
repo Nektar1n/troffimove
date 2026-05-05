@@ -195,7 +195,15 @@ const isDark = computed(() => props.tone === 'dark');
 
 @media (max-width: 959px) {
   .track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(340px, calc(100% - 1.25rem));
     scroll-padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
+  }
+
+  .track::after {
+    width: max(1rem, env(safe-area-inset-right, 0px));
+    min-width: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
 
@@ -215,6 +223,7 @@ const isDark = computed(() => props.tone === 'dark');
   flex: 0 0 min(340px, 100%);
   min-width: 0;
   box-sizing: border-box;
+  width: min(340px, calc(100% - 1.25rem));
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   display: flex;
