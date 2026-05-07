@@ -1,6 +1,6 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { getFeaturedCases } from '../data/cases.js';
 import { useInView } from '../composables/useInView.js';
 
@@ -42,9 +42,14 @@ const props = defineProps({
 const { el, visible } = useInView({ rootMargin: '0px 0px 18% 0px', threshold: 0.06 });
 const trackEl = ref(null);
 let resizeHandler = null;
+const router = useRouter();
 
 const cases = computed(() => getFeaturedCases(props.scope));
 const isDark = computed(() => props.tone === 'dark');
+
+function openCase(id) {
+  router.push({ name: 'case-detail', params: { id } });
+}
 
 function updateTrackEndSpacer() {
   const track = trackEl.value;
@@ -94,6 +99,11 @@ onBeforeUnmount(() => {
         class="card"
         :class="{ 'card--in': visible }"
         :style="visible ? { transitionDelay: `${i * 0.09}s` } : { transitionDelay: '0s' }"
+        role="link"
+        tabindex="0"
+        @click="openCase(c.id)"
+        @keydown.enter.prevent="openCase(c.id)"
+        @keydown.space.prevent="openCase(c.id)"
       >
         <div class="card__media">
           <img
@@ -112,7 +122,7 @@ onBeforeUnmount(() => {
           <h3 class="card__model">{{ c.model }}</h3>
           <p class="card__meta">{{ c.meta }}</p>
           <p class="card__text">{{ c.text }}</p>
-          <RouterLink class="card__cta" :to="cardCtaTo">Обсудить похожую задачу →</RouterLink>
+          <RouterLink class="card__cta" :to="{ name: 'case-detail', params: { id: c.id } }">Подробнее о сделке →</RouterLink>
         </div>
       </article>
     </div>
@@ -265,6 +275,7 @@ onBeforeUnmount(() => {
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
   transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
 }
 
 .sec--dark .card {
@@ -374,6 +385,11 @@ onBeforeUnmount(() => {
   letter-spacing: -0.01em;
   padding: 0.35rem 0;
   border-bottom: 2px solid var(--yellow);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
 }
 
 .card__cta:focus-visible {

@@ -303,9 +303,9 @@ const jpBrands = computed(() => brandSets.jp);
   --routes-surface-2: var(--color-graphite);
   --routes-border: rgb(var(--color-milk-rgb) / 0.1);
   box-sizing: border-box;
-  width: 100vw;
+  width: 100%;
   max-width: 100%;
-  margin-left: calc(50% - 50vw);
+  margin-left: 0;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -344,15 +344,15 @@ const jpBrands = computed(() => brandSets.jp);
   .routes__content {
     margin-top: 0;
     padding-top: 0;
-    padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
-    padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
 
 @media (min-width: 1200px) {
   .routes__content {
-    padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
-    padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
 
@@ -458,6 +458,8 @@ const jpBrands = computed(() => brandSets.jp);
   box-sizing: border-box;
   padding: calc(7.5rem + var(--routes-head-clear) + env(safe-area-inset-top, 0px)) 0
     max(1.15rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
   max-width: 100%;
   text-align: left;
   text-wrap: balance;
@@ -482,14 +484,14 @@ const jpBrands = computed(() => brandSets.jp);
   max-width: var(--content-max);
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 0 max(1rem, env(safe-area-inset-left, 0px)) 0 max(1rem, env(safe-area-inset-right, 0px));
+  padding: 0;
   pointer-events: auto;
 }
 
 @media (min-width: 720px) {
   .routes__truck-box {
-    padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
-    padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -508,13 +510,13 @@ const jpBrands = computed(() => brandSets.jp);
     position: relative;
     height: 100%;
     align-content: start;
-    padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
-    padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .routes__truck-actions {
     position: absolute;
-    right: max(1.5rem, env(safe-area-inset-right, 0px));
+    right: 0;
     bottom: max(1rem, env(safe-area-inset-bottom, 0px));
     margin: 0;
     flex-wrap: nowrap;

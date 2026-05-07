@@ -156,6 +156,143 @@ export const CASES = [
   },
 ];
 
+const DETAIL_FIELDS = {
+  import: {
+    serviceLabel: 'Привоз авто под ключ',
+    serviceDescription:
+      'Сопровождаем весь цикл: подбор лота за рубежом, проверка перед выкупом, логистика до РФ, таможенные процедуры и передача автомобиля с комплектом документов.',
+    workflow: [
+      'Согласовали ТЗ, бюджет и диапазон комплектаций.',
+      'Проверили историю и состояние до оплаты лота.',
+      'Организовали логистику и контроль сроков на каждом этапе.',
+      'Подготовили пакет документов и передали авто клиенту.',
+    ],
+  },
+  selection: {
+    serviceLabel: 'Подбор авто на месте',
+    serviceDescription:
+      'Отрабатываем рынок по вашему бюджету: фильтруем объявления, проверяем историю и техсостояние, ведём переговоры с продавцом и сопровождаем сделку до передачи.',
+    workflow: [
+      'Собрали короткий лист релевантных объявлений под запрос.',
+      'Провели осмотры, диагностику и юридические проверки.',
+      'Отсеяли рискованные варианты и оставили 1-2 сильных.',
+      'Согласовали финальную цену и довели сделку до покупки.',
+    ],
+  },
+};
+
+const CASE_DETAILS = {
+  'bmw-1series-f21-alpine-white': {
+    description:
+      'Клиент искал компактный и динамичный хэтчбек без скрытых кузовных работ и с прозрачной историей. Подготовили shortlist, сверили VIN и сервисные отметки, согласовали финальный вариант и довели до выдачи в РФ.',
+    specs: [
+      { label: 'Год выпуска', value: '2020' },
+      { label: 'Двигатель', value: '2.0 л (190 л.с.)' },
+      { label: 'Коробка передач', value: 'Роботизированная КПП' },
+      { label: 'Привод', value: 'Передний' },
+      { label: 'Владельцы', value: '1' },
+      { label: 'Пробег', value: '80 051 км' },
+      { label: 'Стоимость автомобиля', value: '3 289 000 ₽' },
+    ],
+    gallery: [imgPrivoz4, imgPrivoz2, imgPrivoz1],
+  },
+  'cupra-formentor-scandinavia': {
+    description:
+      'Основной задачей был редкий цвет и конкретная конфигурация салона без компромиссов по истории обслуживания. Проверили несколько рынков, забрали лучший экземпляр и закрыли сделку в заранее согласованный бюджет.',
+    specs: [
+      { label: 'Год выпуска', value: '2021' },
+      { label: 'Двигатель', value: '2.0 л (310 л.с.)' },
+      { label: 'Коробка передач', value: 'Роботизированная КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: '1' },
+      { label: 'Пробег', value: '41 200 км' },
+      { label: 'Стоимость автомобиля', value: '4 180 000 ₽' },
+    ],
+    gallery: [imgPrivoz5, imgPrivoz6, imgPrivoz1],
+  },
+  'mercedes-g-class-germany-used': {
+    description:
+      'Сложный кейс из-за большого разброса по состоянию на рынке. Отбраковали рискованные варианты после проверки отчётов и осмотров, согласовали сильный экземпляр и привезли с полным пакетом таможенных документов.',
+    specs: [
+      { label: 'Год выпуска', value: '2019' },
+      { label: 'Двигатель', value: '4.0 л (422 л.с.)' },
+      { label: 'Коробка передач', value: 'Автоматическая КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: '2' },
+      { label: 'Пробег', value: '67 400 км' },
+      { label: 'Стоимость автомобиля', value: '13 650 000 ₽' },
+    ],
+    gallery: [imgPrivoz6, imgPrivoz5, imgPrivoz2],
+  },
+  'volvo-xc60-d4-2013-twenty-checked': {
+    description:
+      'Клиент хотел семейный кроссовер в хорошем техническом состоянии и без юридических рисков. Проверили двадцать автомобилей, выбрали один лучший вариант, провели торг и зафиксировали экономию в финальной смете.',
+    specs: [
+      { label: 'Год выпуска', value: '2013' },
+      { label: 'Двигатель', value: '2.4 л (163 л.с.)' },
+      { label: 'Коробка передач', value: 'Автоматическая КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: '2' },
+      { label: 'Пробег', value: '164 000 км' },
+      { label: 'Стоимость автомобиля', value: '1 420 000 ₽' },
+    ],
+    gallery: [imgPodbor1, imgPodbor6, imgPodbor5],
+  },
+  'vw-id4-crozz-lite-pro-2022': {
+    description:
+      'Целью был электрокар с минимальным пробегом и прозрачной эксплуатацией. После технической и юридической проверки зафиксировали автомобиль в состоянии «как новый» и согласовали покупку заметно ниже стартовой цены.',
+    specs: [
+      { label: 'Год выпуска', value: '2022' },
+      { label: 'Двигатель', value: 'Электро (204 л.с.)' },
+      { label: 'Коробка передач', value: 'Редуктор' },
+      { label: 'Привод', value: 'Задний' },
+      { label: 'Владельцы', value: '1' },
+      { label: 'Пробег', value: '2 139 км' },
+      { label: 'Стоимость автомобиля', value: '2 910 000 ₽' },
+    ],
+    gallery: [imgPodbor2, imgPodbor4, imgPodbor1],
+  },
+  'lexus-lx570-2012-twelve-variants': {
+    description:
+      'Кейс на внимательный отбор среди тяжёлых внедорожников: оценивали кузов, историю обслуживания и юридическую чистоту. Нашли живой экземпляр и закрыли сделку с заметным дисконтом относительно стартовой цены.',
+    specs: [
+      { label: 'Год выпуска', value: '2012' },
+      { label: 'Двигатель', value: '5.7 л (367 л.с.)' },
+      { label: 'Коробка передач', value: 'Автоматическая КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: '1' },
+      { label: 'Пробег', value: '210 000 км' },
+      { label: 'Стоимость автомобиля', value: '3 550 000 ₽' },
+    ],
+    gallery: [imgPodbor5, imgPodbor3, imgPodbor6],
+  },
+};
+
+function makeCaseDetail(item) {
+  const typeDetail = DETAIL_FIELDS[item.type] || DETAIL_FIELDS.import;
+  const entry = CASE_DETAILS[item.id];
+  if (entry) {
+    return {
+      ...item,
+      ...typeDetail,
+      ...entry,
+      gallery: entry.gallery?.length ? entry.gallery : [item.image],
+    };
+  }
+
+  return {
+    ...item,
+    ...typeDetail,
+    description: item.text,
+    specs: [
+      { label: 'Год выпуска', value: item.meta.split('·')[0]?.trim() || 'Уточняется' },
+      { label: 'Пробег', value: item.meta.split('·')[1]?.trim() || 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [item.image],
+  };
+}
+
 export function getCasesByType(type = CASE_TYPES.all) {
   if (!type || type === CASE_TYPES.all) return CASES;
   return CASES.filter((item) => item.type === type);
@@ -165,4 +302,13 @@ export function getFeaturedCases(scope = 'home') {
   const list = CASES.filter((item) => item.featured?.includes(scope));
   if (scope === 'home') return list.slice(0, HOME_CASES_PREVIEW_LIMIT);
   return list;
+}
+
+export function getCaseById(id) {
+  const item = CASES.find((entry) => entry.id === id);
+  return item ? makeCaseDetail(item) : null;
+}
+
+export function getRelatedCases(currentId, type, limit = 3) {
+  return CASES.filter((entry) => entry.type === type && entry.id !== currentId).slice(0, limit);
 }

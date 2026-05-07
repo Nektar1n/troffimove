@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router';
 import SeoJsonLd from './components/SeoJsonLd.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import SiteFooter from './components/SiteFooter.vue';
+import AppBreadcrumbs from './components/AppBreadcrumbs.vue';
 import { isNavigationLoading } from './state/navigationLoading.js';
 </script>
 
@@ -13,7 +14,10 @@ import { isNavigationLoading } from './state/navigationLoading.js';
     <SiteHeader />
     <RouterView v-slot="{ Component, route }">
       <Transition name="page" mode="out-in">
-        <component :is="Component" :key="route.path" />
+        <div :key="route.path">
+          <AppBreadcrumbs :route="route" />
+          <component :is="Component" />
+        </div>
       </Transition>
     </RouterView>
     <SiteFooter />

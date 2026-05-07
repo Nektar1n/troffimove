@@ -6,6 +6,7 @@ import HomeView from '../views/HomeView.vue';
 import ImportView from '../views/ImportView.vue';
 import LegalView from '../views/LegalView.vue';
 import CasesView from '../views/CasesView.vue';
+import CaseDetailView from '../views/CaseDetailView.vue';
 import SelectionView from '../views/SelectionView.vue';
 
 const router = createRouter({
@@ -62,6 +63,12 @@ const router = createRouter({
       name: 'cases',
       component: CasesView,
       meta: { title: 'Успешные сделки', description: PAGE_DESCRIPTIONS.cases },
+    },
+    {
+      path: '/cases/:id',
+      name: 'case-detail',
+      component: CaseDetailView,
+      meta: { title: 'Детали сделки', description: PAGE_DESCRIPTIONS.cases },
     },
     {
       path: '/legal',

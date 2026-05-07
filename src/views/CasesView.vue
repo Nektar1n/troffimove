@@ -30,6 +30,14 @@ function caseContactTarget(type) {
   if (type === CASE_TYPES.selection) return { path: '/podbor', hash: '#contact' };
   return { path: '/privoz', hash: '#contact' };
 }
+
+function caseDetailsTarget(id) {
+  return { name: 'case-detail', params: { id } };
+}
+
+function openCase(id) {
+  router.push(caseDetailsTarget(id));
+}
 </script>
 
 <template>
@@ -61,7 +69,16 @@ function caseContactTarget(type) {
     <section class="cases-page__list">
       <div class="cases-page__inner">
         <div class="cases-page__grid">
-          <article v-for="item in visibleCases" :key="item.id" class="cases-card">
+          <article
+            v-for="item in visibleCases"
+            :key="item.id"
+            class="cases-card"
+            role="link"
+            tabindex="0"
+            @click="openCase(item.id)"
+            @keydown.enter.prevent="openCase(item.id)"
+            @keydown.space.prevent="openCase(item.id)"
+          >
             <div class="cases-card__media">
               <img
                 class="cases-card__img"
@@ -78,7 +95,10 @@ function caseContactTarget(type) {
               <h2 class="cases-card__title">{{ item.model }}</h2>
               <p class="cases-card__meta">{{ item.meta }}</p>
               <p class="cases-card__text">{{ item.text }}</p>
-              <RouterLink class="cases-card__cta" :to="caseContactTarget(item.type)">Обсудить похожую задачу →</RouterLink>
+              <div class="cases-card__actions">
+                <RouterLink class="cases-card__cta" :to="caseDetailsTarget(item.id)">Подробнее о сделке →</RouterLink>
+                <RouterLink class="cases-card__cta cases-card__cta--muted" :to="caseContactTarget(item.type)">Обсудить похожую задачу</RouterLink>
+              </div>
             </div>
           </article>
         </div>
@@ -196,6 +216,7 @@ function caseContactTarget(type) {
   border: 1px solid var(--line-light);
   border-radius: 12px;
   background: var(--color-milk);
+  cursor: pointer;
 }
 
 .cases-card__media {
@@ -263,6 +284,23 @@ function caseContactTarget(type) {
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
+}
+
+.cases-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.cases-card__cta--muted {
+  border-bottom: 1px solid var(--line-light);
+  color: var(--muted);
+}
+
+.cases-card:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
 }
 
 .cases-card__cta:hover {

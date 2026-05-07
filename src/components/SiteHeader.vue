@@ -36,7 +36,8 @@ const darkHeroTop = computed(
     route.name === 'home' ||
     route.name === 'selection' ||
     route.name === 'import' ||
-    route.name === 'cases',
+    route.name === 'cases' ||
+    route.name === 'case-detail',
 );
 
 watch(

@@ -55,7 +55,7 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--line-light);
+  border-top: 0;
   background-color: var(--color-graphite);
   background-image: var(--foot-bg-image);
   background-position: center;
