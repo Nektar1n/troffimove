@@ -337,7 +337,7 @@ const jpBrands = computed(() => brandSets.jp);
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
   padding-bottom: 0.1rem;
   border-top: 0;
-  background: rgb(var(--color-milk-rgb) / 0.96);
+  background: var(--color-milk);
 }
 
 @media (min-width: 720px) {
@@ -751,7 +751,7 @@ const jpBrands = computed(() => brandSets.jp);
 @media (min-aspect-ratio: 2 / 1) and (min-width: 900px) {
   .routes__content {
     margin-top: 0;
-    background: rgb(var(--color-milk-rgb) / 0.96);
+    background: var(--color-milk);
   }
 
   .routes__stage {
