@@ -26,11 +26,6 @@ function setType(nextType) {
   });
 }
 
-function caseContactTarget(type) {
-  if (type === CASE_TYPES.selection) return { path: '/podbor', hash: '#contact' };
-  return { path: '/privoz', hash: '#contact' };
-}
-
 function caseDetailsTarget(id) {
   return { name: 'case-detail', params: { id } };
 }
@@ -97,7 +92,6 @@ function openCase(id) {
               <p class="cases-card__text">{{ item.text }}</p>
               <div class="cases-card__actions">
                 <RouterLink class="cases-card__cta" :to="caseDetailsTarget(item.id)">Подробнее о сделке →</RouterLink>
-                <RouterLink class="cases-card__cta cases-card__cta--muted" :to="caseContactTarget(item.type)">Обсудить похожую задачу</RouterLink>
               </div>
             </div>
           </article>
@@ -290,12 +284,7 @@ function openCase(id) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.9rem;
-}
-
-.cases-card__cta--muted {
-  border-bottom: 1px solid var(--line-light);
-  color: var(--muted);
+  gap: 0.6rem;
 }
 
 .cases-card:focus-visible {

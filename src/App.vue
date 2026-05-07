@@ -91,4 +91,12 @@ import { isNavigationLoading } from './state/navigationLoading.js';
   opacity: 0;
   transform: translateY(2px);
 }
+
+.page-enter-active .crumbs {
+  transition: opacity 0.16s ease 0.08s;
+}
+
+.page-enter-from .crumbs {
+  opacity: 0;
+}
 </style>
