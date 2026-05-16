@@ -274,10 +274,7 @@ onBeforeUnmount(() => {
   opacity: 0;
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
-  transition:
-    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1),
-    border-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   cursor: pointer;
 }
 
@@ -297,9 +294,7 @@ onBeforeUnmount(() => {
     transform: translateY(8px);
     transition:
       opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1),
-      border-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1);
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .card--in {

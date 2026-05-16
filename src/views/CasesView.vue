@@ -214,12 +214,6 @@ function openCase(id) {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .cases-card {
-    transition:
-      background-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1),
-      border-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1);
-  }
-
   .cases-card:hover {
     background-color: color-mix(in srgb, var(--color-graphite) 3.5%, var(--color-milk));
     border-color: rgb(var(--color-graphite-rgb) / 0.16);
@@ -310,10 +304,4 @@ function openCase(id) {
   color: var(--text);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .cases-card {
-    transition: none;
-  }
-
-}
 </style>
