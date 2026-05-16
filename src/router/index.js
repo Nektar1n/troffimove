@@ -9,11 +9,13 @@ import CasesView from '../views/CasesView.vue';
 import CaseDetailView from '../views/CaseDetailView.vue';
 import SelectionView from '../views/SelectionView.vue';
 
+const instantTop = { top: 0, left: 0, behavior: 'instant' };
+
 const router = createRouter({
   /* На GitHub Pages путь: /repo/ — без base роуты не сходятся, белый экран. Vite кладёт base в BASE_URL. */
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, saved) {
-    if (saved) return saved;
+    if (saved) return { ...saved, behavior: 'instant' };
     if (to.hash) {
       // После смены маршрута секция с id может появиться позже одного кадра —
       // иначе скролл к якорю «молчит», пока не кликнут второй раз.
@@ -28,7 +30,7 @@ const router = createRouter({
           }
           tries += 1;
           if (tries >= maxTries) {
-            resolve({ top: 0, left: 0 });
+            resolve(instantTop);
             return;
           }
           requestAnimationFrame(step);
@@ -36,8 +38,9 @@ const router = createRouter({
         requestAnimationFrame(step);
       });
     }
-    if (to.path !== from.path) return { top: 0, left: 0 };
-    return { top: 0, left: 0 };
+    // Обычный переход — скролл после анимации страницы (App.vue @after-enter),
+    // иначе виден верх уходящего раздела.
+    return false;
   },
   routes: [
     {

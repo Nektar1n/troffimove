@@ -274,7 +274,10 @@ onBeforeUnmount(() => {
   opacity: 0;
   /* На телефоне горизонтальный scroll-snap + transform на карточках часто даёт рывки (отдельные слои / перерисовки). */
   transform: none;
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1);
   cursor: pointer;
 }
 
@@ -294,11 +297,25 @@ onBeforeUnmount(() => {
     transform: translateY(8px);
     transition:
       opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1),
+      border-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   .card--in {
     transform: translateY(0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card--in:hover {
+    background-color: color-mix(in srgb, var(--color-graphite) 3.5%, var(--color-milk));
+    border-color: rgb(var(--color-graphite-rgb) / 0.16);
+  }
+
+  .sec--dark .card--in:hover {
+    background-color: color-mix(in srgb, var(--color-milk) 5.5%, var(--surface-panel));
+    border-color: rgb(var(--color-milk-rgb) / 0.18);
   }
 }
 
@@ -320,6 +337,7 @@ onBeforeUnmount(() => {
 }
 
 .card__body {
+  position: relative;
   padding: 1.25rem 1.2rem 1.35rem;
   display: flex;
   flex-direction: column;
@@ -450,5 +468,6 @@ onBeforeUnmount(() => {
   .card--in {
     transform: none;
   }
+
 }
 </style>

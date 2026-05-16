@@ -1,8 +1,12 @@
 <script setup>
-import { reactive, ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { nextTick, onMounted, reactive, ref, watch } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
 import { formSubmitEmail } from '../config/site.js';
+import { consumeContactFormPrefill, useContactFormPrefill } from '../state/contactFormPrefill.js';
+
+const route = useRoute();
+const contactFormPrefill = useContactFormPrefill();
 
 const { el, visible } = useInView();
 
@@ -17,13 +21,33 @@ const form = reactive({
   name: '',
   phone: '',
   topic: 'import',
-  region: 'korea',
   message: '',
 });
 
 const sent = ref(false);
 const error = ref('');
 const sending = ref(false);
+const messageField = ref(null);
+
+function applyPendingPrefill() {
+  const data = consumeContactFormPrefill();
+  if (!data) return;
+  if (data.topic) form.topic = data.topic;
+  if (data.message) form.message = data.message;
+  nextTick(() => messageField.value?.focus());
+}
+
+watch(contactFormPrefill, () => applyPendingPrefill());
+watch(
+  () => route.hash,
+  (hash) => {
+    if (hash === '#contact') applyPendingPrefill();
+  },
+);
+
+onMounted(() => {
+  if (route.hash === '#contact') applyPendingPrefill();
+});
 
 async function onSubmit(e) {
   e.preventDefault();
@@ -45,11 +69,10 @@ async function onSubmit(e) {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        _subject: `[Troffimove] ${TOPIC_LABELS[form.topic] ?? form.topic} · ${form.region}`,
+        _subject: `[Troffimove] ${TOPIC_LABELS[form.topic] ?? form.topic}`,
         name: form.name,
         phone: form.phone,
         topic: TOPIC_LABELS[form.topic] ?? form.topic,
-        region: form.region,
         message: form.message,
         _captcha: false,
       }),
@@ -65,7 +88,6 @@ async function onSubmit(e) {
     form.phone = '';
     form.message = '';
     form.topic = 'import';
-    form.region = 'korea';
     setTimeout(() => {
       sent.value = false;
     }, 5000);
@@ -130,18 +152,9 @@ async function onSubmit(e) {
         </label>
 
         <label class="field">
-          <span>Регион / направление поставки</span>
-          <select v-model="form.region" name="region">
-            <option value="korea">Корея</option>
-            <option value="japan">Япония</option>
-            <option value="europe">Европа</option>
-            <option value="any">Пока не выбрал / не относится</option>
-          </select>
-        </label>
-
-        <label class="field">
           <span>Комментарий</span>
           <textarea
+            ref="messageField"
             v-model="form.message"
             name="message"
             rows="5"

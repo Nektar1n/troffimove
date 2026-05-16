@@ -213,6 +213,19 @@ function openCase(id) {
   cursor: pointer;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .cases-card {
+    transition:
+      background-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1),
+      border-color 0.42s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .cases-card:hover {
+    background-color: color-mix(in srgb, var(--color-graphite) 3.5%, var(--color-milk));
+    border-color: rgb(var(--color-graphite-rgb) / 0.16);
+  }
+}
+
 .cases-card__media {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -230,6 +243,7 @@ function openCase(id) {
 }
 
 .cases-card__body {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -294,5 +308,12 @@ function openCase(id) {
 
 .cases-card__cta:hover {
   color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cases-card {
+    transition: none;
+  }
+
 }
 </style>

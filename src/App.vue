@@ -1,10 +1,17 @@
 <script setup>
-import { RouterView } from 'vue-router';
+import { RouterView, useRoute } from 'vue-router';
 import SeoJsonLd from './components/SeoJsonLd.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import AppBreadcrumbs from './components/AppBreadcrumbs.vue';
 import { isNavigationLoading } from './state/navigationLoading.js';
+import { scrollToTopInstant } from './utils/scrollToTopInstant.js';
+
+const route = useRoute();
+
+function onPageEntering() {
+  if (!route.hash) scrollToTopInstant();
+}
 </script>
 
 <template>
@@ -13,7 +20,7 @@ import { isNavigationLoading } from './state/navigationLoading.js';
     <SeoJsonLd />
     <SiteHeader />
     <RouterView v-slot="{ Component, route }">
-      <Transition name="page" mode="out-in">
+      <Transition name="page" mode="out-in" @before-enter="onPageEntering">
         <div :key="route.path">
           <AppBreadcrumbs :route="route" />
           <component :is="Component" />

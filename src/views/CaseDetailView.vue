@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { getCaseById } from '../data/cases.js';
+import { setContactFormPrefill } from '../state/contactFormPrefill.js';
 
 const route = useRoute();
 
@@ -29,6 +30,14 @@ watch(
     activeImageIndex.value = 0;
   },
 );
+
+function onWantSame() {
+  if (!caseItem.value) return;
+  setContactFormPrefill({
+    model: caseItem.value.model,
+    type: caseItem.value.type,
+  });
+}
 </script>
 
 <template>
@@ -87,6 +96,7 @@ watch(
             <RouterLink
               class="case-detail__cta case-detail__cta--full"
               :to="caseItem.type === 'selection' ? { path: '/podbor', hash: '#contact' } : { path: '/privoz', hash: '#contact' }"
+              @click="onWantSame"
             >
               Хочу такой же
             </RouterLink>
