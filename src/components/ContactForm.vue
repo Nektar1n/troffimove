@@ -1,11 +1,12 @@
 <script setup>
-import { nextTick, onMounted, reactive, ref, watch } from 'vue';
-import { RouterLink, useRoute } from 'vue-router';
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
 import { formSubmitEmail } from '../config/site.js';
 import { consumeContactFormPrefill, useContactFormPrefill } from '../state/contactFormPrefill.js';
 
 const route = useRoute();
+const router = useRouter();
 const contactFormPrefill = useContactFormPrefill();
 
 const { el, visible } = useInView();
@@ -29,6 +30,21 @@ const error = ref('');
 const sending = ref(false);
 const messageField = ref(null);
 
+const formAction = computed(() => {
+  const email = formSubmitEmail.trim();
+  return email ? `https://formsubmit.co/${encodeURIComponent(email)}` : '';
+});
+
+const formSubject = computed(() => `[Troffimove] ${TOPIC_LABELS[form.topic] ?? form.topic}`);
+
+const returnUrl = computed(() => {
+  if (typeof window === 'undefined') return '';
+  const base = import.meta.env.BASE_URL || '/';
+  const basePath = base.endsWith('/') ? base : `${base}/`;
+  const path = route.path.replace(/^\//, '');
+  return `${window.location.origin}${basePath}${path}?sent=1#contact`;
+});
+
 function applyPendingPrefill() {
   const data = consumeContactFormPrefill();
   if (!data) return;
@@ -46,56 +62,31 @@ watch(
 );
 
 onMounted(() => {
+  if (route.query.sent === '1') {
+    sent.value = true;
+    form.name = '';
+    form.phone = '';
+    form.message = '';
+    form.topic = 'import';
+    router.replace({ path: route.path, hash: '#contact', query: {} });
+    setTimeout(() => {
+      sent.value = false;
+    }, 5000);
+  }
   if (route.hash === '#contact') applyPendingPrefill();
 });
 
-async function onSubmit(e) {
-  e.preventDefault();
+function onSubmit(e) {
   error.value = '';
 
   if (!formSubmitEmail.trim()) {
+    e.preventDefault();
     error.value =
       'Заявки на почту не настроены: в файле .env укажите VITE_FORM_SUBMIT_EMAIL=ваша@почта.ru и перезапустите dev-сервер.';
     return;
   }
 
   sending.value = true;
-  try {
-    const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(formSubmitEmail.trim())}`;
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        _subject: `[Troffimove] ${TOPIC_LABELS[form.topic] ?? form.topic}`,
-        name: form.name,
-        phone: form.phone,
-        topic: TOPIC_LABELS[form.topic] ?? form.topic,
-        message: form.message,
-        _captcha: false,
-      }),
-    });
-
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      throw new Error(data.error || data.message || `Ошибка ${res.status}`);
-    }
-
-    sent.value = true;
-    form.name = '';
-    form.phone = '';
-    form.message = '';
-    form.topic = 'import';
-    setTimeout(() => {
-      sent.value = false;
-    }, 5000);
-  } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Не удалось отправить. Попробуйте позже или напишите в мессенджер.';
-  } finally {
-    sending.value = false;
-  }
 }
 </script>
 
@@ -116,7 +107,19 @@ async function onSubmit(e) {
         </ul>
       </div>
 
-      <form class="form" :class="{ 'is-in': visible }" @submit="onSubmit">
+      <form
+        class="form"
+        :class="{ 'is-in': visible }"
+        :action="formAction"
+        method="POST"
+        accept-charset="UTF-8"
+        @submit="onSubmit"
+      >
+        <input type="hidden" name="_subject" :value="formSubject" />
+        <input type="hidden" name="_next" :value="returnUrl" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="topic" :value="TOPIC_LABELS[form.topic] ?? form.topic" />
         <Transition name="pop">
           <div v-if="sent" class="toast toast--ok" role="status">Заявка отправлена на почту. Мы свяжемся с вами.</div>
         </Transition>
@@ -143,7 +146,7 @@ async function onSubmit(e) {
 
         <label class="field">
           <span>Тема заявки</span>
-          <select v-model="form.topic" name="topic">
+          <select v-model="form.topic">
             <option value="import">Привоз (аукцион / импорт)</option>
             <option value="selection">Подбор б/у на месте</option>
             <option value="consult">Консультация / вилка по вводным</option>
