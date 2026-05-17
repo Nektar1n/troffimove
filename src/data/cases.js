@@ -4,6 +4,8 @@ import imgPrivoz3 from '../assets/privoz_3.jpg';
 import imgPrivoz4 from '../assets/privoz_4.jpeg';
 import imgPrivoz5 from '../assets/privoz_5.jpeg';
 import imgPrivoz6 from '../assets/privoz_6.jpeg';
+import imgBmw3door1 from '../assets/бмвТрехдверка_1.jpeg';
+import imgBmw3door2 from '../assets/бмвТрехдверка_2.jpeg';
 import imgPodbor1 from '../assets/podbor_1.jpg';
 import imgPodbor2 from '../assets/podbor_2.jpg';
 import imgPodbor3 from '../assets/podbor_3.jpg';
@@ -194,7 +196,7 @@ const CASE_DETAILS = {
       { label: 'Пробег', value: '80 051 км' },
       { label: 'Стоимость автомобиля', value: '3 289 000 ₽' },
     ],
-    gallery: [imgPrivoz4, imgPrivoz2, imgPrivoz1],
+    gallery: [imgPrivoz4, imgBmw3door1, imgBmw3door2],
   },
   'cupra-formentor-scandinavia': {
     description:
