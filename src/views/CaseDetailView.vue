@@ -92,7 +92,6 @@ function onWantSame() {
                 </div>
               </dl>
             </div>
-            <div class="case-detail__status">Автомобиль рекомендован и приобретен клиентом</div>
             <RouterLink
               class="case-detail__cta case-detail__cta--full"
               :to="caseItem.type === 'selection' ? { path: '/podbor', hash: '#contact' } : { path: '/privoz', hash: '#contact' }"
@@ -255,15 +254,6 @@ function onWantSame() {
 
 .case-detail__spec-row dd {
   color: var(--text-on-dark);
-  font-weight: 600;
-}
-
-.case-detail__status {
-  margin-top: 0.3rem;
-  padding: 0.75rem 0;
-  border-top: 1px solid var(--border-dark);
-  border-bottom: 1px solid var(--border-dark);
-  color: rgba(114, 227, 152, 0.95);
   font-weight: 600;
 }
 
