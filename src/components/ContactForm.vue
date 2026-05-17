@@ -1,12 +1,11 @@
 <script setup>
 import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
-import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
-import { formSubmitEmail } from '../config/site.js';
+import { contactEmail, web3formsAccessKey } from '../config/site.js';
 import { consumeContactFormPrefill, useContactFormPrefill } from '../state/contactFormPrefill.js';
 
 const route = useRoute();
-const router = useRouter();
 const contactFormPrefill = useContactFormPrefill();
 
 const { el, visible } = useInView();
@@ -30,19 +29,16 @@ const error = ref('');
 const sending = ref(false);
 const messageField = ref(null);
 
-const formAction = computed(() => {
-  const email = formSubmitEmail.trim();
-  return email ? `https://formsubmit.co/${encodeURIComponent(email)}` : '';
-});
-
 const formSubject = computed(() => `[Troffimove] ${TOPIC_LABELS[form.topic] ?? form.topic}`);
 
-const returnUrl = computed(() => {
-  if (typeof window === 'undefined') return '';
-  const base = import.meta.env.BASE_URL || '/';
-  const basePath = base.endsWith('/') ? base : `${base}/`;
-  const path = route.path.replace(/^\//, '');
-  return `${window.location.origin}${basePath}${path}?sent=1#contact`;
+const mailtoHref = computed(() => {
+  const email = contactEmail.trim();
+  if (!email) return '';
+  const subject = encodeURIComponent(formSubject.value);
+  const body = encodeURIComponent(
+    `Имя: ${form.name}\nТелефон: ${form.phone}\nТема: ${TOPIC_LABELS[form.topic] ?? form.topic}\n\n${form.message}`,
+  );
+  return `mailto:${email}?subject=${subject}&body=${body}`;
 });
 
 function applyPendingPrefill() {
@@ -62,31 +58,53 @@ watch(
 );
 
 onMounted(() => {
-  if (route.query.sent === '1') {
+  if (route.hash === '#contact') applyPendingPrefill();
+});
+
+async function onSubmit(e) {
+  e.preventDefault();
+  error.value = '';
+
+  if (!web3formsAccessKey.trim()) {
+    error.value =
+      'Форма не настроена: получите ключ на web3forms.com и укажите VITE_WEB3FORMS_ACCESS_KEY в .env (см. .env.example).';
+    return;
+  }
+
+  sending.value = true;
+  try {
+    const body = new FormData();
+    body.append('access_key', web3formsAccessKey.trim());
+    body.append('subject', formSubject.value);
+    body.append('from_name', form.name);
+    body.append('name', form.name);
+    body.append('phone', form.phone);
+    body.append('topic', TOPIC_LABELS[form.topic] ?? form.topic);
+    body.append('message', form.message);
+
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body,
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.success === false) {
+      throw new Error(data.message || `Ошибка ${res.status}`);
+    }
+
     sent.value = true;
     form.name = '';
     form.phone = '';
     form.message = '';
     form.topic = 'import';
-    router.replace({ path: route.path, hash: '#contact', query: {} });
     setTimeout(() => {
       sent.value = false;
     }, 5000);
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Не удалось отправить. Попробуйте позже или напишите в мессенджер.';
+  } finally {
+    sending.value = false;
   }
-  if (route.hash === '#contact') applyPendingPrefill();
-});
-
-function onSubmit(e) {
-  error.value = '';
-
-  if (!formSubmitEmail.trim()) {
-    e.preventDefault();
-    error.value =
-      'Заявки на почту не настроены: в файле .env укажите VITE_FORM_SUBMIT_EMAIL=ваша@почта.ru и перезапустите dev-сервер.';
-    return;
-  }
-
-  sending.value = true;
 }
 </script>
 
@@ -107,24 +125,15 @@ function onSubmit(e) {
         </ul>
       </div>
 
-      <form
-        class="form"
-        :class="{ 'is-in': visible }"
-        :action="formAction"
-        method="POST"
-        accept-charset="UTF-8"
-        @submit="onSubmit"
-      >
-        <input type="hidden" name="_subject" :value="formSubject" />
-        <input type="hidden" name="_next" :value="returnUrl" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="topic" :value="TOPIC_LABELS[form.topic] ?? form.topic" />
+      <form class="form" :class="{ 'is-in': visible }" @submit="onSubmit">
         <Transition name="pop">
           <div v-if="sent" class="toast toast--ok" role="status">Заявка отправлена на почту. Мы свяжемся с вами.</div>
         </Transition>
         <Transition name="pop">
-          <div v-if="error && !sent" class="toast toast--err" role="alert">{{ error }}</div>
+          <div v-if="error && !sent" class="toast toast--err" role="alert">
+            <p class="toast__text">{{ error }}</p>
+            <a v-if="mailtoHref" class="toast__link" :href="mailtoHref">Написать на почту вручную</a>
+          </div>
         </Transition>
 
         <label class="field">
@@ -321,8 +330,7 @@ function onSubmit(e) {
   padding: 0.65rem 1.75rem;
   color: var(--yellow-ink);
   background: var(--yellow);
-  transition:
-    opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .submit:disabled {
@@ -360,14 +368,6 @@ function onSubmit(e) {
   color: var(--yellow-ink);
 }
 
-.fine__code {
-  font-size: 0.7rem;
-  padding: 0.05rem 0.25rem;
-  border: 1px solid var(--line-light);
-  border-radius: 2px;
-  background: var(--bg-subtle);
-}
-
 .toast {
   position: absolute;
   left: 0;
@@ -380,6 +380,15 @@ function onSubmit(e) {
   border: 1px solid var(--text);
   border-radius: 8px;
   background: var(--color-milk);
+}
+
+.toast__text {
+  margin: 0 0 0.35rem;
+}
+
+.toast__link {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .toast--ok {
