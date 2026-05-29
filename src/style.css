@@ -140,6 +140,29 @@ h6 {
   font-weight: 600;
 }
 
+/* Редакционный акцент-штрих перед надзаголовками секций («— LABEL») */
+.why-us__kicker::before,
+.svc__kicker::before,
+.risks__kicker::before,
+.pick-hero__eyebrow::before,
+.cases-page__kicker::before {
+  content: '';
+  display: inline-block;
+  width: 1.75rem;
+  height: 2px;
+  margin-right: 0.6rem;
+  vertical-align: middle;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+/* Единый аккуратный фокус для клавиатуры (низкая специфичность — компоненты могут переопределять) */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 #app {
   isolation: isolate;
 }
