@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
       <div class="why-us__inner">
         <div class="why-us__head">
           <div class="why-us__head-text">
-            <p class="why-us__kicker">Подбор + привоз без лишнего шума</p>
+            <p class="why-us__kicker">Подбор + привоз</p>
             <h2 id="why-us-title" class="why-us__title">Почему мы?</h2>
           </div>
           <div class="why-us__nav" role="group" aria-label="Переключение слайда">
