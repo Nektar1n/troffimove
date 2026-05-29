@@ -128,7 +128,7 @@ function openCase(id) {
   margin: 0 0 0.45rem;
   font-size: 0.68rem;
   font-weight: 600;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(233, 190, 95, 0.9);
@@ -138,9 +138,9 @@ function openCase(id) {
   margin: 0 0 0.65rem;
   max-width: 16ch;
   font-size: clamp(2.2rem, 6vw, 4.4rem);
-  line-height: 1.02;
-  letter-spacing: -0.045em;
-  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 .cases-page__lead {

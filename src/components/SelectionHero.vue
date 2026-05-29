@@ -277,8 +277,8 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 .pick-hero__eyebrow {
   margin: 0 0 0.85rem;
   font-size: 0.75rem;
-  font-weight: 500;
-  font-style: italic;
+  font-weight: 600;
+  font-style: normal;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(233, 190, 95, 0.92);
@@ -294,10 +294,10 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 .pick-hero__title {
   margin: 0 0 0.5rem;
   max-width: min(86rem, 100%);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(2.4rem, 7.6vw, 3.9rem);
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   color: var(--color-milk);
   text-wrap: wrap;
 }
@@ -312,11 +312,11 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
 @media (min-width: 900px) {
   .pick-hero__title {
-    grid-column: 1 / 13;
+    grid-column: 1 / 11;
     grid-row: 2;
-    font-size: clamp(3rem, 5vw, 5rem);
-    line-height: 1.02;
-    white-space: nowrap;
+    font-size: clamp(2.6rem, 4.2vw, 4.4rem);
+    line-height: 1.04;
+    white-space: normal;
   }
 }
 

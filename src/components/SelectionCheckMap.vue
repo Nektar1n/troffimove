@@ -356,10 +356,10 @@ onBeforeUnmount(() => {
   z-index: 5;
   margin: 0;
   font-size: clamp(2.35rem, 4.6vw, 3.9rem);
-  line-height: 1.02;
-  letter-spacing: -0.045em;
-  font-weight: 600;
-  font-style: italic;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-style: normal;
   color: var(--yellow, #e9be5f);
 }
 

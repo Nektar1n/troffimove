@@ -249,10 +249,10 @@ const faq = [
 .im__sec--light .im__kicker {
   margin: 0 0 0.55rem;
   font-size: clamp(2.35rem, 4.6vw, 3.9rem);
-  line-height: 1.02;
-  letter-spacing: -0.045em;
-  font-weight: 600;
-  font-style: italic;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-style: normal;
   text-transform: none;
   color: var(--text);
 }

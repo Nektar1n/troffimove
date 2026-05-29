@@ -108,7 +108,7 @@ const items = [
   margin: 0 0 0.4rem;
   font-size: 0.66rem;
   font-weight: 600;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(233, 190, 95, 0.86);

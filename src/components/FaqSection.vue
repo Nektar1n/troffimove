@@ -64,9 +64,9 @@ const items = [
 }
 
 .faq__title {
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(1.75rem, 3.2vw, 2.35rem);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.015em;
   line-height: 1.1;
   margin: 0 0 0.5rem;
   color: var(--color-milk);

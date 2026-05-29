@@ -143,8 +143,10 @@ const jpBrands = computed(() => brandSets.jp);
       <figcaption class="routes__truck-cap">
         <div class="routes__truck-box">
           <h2 id="routes-heading" class="routes__truck-heading">
-            Привоз авто под ключ
-            <span class="routes__truck-amp"> — </span>
+            <span class="routes__truck-line">
+              Привоз авто под ключ
+              <span class="routes__truck-amp"> — </span>
+            </span>
             <TitleKeyTypewriter
               class="routes__truck-accent"
               phrase="без посредников"
@@ -527,10 +529,10 @@ const jpBrands = computed(() => brandSets.jp);
 .routes__truck-heading {
   margin: 0 0 0.5rem;
   max-width: min(64rem, 100%);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(2.4rem, 7.6vw, 3.9rem);
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   color: var(--color-milk);
   text-wrap: wrap;
   text-align: left;
@@ -538,9 +540,18 @@ const jpBrands = computed(() => brandSets.jp);
 
 @media (min-width: 900px) {
   .routes__truck-heading {
-    font-size: clamp(3rem, 5vw, 5rem);
-    line-height: 1.02;
+    font-size: clamp(2.6rem, 4.2vw, 4.4rem);
+    line-height: 1.04;
   }
+
+  /* «Привоз авто под ключ —» одной строкой: тире не должно «отваливаться» вниз */
+  .routes__truck-line {
+    white-space: nowrap;
+  }
+}
+
+.routes__truck-line {
+  display: block;
 }
 
 .routes__truck-amp {
@@ -642,6 +653,11 @@ const jpBrands = computed(() => brandSets.jp);
     max-width: 100%;
     font-size: clamp(2.3rem, 10vw, 3.35rem);
     line-height: 1.02;
+  }
+
+  /* На узких экранах строка переносится — тире-разделитель убираем, чтобы не висело отдельно */
+  .routes__truck-amp {
+    display: none;
   }
 
   .routes__truck-inline-media {

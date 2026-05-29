@@ -351,9 +351,20 @@ onBeforeUnmount(() => {
   overflow: visible;
   opacity: 0;
   transform: translateY(12px);
+  font-family: var(--font-display);
   transition:
     opacity 0.55s ease 0.06s,
     transform 0.55s ease 0.06s;
+}
+
+.hero__title-key {
+  color: var(--color-milk);
+}
+
+/* Мобильный typed-акцент в hero — без жёлтого, в цвет заголовка */
+.hero__title-accent,
+.hero__title-accent :deep(.title-key-tw__live) {
+  color: var(--color-milk);
 }
 
 .hero__title-live {
@@ -411,12 +422,13 @@ onBeforeUnmount(() => {
   color: var(--color-milk);
   font-weight: 700;
   font-style: normal;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
+  /* Unbounded шире Inter — трекинг чуть плотнее, межстрочный чуть свободнее */
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .hero__title-line--1 {
-  font-size: clamp(2.55rem, 6.97vw, 6.46rem);
+  font-size: clamp(2.3rem, 6.6vw, 5.9rem);
   white-space: nowrap;
 }
 
@@ -425,8 +437,8 @@ onBeforeUnmount(() => {
   justify-content: center;
   align-items: baseline;
   gap: 0.14em;
-  margin-top: -0.02em;
-  font-size: clamp(2.55rem, 6.97vw, 6.46rem);
+  margin-top: 0.02em;
+  font-size: clamp(2.3rem, 6.6vw, 5.9rem);
 }
 
 .hero__car-wrap {
@@ -489,12 +501,13 @@ onBeforeUnmount(() => {
   left: calc(50% + clamp(4.5rem, 10vw, 9rem));
   right: max(0.75rem, env(safe-area-inset-right, 0px));
   margin: 0;
+  font-family: var(--font-display);
   font-size: clamp(0.62rem, 0.96vw, 0.75rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1.35;
-  color: var(--hero-text-dim);
+  color: var(--yellow);
   text-align: left;
   opacity: 0;
   transform: translateY(6px);
@@ -724,10 +737,10 @@ onBeforeUnmount(() => {
     max-width: 100%;
     text-align: left;
     margin: 0 0 0.5rem;
-    font-weight: 600;
-    font-size: clamp(1.95rem, 8.5vw, 2.9rem);
-    line-height: 1.02;
-    letter-spacing: -0.045em;
+    font-weight: 700;
+    font-size: clamp(1.95rem, 8vw, 2.9rem);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
     color: var(--color-milk);
     overflow-wrap: anywhere;
   }
@@ -858,12 +871,12 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    max-width: min(86vw, 74rem);
+    max-width: min(94vw, 86rem);
   }
 
   .hero__title-line--1,
   .hero__title-line--2 {
-    font-size: clamp(2.3rem, 4.9vw, 5.35rem);
+    font-size: clamp(2.6rem, 5.6vw, 6rem);
   }
 
   .hero__car-wrap {

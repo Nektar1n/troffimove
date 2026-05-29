@@ -135,9 +135,9 @@ const reviews = [
 
 .rev__title {
   margin: 0 0 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(1.8rem, 4vw, 2.15rem);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.015em;
   line-height: 1.1;
   color: var(--color-milk);
 }

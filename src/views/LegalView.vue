@@ -83,8 +83,8 @@ import { RouterLink } from 'vue-router';
 
 .legal__h1 {
   font-size: clamp(1.6rem, 3vw, 2rem);
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   margin: 0 0 0.75rem;
   color: var(--text);
 }

@@ -405,7 +405,7 @@ onBeforeUnmount(() => {
 
 .why-us__kicker {
   margin: 0 0 0.5rem;
-  color: var(--muted);
+  color: var(--accent);
   font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.11em;
@@ -416,8 +416,8 @@ onBeforeUnmount(() => {
   margin: 0;
   color: var(--text);
   font-size: clamp(1.9rem, 4.8vw, 2.8rem);
-  line-height: 1.04;
-  letter-spacing: -0.04em;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
 }
 
 .why-us__nav {
