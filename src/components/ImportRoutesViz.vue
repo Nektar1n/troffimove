@@ -529,8 +529,9 @@ const jpBrands = computed(() => brandSets.jp);
 .routes__truck-heading {
   margin: 0 0 0.5rem;
   max-width: min(64rem, 100%);
+  font-family: var(--font-hero);
   font-weight: 700;
-  font-size: clamp(2.4rem, 7.6vw, 3.9rem);
+  font-size: clamp(2.6rem, 8.2vw, 4.3rem);
   line-height: 1.06;
   letter-spacing: -0.02em;
   color: var(--color-milk);
@@ -540,7 +541,7 @@ const jpBrands = computed(() => brandSets.jp);
 
 @media (min-width: 900px) {
   .routes__truck-heading {
-    font-size: clamp(2.6rem, 4.2vw, 4.4rem);
+    font-size: clamp(2.9rem, 4.8vw, 4.9rem);
     line-height: 1.04;
   }
 
@@ -552,6 +553,17 @@ const jpBrands = computed(() => brandSets.jp);
 
 .routes__truck-line {
   display: block;
+}
+
+.routes__truck-accent {
+  font-family: var(--font-hero);
+  color: var(--yellow);
+}
+
+.routes__truck-accent :deep(.title-key-tw),
+.routes__truck-accent :deep(.title-key-tw__live) {
+  font-family: var(--font-hero);
+  color: var(--yellow);
 }
 
 .routes__truck-amp {

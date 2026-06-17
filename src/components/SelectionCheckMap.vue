@@ -351,7 +351,7 @@ onBeforeUnmount(() => {
 
 .scheme__title {
   position: absolute;
-  left: max(1rem, calc((100vw - var(--content-max)) / 2 + 1rem));
+  left: max(3.4rem, calc((100vw - var(--content-max)) / 2 + 3.4rem));
   top: 1.25rem;
   z-index: 5;
   margin: 0;
@@ -624,7 +624,7 @@ onBeforeUnmount(() => {
   }
 
   .scheme__title {
-    left: 1rem;
+    left: 2.45rem;
     top: 1rem;
     font-size: clamp(1.8rem, 6vw, 2.6rem);
   }
@@ -786,7 +786,7 @@ onBeforeUnmount(() => {
 @media (max-width: 899px) {
   .scheme__title {
     top: 0.85rem;
-    left: 0.9rem;
+    left: 2.1rem;
     font-size: clamp(1.65rem, 7.4vw, 2.2rem);
   }
 
@@ -806,7 +806,7 @@ onBeforeUnmount(() => {
 
 @media (min-width: 1600px) {
   .scheme__title {
-    left: clamp(1rem, 2.2vw, 2rem);
+    left: clamp(2.9rem, 3.7vw, 3.9rem);
   }
 
   .scheme__board {

@@ -415,7 +415,8 @@ onBeforeUnmount(() => {
 .why-us__title {
   margin: 0;
   color: var(--text);
-  font-size: clamp(1.9rem, 4.8vw, 2.8rem);
+  font-family: var(--font-hero);
+  font-size: clamp(2.15rem, 5.4vw, 3.2rem);
   line-height: 1.06;
   letter-spacing: -0.015em;
 }

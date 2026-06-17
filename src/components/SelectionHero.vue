@@ -294,8 +294,9 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 .pick-hero__title {
   margin: 0 0 0.5rem;
   max-width: min(86rem, 100%);
+  font-family: var(--font-hero);
   font-weight: 700;
-  font-size: clamp(2.4rem, 7.6vw, 3.9rem);
+  font-size: clamp(2.6rem, 8.2vw, 4.3rem);
   line-height: 1.06;
   letter-spacing: -0.02em;
   color: var(--color-milk);
@@ -307,14 +308,21 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 }
 
 .pick-hero__title-accent {
-  color: inherit;
+  font-family: var(--font-hero);
+  color: var(--yellow);
+}
+
+.pick-hero__title-accent :deep(.title-key-tw),
+.pick-hero__title-accent :deep(.title-key-tw__live) {
+  font-family: var(--font-hero);
+  color: var(--yellow);
 }
 
 @media (min-width: 900px) {
   .pick-hero__title {
     grid-column: 1 / 11;
     grid-row: 2;
-    font-size: clamp(2.6rem, 4.2vw, 4.4rem);
+    font-size: clamp(2.9rem, 4.8vw, 4.9rem);
     line-height: 1.04;
     white-space: normal;
   }

@@ -351,7 +351,7 @@ onBeforeUnmount(() => {
   overflow: visible;
   opacity: 0;
   transform: translateY(12px);
-  font-family: var(--font-display);
+  font-family: var(--font-hero);
   transition:
     opacity 0.55s ease 0.06s,
     transform 0.55s ease 0.06s;
@@ -428,7 +428,7 @@ onBeforeUnmount(() => {
 }
 
 .hero__title-line--1 {
-  font-size: clamp(1.95rem, 5.5vw, 4.9rem);
+  font-size: clamp(2.2rem, 6.2vw, 5.6rem);
   white-space: nowrap;
 }
 
@@ -438,7 +438,7 @@ onBeforeUnmount(() => {
   align-items: baseline;
   gap: 0.14em;
   margin-top: 0.02em;
-  font-size: clamp(1.95rem, 5.5vw, 4.9rem);
+  font-size: clamp(2.2rem, 6.2vw, 5.6rem);
 }
 
 .hero__car-wrap {
@@ -876,7 +876,7 @@ onBeforeUnmount(() => {
 
   .hero__title-line--1,
   .hero__title-line--2 {
-    font-size: clamp(2.2rem, 4.8vw, 5.1rem);
+    font-size: clamp(2.5rem, 5.3vw, 5.8rem);
   }
 
   .hero__car-wrap {

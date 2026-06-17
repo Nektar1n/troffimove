@@ -137,7 +137,8 @@ function openCase(id) {
 .cases-page__title {
   margin: 0 0 0.65rem;
   max-width: 16ch;
-  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  font-family: var(--font-hero);
+  font-size: clamp(2.5rem, 6.7vw, 5rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
   font-weight: 700;
