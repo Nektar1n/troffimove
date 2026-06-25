@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nektar1n.github.io/troffimove/sitemap.xml

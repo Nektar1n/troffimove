@@ -97,7 +97,13 @@ router.afterEach((to) => {
   document.title = fullTitle;
   const desc = to.meta?.description || DEFAULT_DESCRIPTION;
   const pathUrl = typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : '';
-  applyPageMeta(desc, fullTitle, pathUrl || undefined);
+  let ogImageUrl;
+  if (typeof window !== 'undefined') {
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const rawOg = (import.meta.env.VITE_OG_IMAGE_URL || '').trim();
+    ogImageUrl = rawOg || `${window.location.origin}${baseUrl}favicon.svg`.replace(/([^:]\/)\/+/g, '$1');
+  }
+  applyPageMeta(desc, fullTitle, pathUrl || undefined, ogImageUrl);
 });
 
 router.onError(() => {

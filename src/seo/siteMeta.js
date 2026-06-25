@@ -23,12 +23,32 @@ function ensureMetaProperty(property, content) {
   el.setAttribute('content', content);
 }
 
+function ensureMetaName(name, content) {
+  let el = document.querySelector(`meta[name="${name}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute('name', name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+function ensureCanonical(url) {
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.setAttribute('rel', 'canonical');
+    document.head.appendChild(el);
+  }
+  el.setAttribute('href', url);
+}
+
 /**
  * @param {string} description
  * @param {string} [fullPageTitle] — document.title / og:title
  * @param {string} [canonicalUrl] — полный URL страницы для og:url
  */
-export function applyPageMeta(description, fullPageTitle, canonicalUrl) {
+export function applyPageMeta(description, fullPageTitle, canonicalUrl, ogImageUrl) {
   if (typeof document === 'undefined') return;
 
   let m = document.querySelector('meta[name="description"]');
@@ -45,5 +65,16 @@ export function applyPageMeta(description, fullPageTitle, canonicalUrl) {
   }
   if (canonicalUrl) {
     ensureMetaProperty('og:url', canonicalUrl);
+    ensureCanonical(canonicalUrl);
   }
+
+  if (ogImageUrl) {
+    ensureMetaProperty('og:image', ogImageUrl);
+    ensureMetaProperty('og:image:alt', 'Troffimove Auto — подбор, выкуп и привоз авто под ключ');
+    ensureMetaName('twitter:image', ogImageUrl);
+  }
+
+  ensureMetaName('twitter:card', 'summary_large_image');
+  if (fullPageTitle) ensureMetaName('twitter:title', fullPageTitle);
+  ensureMetaName('twitter:description', description);
 }
