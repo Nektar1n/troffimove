@@ -179,7 +179,7 @@ async function onSubmit(e) {
         </button>
         <p class="fine">
           Нажимая кнопку, вы даёте согласие на обработку персональных данных для обратной связи. Подробнее — в
-          <RouterLink class="fine__link" to="/legal#privacy">политике</RouterLink>.
+          <RouterLink class="fine__link" to="/legal#privacy">политике конфиденциальности</RouterLink>.
         </p>
       </form>
     </div>
