@@ -383,18 +383,29 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     bottom: auto;
     left: auto;
     order: 1;
-    padding: calc(5.75rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 0
+    /* Шапка + крошки + воздух — иначе заголовок наезжает на «Главная / …» */
+    padding: calc(7.85rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 0
       max(1.15rem, env(safe-area-inset-left, 0px));
   }
 
   .pick-hero__title {
     max-width: 100%;
     min-width: 0;
-    font-size: clamp(1.65rem, 6.4vw, 2.2rem);
-    line-height: 1.14;
+    font-size: clamp(1.55rem, 6vw, 2.05rem);
+    line-height: 1.18;
     letter-spacing: -0.025em;
     white-space: normal;
     overflow-wrap: normal;
+  }
+
+  .pick-hero__title-accent,
+  .pick-hero__title-accent :deep(.title-key-tw),
+  .pick-hero__title-accent :deep(.title-key-tw__live) {
+    font-family: var(--font-hero);
+    font-weight: 700;
+    font-size: 1em;
+    line-height: inherit;
+    letter-spacing: inherit;
   }
 
   .pick-hero__title :deep(.typewriter__line) {
@@ -444,11 +455,11 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
 @media (max-width: 380px) {
   .pick-hero__cap {
-    padding-top: calc(5.35rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(7.45rem + env(safe-area-inset-top, 0px));
   }
 
   .pick-hero__title {
-    font-size: clamp(1.55rem, 7vw, 1.95rem);
+    font-size: clamp(1.45rem, 6.6vw, 1.85rem);
   }
 }
 

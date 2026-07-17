@@ -658,15 +658,26 @@ const jpBrands = computed(() => brandSets.jp);
     position: relative;
     inset: auto;
     order: 1;
-    padding: calc(5.75rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 0.95rem
+    /* Шапка + крошки + воздух */
+    padding: calc(7.85rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 0.95rem
       max(1.15rem, env(safe-area-inset-left, 0px));
   }
 
   .routes__truck-heading {
     max-width: 100%;
-    font-size: clamp(1.65rem, 6.4vw, 2.2rem);
-    line-height: 1.14;
+    font-size: clamp(1.55rem, 6vw, 2.05rem);
+    line-height: 1.18;
     letter-spacing: -0.025em;
+  }
+
+  .routes__truck-accent,
+  .routes__truck-accent :deep(.title-key-tw),
+  .routes__truck-accent :deep(.title-key-tw__live) {
+    font-family: var(--font-hero);
+    font-weight: 700;
+    font-size: 1em;
+    line-height: inherit;
+    letter-spacing: inherit;
   }
 
   /* На узких экранах строка переносится — тире-разделитель убираем, чтобы не висело отдельно */
@@ -717,11 +728,11 @@ const jpBrands = computed(() => brandSets.jp);
 
 @media (max-width: 380px) {
   .routes__truck-cap {
-    padding-top: calc(5.35rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(7.45rem + env(safe-area-inset-top, 0px));
   }
 
   .routes__truck-heading {
-    font-size: clamp(1.55rem, 7vw, 1.95rem);
+    font-size: clamp(1.45rem, 6.6vw, 1.85rem);
   }
 }
 

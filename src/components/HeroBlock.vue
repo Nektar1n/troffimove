@@ -736,10 +736,10 @@ onBeforeUnmount(() => {
   .hero__title {
     max-width: 100%;
     text-align: left;
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.45rem;
     font-weight: 700;
-    font-size: clamp(1.65rem, 6.4vw, 2.2rem);
-    line-height: 1.14;
+    font-size: clamp(1.6rem, 6.2vw, 2.1rem);
+    line-height: 1.18;
     letter-spacing: -0.025em;
     color: var(--color-milk);
     overflow-wrap: normal;
@@ -754,13 +754,24 @@ onBeforeUnmount(() => {
     position: relative;
     z-index: 2;
     display: block;
-    max-width: 18ch;
+    max-width: 100%;
     min-width: 0;
     font-weight: 700;
   }
 
+  .hero__title-accent,
+  .hero__title-accent :deep(.title-key-tw),
+  .hero__title-accent :deep(.title-key-tw__live) {
+    font-family: var(--font-hero);
+    font-weight: 700;
+    font-size: 1em;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: var(--color-milk);
+  }
+
   .hero__title-accent {
-    margin-top: 0.02em;
+    margin-top: 0.06em;
   }
 
   .hero__lead {
@@ -872,16 +883,12 @@ onBeforeUnmount(() => {
 
 @media (max-width: 520px) {
   .hero__stage {
-    padding-top: calc(5.35rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(5.5rem + env(safe-area-inset-top, 0px));
   }
 
   .hero__title {
     max-width: 100%;
-    font-size: clamp(1.55rem, 7vw, 1.95rem);
-  }
-
-  .hero__title-mobile {
-    max-width: 100%;
+    font-size: clamp(1.5rem, 6.6vw, 1.9rem);
   }
 }
 
