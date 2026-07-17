@@ -786,8 +786,9 @@ onBeforeUnmount(() => {
 @media (max-width: 899px) {
   .scheme__title {
     top: 0.85rem;
-    left: 2.1rem;
-    font-size: clamp(1.65rem, 7.4vw, 2.2rem);
+    left: 1.15rem;
+    font-size: clamp(1.55rem, 6.8vw, 2rem);
+    line-height: 1.12;
   }
 
   .scheme__board {

@@ -191,9 +191,9 @@ onBeforeUnmount(() => {
 .sec__title {
   font-family: var(--font-hero);
   font-weight: 700;
-  font-size: clamp(2.2rem, 4vw, 3.1rem);
+  font-size: clamp(1.7rem, 4vw, 3.1rem);
   letter-spacing: -0.015em;
-  line-height: 1.1;
+  line-height: 1.12;
   margin: 0 0 0.65rem;
 }
 

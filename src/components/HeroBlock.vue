@@ -704,8 +704,8 @@ onBeforeUnmount(() => {
 
   .hero__stage {
     min-height: auto;
-    padding: calc(9.25rem + env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) 1.5rem
-      max(1rem, env(safe-area-inset-left, 0px));
+    padding: calc(5.75rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 1.5rem
+      max(1.15rem, env(safe-area-inset-left, 0px));
     display: flex;
     flex-direction: column;
     background:
@@ -736,13 +736,14 @@ onBeforeUnmount(() => {
   .hero__title {
     max-width: 100%;
     text-align: left;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.35rem;
     font-weight: 700;
-    font-size: clamp(1.95rem, 8vw, 2.9rem);
-    line-height: 1.04;
-    letter-spacing: -0.03em;
+    font-size: clamp(1.65rem, 6.4vw, 2.2rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
     color: var(--color-milk);
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    hyphens: manual;
   }
 
   .hero__title-live {
@@ -753,13 +754,23 @@ onBeforeUnmount(() => {
     position: relative;
     z-index: 2;
     display: block;
-    max-width: 100%;
+    max-width: 18ch;
     min-width: 0;
     font-weight: 700;
   }
 
   .hero__title-accent {
-    margin-top: 0.04em;
+    margin-top: 0.02em;
+  }
+
+  .hero__lead {
+    font-size: clamp(0.9rem, 3.6vw, 1rem);
+    line-height: 1.48;
+    font-weight: 500;
+  }
+
+  .hero__lead-attrib {
+    font-size: 0.85rem;
   }
 
   .hero__car-wrap {
@@ -810,10 +821,10 @@ onBeforeUnmount(() => {
   .hero__quote-mark {
     display: block;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(2rem, 9vw, 2.65rem);
+    font-size: 1.75rem;
     line-height: 0.7;
     color: var(--yellow);
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.2rem;
   }
 
   .hero__cutout {
@@ -852,15 +863,24 @@ onBeforeUnmount(() => {
   .btn {
     width: 100%;
     min-width: 0;
-    min-height: 3.65rem;
-    padding: 0.9rem 1.15rem;
-    border-radius: 1.25rem;
-    font-size: clamp(1.05rem, 4vw, 1.18rem);
+    min-height: 3.25rem;
+    padding: 0.8rem 1.1rem;
+    border-radius: 1rem;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 520px) {
+  .hero__stage {
+    padding-top: calc(5.35rem + env(safe-area-inset-top, 0px));
+  }
+
   .hero__title {
+    max-width: 100%;
+    font-size: clamp(1.55rem, 7vw, 1.95rem);
+  }
+
+  .hero__title-mobile {
     max-width: 100%;
   }
 }

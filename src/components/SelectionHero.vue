@@ -383,16 +383,18 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     bottom: auto;
     left: auto;
     order: 1;
-    padding: calc(9.8rem + env(safe-area-inset-top, 0px)) 0 0;
+    padding: calc(5.75rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 0
+      max(1.15rem, env(safe-area-inset-left, 0px));
   }
 
   .pick-hero__title {
     max-width: 100%;
     min-width: 0;
-    font-size: clamp(2.3rem, 10vw, 3.4rem);
-    line-height: 1.02;
+    font-size: clamp(1.65rem, 6.4vw, 2.2rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
     white-space: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
   }
 
   .pick-hero__title :deep(.typewriter__line) {
@@ -405,9 +407,9 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     width: 100%;
     max-width: min(28rem, 100%);
     aspect-ratio: 16 / 10;
-    margin: 0.9rem 0 1rem;
+    margin: 0.75rem 0 0.9rem;
     border: 1px solid rgb(var(--color-milk-rgb) / 0.14);
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
     box-shadow: none;
     overflow: hidden;
     background: var(--color-graphite);
@@ -425,8 +427,8 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   .pick-hero__lead {
     max-width: 100%;
     margin-bottom: 1rem;
-    font-size: clamp(0.68rem, 3.1vw, 0.78rem);
-    line-height: 1.38;
+    font-size: clamp(0.9rem, 3.6vw, 1rem);
+    line-height: 1.48;
   }
 
   .pick-hero__actions {
@@ -434,14 +436,19 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
   }
 
   .btn {
-    min-height: 46px;
-    padding: 0.78rem 1.15rem;
+    min-height: 3.25rem;
+    padding: 0.8rem 1.1rem;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 380px) {
   .pick-hero__cap {
-    padding-top: calc(10.3rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(5.35rem + env(safe-area-inset-top, 0px));
+  }
+
+  .pick-hero__title {
+    font-size: clamp(1.55rem, 7vw, 1.95rem);
   }
 }
 
