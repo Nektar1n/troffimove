@@ -2,13 +2,14 @@
 import { RouterLink } from 'vue-router';
 import SocialLinks from './SocialLinks.vue';
 import footerBackground from '../assets/бмвНаташи.jpeg';
+import logoOnDarkUrl from '../assets/TROFFIMOVELOGO-on-dark.svg';
 </script>
 
 <template>
   <footer class="foot" :style="{ '--foot-bg-image': `url(${footerBackground})` }">
     <div class="foot__inner">
       <div class="foot__brand">
-        <span class="foot__mark">T</span>
+        <img class="foot__logo-img" :src="logoOnDarkUrl" width="939" height="401" alt="Troffimove Auto" />
         <div>
           <div class="foot__name">Troffimove Auto</div>
           <div class="foot__sub">
@@ -114,16 +115,12 @@ import footerBackground from '../assets/бмвНаташи.jpeg';
   max-width: 24rem;
 }
 
-.foot__mark {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2px;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  background: var(--yellow);
-  color: var(--yellow-ink);
+.foot__logo-img {
+  width: auto;
+  height: 2.1rem;
+  max-width: 7.5rem;
+  object-fit: contain;
+  object-position: left top;
   flex-shrink: 0;
 }
 

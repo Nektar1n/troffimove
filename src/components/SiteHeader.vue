@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
+import logoUrl from '../assets/TROFFIMOVELOGO.svg';
+import logoOnDarkUrl from '../assets/TROFFIMOVELOGO-on-dark.svg';
 
 const route = useRoute();
 const scrolled = ref(false);
@@ -65,11 +67,13 @@ watch(mobileMenuOpen, (isOpen) => {
     <div class="head__top">
       <div class="head__inner">
         <RouterLink to="/" class="head__logo" aria-label="Troffimove Auto — на главную">
-          <span class="head__mark">T</span>
-          <span class="head__word">
-            <span class="head__name">Troffimove</span>
-            <span class="head__tag">Auto</span>
-          </span>
+          <img
+            class="head__logo-img"
+            :src="darkHeroTop && !scrolled ? logoOnDarkUrl : logoUrl"
+            width="939"
+            height="401"
+            alt="Troffimove Auto"
+          />
         </RouterLink>
 
         <nav class="head__nav" aria-label="Основное меню">
@@ -170,61 +174,18 @@ watch(mobileMenuOpen, (isOpen) => {
 .head__logo {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
   text-decoration: none;
   color: var(--text);
   min-width: 0;
 }
 
-.head--dark:not(.head--solid) .head__logo {
-  color: var(--color-milk);
-}
-
-.head__mark {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2px;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: -0.03em;
-  background: var(--text);
-  color: var(--color-milk);
-  flex-shrink: 0;
-}
-
-.head--dark:not(.head--solid) .head__mark {
-  background: var(--yellow);
-  color: var(--color-graphite);
-}
-
-.head__word {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-  min-width: 0;
-}
-
-.head__name {
-  font-weight: 600;
-  font-size: clamp(0.85rem, 3.5vw, 0.95rem);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.head__tag {
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.head--dark:not(.head--solid) .head__tag {
-  color: rgb(var(--color-milk-rgb) / 0.5);
+.head__logo-img {
+  display: block;
+  width: auto;
+  height: clamp(1.7rem, 5.2vw, 2.15rem);
+  max-width: min(11.5rem, 46vw);
+  object-fit: contain;
+  object-position: left center;
 }
 
 .head__nav {
