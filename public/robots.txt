@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nektar1n.github.io/troffimove/sitemap.xml
+Sitemap: https://troffimove-auto.ru/sitemap.xml
