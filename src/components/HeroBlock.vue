@@ -173,17 +173,19 @@ onBeforeUnmount(() => {
               </span>
             </span>
             <span class="hero__title-mobile">
-              Подбор, выкуп и привоз авто
-              <TitleKeyTypewriter
-                class="hero__title-accent"
-                phrase="под ключ"
-                wrap
-                once
-                once-id="home-hero-mobile-title-accent"
-                :start-delay-ms="210"
-                :char-delay-ms="46"
-                :caret-hide-delay-ms="260"
-              />
+              <span class="hero__title-mobile-l1">Подбор, выкуп и привоз</span>
+              <span class="hero__title-mobile-l2">
+                авто
+                <TitleKeyTypewriter
+                  class="hero__title-accent"
+                  phrase="под ключ"
+                  once
+                  once-id="home-hero-mobile-title-accent"
+                  :start-delay-ms="210"
+                  :char-delay-ms="46"
+                  :caret-hide-delay-ms="260"
+                />
+              </span>
             </span>
           </h1>
         </div>
@@ -704,8 +706,8 @@ onBeforeUnmount(() => {
 
   .hero__stage {
     min-height: auto;
-    padding: calc(5.75rem + env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px)) 1.5rem
-      max(1.15rem, env(safe-area-inset-left, 0px));
+    padding: calc(5.85rem + env(safe-area-inset-top, 0px)) max(1.35rem, env(safe-area-inset-right, 0px)) 1.5rem
+      max(1.35rem, env(safe-area-inset-left, 0px));
     display: flex;
     flex-direction: column;
     background:
@@ -736,14 +738,14 @@ onBeforeUnmount(() => {
   .hero__title {
     max-width: 100%;
     text-align: left;
-    margin: 0 0 0.45rem;
+    margin: 0 0 0.55rem;
     font-weight: 700;
-    font-size: clamp(1.6rem, 6.2vw, 2.1rem);
-    line-height: 1.18;
+    font-size: clamp(1.9rem, 7.4vw, 2.45rem);
+    line-height: 1.16;
     letter-spacing: -0.025em;
     color: var(--color-milk);
     overflow-wrap: normal;
-    hyphens: manual;
+    word-break: normal;
   }
 
   .hero__title-live {
@@ -753,10 +755,21 @@ onBeforeUnmount(() => {
   .hero__title-mobile {
     position: relative;
     z-index: 2;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 0.08em;
     max-width: 100%;
     min-width: 0;
     font-weight: 700;
+  }
+
+  .hero__title-mobile-l1,
+  .hero__title-mobile-l2 {
+    display: block;
+  }
+
+  .hero__title-mobile-l2 {
+    white-space: nowrap;
   }
 
   .hero__title-accent,
@@ -771,12 +784,12 @@ onBeforeUnmount(() => {
   }
 
   .hero__title-accent {
-    margin-top: 0.06em;
+    margin-top: 0;
   }
 
   .hero__lead {
-    font-size: clamp(0.9rem, 3.6vw, 1rem);
-    line-height: 1.48;
+    font-size: clamp(0.92rem, 3.6vw, 1.02rem);
+    line-height: 1.5;
     font-weight: 500;
   }
 
@@ -883,12 +896,15 @@ onBeforeUnmount(() => {
 
 @media (max-width: 520px) {
   .hero__stage {
-    padding-top: calc(5.5rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(5.6rem + env(safe-area-inset-top, 0px));
   }
 
   .hero__title {
-    max-width: 100%;
-    font-size: clamp(1.5rem, 6.6vw, 1.9rem);
+    font-size: clamp(1.75rem, 7.6vw, 2.2rem);
+  }
+
+  .hero__title-mobile-l2 {
+    white-space: normal;
   }
 }
 

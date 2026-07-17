@@ -107,7 +107,7 @@ function openCase(id) {
 }
 
 .cases-page__hero {
-  padding: 7.85rem max(1.15rem, env(safe-area-inset-left, 0px)) 2rem max(1.15rem, env(safe-area-inset-right, 0px));
+  padding: 8.35rem max(1.35rem, env(safe-area-inset-left, 0px)) 2rem max(1.35rem, env(safe-area-inset-right, 0px));
   background: var(--surface-dark);
   border-bottom: 1px solid var(--border-dark);
   color: var(--text-on-dark);
@@ -138,8 +138,8 @@ function openCase(id) {
   margin: 0 0 0.65rem;
   max-width: 16ch;
   font-family: var(--font-hero);
-  font-size: clamp(1.75rem, 6.5vw, 5rem);
-  line-height: 1.1;
+  font-size: clamp(1.9rem, 7vw, 5rem);
+  line-height: 1.12;
   letter-spacing: -0.02em;
   font-weight: 700;
 }

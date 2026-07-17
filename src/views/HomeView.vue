@@ -416,8 +416,8 @@ onBeforeUnmount(() => {
   margin: 0;
   color: var(--text);
   font-family: var(--font-hero);
-  font-size: clamp(1.7rem, 5.2vw, 3.2rem);
-  line-height: 1.1;
+  font-size: clamp(1.85rem, 5.6vw, 3.2rem);
+  line-height: 1.12;
   letter-spacing: -0.015em;
 }
 

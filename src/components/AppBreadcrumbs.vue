@@ -61,7 +61,7 @@ const trail = computed(() => {
   top: calc(4.05rem + env(safe-area-inset-top, 0px));
   left: 0;
   right: 0;
-  padding: 0.45rem max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
+  padding: 0.45rem max(1.35rem, env(safe-area-inset-right, 0px)) 0 max(1.35rem, env(safe-area-inset-left, 0px));
   pointer-events: none;
 }
 
