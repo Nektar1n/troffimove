@@ -316,11 +316,11 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 
-/* Общая сцена: машина + фигура + заголовок в одном композиционном слое */
+/* Общая сцена: без собственного z-index, иначе заголовок
+   оказывается ПОД .hero__stage::before и «серее» от градиента */
 .hero__scene {
   position: absolute;
   inset: 0;
-  z-index: 1;
   overflow: visible;
 }
 
