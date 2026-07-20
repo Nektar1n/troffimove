@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { defineConfig } from 'vite';
@@ -32,20 +32,49 @@ function resolveBase() {
   return githubPagesBase();
 }
 
-/** Для GitHub Pages при SPA-роуте копия index.html → 404.html (иначе F5 на /privoz даст 404). */
-function githubSpa404Plugin() {
+/**
+ * GitHub Pages для SPA:
+ * - 404.html — fallback для неизвестных путей
+ * - /privoz/index.html и т.п. — чтобы маршруты отдавали HTTP 200, а не 404
+ *   (иначе Google отклоняет индексирование: «ошибки индексирования»)
+ */
+function githubSpaRoutesPlugin() {
+  const staticRoutes = ['privoz', 'podbor', 'cases', 'legal', 'prigon', 'reviews-cases'];
+
   return {
-    name: 'github-spa-404',
+    name: 'github-spa-routes',
     closeBundle: () => {
       const from = join(__dirname, 'dist', 'index.html');
-      const to = join(__dirname, 'dist', '404.html');
-      if (existsSync(from)) copyFileSync(from, to);
+      if (!existsSync(from)) return;
+
+      copyFileSync(from, join(__dirname, 'dist', '404.html'));
+
+      const routes = [...staticRoutes];
+      try {
+        const casesSrc = readFileSync(join(__dirname, 'src', 'data', 'cases.js'), 'utf8');
+        for (const match of casesSrc.matchAll(/id:\s*'([^']+)'/g)) {
+          routes.push(`cases/${match[1]}`);
+        }
+      } catch {
+        /* кейсы не критичны для билда */
+      }
+
+      for (const route of routes) {
+        const dir = join(__dirname, 'dist', route);
+        mkdirSync(dir, { recursive: true });
+        copyFileSync(from, join(dir, 'index.html'));
+
+        /* Односегментные пути: /privoz → privoz.html (GitHub Pages отдаёт 200 без слэша) */
+        if (!route.includes('/')) {
+          copyFileSync(from, join(__dirname, 'dist', `${route}.html`));
+        }
+      }
     },
   };
 }
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(), githubSpa404Plugin()],
-  base: '/'
+  plugins: [vue(), githubSpaRoutesPlugin()],
+  base: '/',
 });
