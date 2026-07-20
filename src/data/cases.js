@@ -13,6 +13,50 @@ import imgPodbor4 from '../assets/podbor_4.jpg';
 import imgPodbor5 from '../assets/podbor_5.jpg';
 import imgPodbor6 from '../assets/podbor_6.jpg';
 
+import imgCupra2 from '../assets/купра2.jpeg';
+import imgCupra3 from '../assets/купра3.jpeg';
+import imgGClass2 from '../assets/гелик2.jpeg';
+import imgGClass3 from '../assets/гелик3.jpeg';
+
+import imgBmwX2_1 from '../assets/бмв1.jpeg';
+import imgBmwX2_2 from '../assets/бмв2.jpeg';
+import imgBmwX2_3 from '../assets/бмв3.jpeg';
+import imgBmwX2_4 from '../assets/бмв4.jpeg';
+import imgBmwX2_5 from '../assets/бмв5.jpeg';
+
+import imgBmwM8_1 from '../assets/бмвспорт1.jpeg';
+import imgBmwM8_2 from '../assets/бмвспорт2.jpeg';
+import imgBmwM8_3 from '../assets/бмвспорт3.jpeg';
+import imgBmwM8_4 from '../assets/бмвспорт4.jpeg';
+import imgBmwM8_5 from '../assets/бмвспорт5.jpeg';
+
+import imgLexusRx1 from '../assets/лехус1.jpeg';
+import imgLexusRx2 from '../assets/лехус2.jpeg';
+import imgLexusRx3 from '../assets/лехус3.jpeg';
+import imgLexusRx4 from '../assets/лехус4.jpeg';
+import imgLexusRx5 from '../assets/лехус5.jpeg';
+import imgLexusRx6 from '../assets/лехус6.jpeg';
+import imgLexusRx7 from '../assets/лехус7.jpeg';
+
+import imgNissan1 from '../assets/нисан1.jpeg';
+import imgNissan2 from '../assets/нисан2.jpeg';
+import imgNissan3 from '../assets/нисан3.jpeg';
+import imgNissan4 from '../assets/нисан4.jpeg';
+
+import imgCorolla1 from '../assets/тойота1.jpeg';
+import imgCorolla2 from '../assets/тойота2.jpeg';
+import imgCorolla3 from '../assets/тойота3.jpeg';
+import imgCorolla4 from '../assets/тойота4.jpeg';
+import imgCorolla5 from '../assets/тойота5.jpeg';
+import imgCorolla6 from '../assets/тойота6.jpeg';
+import imgCorolla7 from '../assets/тойота7.jpeg';
+import imgCorolla8 from '../assets/тойота8.jpeg';
+
+import imgChr1 from '../assets/синяятойота1.jpeg';
+import imgChr2 from '../assets/синяятойота2.jpeg';
+import imgChr3 from '../assets/синяятойота3.jpeg';
+import imgChr4 from '../assets/синяятойоота4.jpeg';
+
 export const CASE_TYPES = {
   all: 'all',
   import: 'import',
@@ -22,7 +66,7 @@ export const CASE_TYPES = {
 /** Максимум карточек в блоке успешных сделок на главной (остальные — на /cases и в разделах). */
 const HOME_CASES_PREVIEW_LIMIT = 4;
 
-/** Привоз: только privoz_*. Подбор: только podbor_*. (podbor_7 — дубль кадра с podbor_1, в ленту не включён.) */
+/** Привоз: только privoz_* + новые импорт-кейсы. Подбор: podbor_* + локальные осмотры. */
 export const CASES = [
   {
     id: 'mercedes-v-class-v300d-germany',
@@ -91,6 +135,17 @@ export const CASES = [
     featured: ['home', 'import'],
   },
   {
+    id: 'bmw-x2-m35i-korea',
+    type: CASE_TYPES.import,
+    tag: 'Корея · привоз',
+    model: 'BMW X2 M35i',
+    meta: 'Корейский контур · M35i · Brooklyn Grey',
+    text:
+      'Забрали динамичный X2 в топовой M35i: проверка истории на корейском рынке, согласование комплектации и полный цикл доставки с растаможкой. На фото — тот же экземпляр после осмотра.',
+    image: imgBmwX2_2,
+    featured: ['home', 'import'],
+  },
+  {
     id: 'volvo-xc60-d4-2013-twenty-checked',
     type: CASE_TYPES.selection,
     tag: 'Подбор · Москва',
@@ -156,6 +211,61 @@ export const CASES = [
     image: imgPodbor6,
     featured: ['selection'],
   },
+  {
+    id: 'bmw-m8-competition-selection',
+    type: CASE_TYPES.selection,
+    tag: 'Подбор · спорт',
+    model: 'BMW M8 Competition',
+    meta: 'Синий металлик · салон M · выездная проверка',
+    text:
+      'Сложный спорт-кейс: сверили комплектацию Competition, состояние кузова и моторный контур, проверили историю и закрыли покупку после детального осмотра. В галерее — экстерьер и салон того же автомобиля.',
+    image: imgBmwM8_2,
+    featured: ['selection'],
+  },
+  {
+    id: 'lexus-rx330-selection',
+    type: CASE_TYPES.selection,
+    tag: 'Подбор · кроссовер',
+    model: 'Lexus RX 330',
+    meta: 'Тёмно-серый · осмотр на месте · юридическая проверка',
+    text:
+      'Клиент искал надёжный RX без скрытых кузовных работ. Проверили историю, лакокраску и технику на месте, согласовали цену и довели сделку до передачи ключей.',
+    image: imgLexusRx1,
+    featured: ['selection'],
+  },
+  {
+    id: 'nissan-juke-selection',
+    type: CASE_TYPES.selection,
+    tag: 'Подбор · городской кроссовер',
+    model: 'Nissan Juke',
+    meta: 'Бронзовый кузов · чёрная крыша · проверка перед покупкой',
+    text:
+      'Компактный Juke под городской сценарий: осмотр кузова и салона, сверка пробега и баз, рекомендация к покупке после выезда на место.',
+    image: imgNissan2,
+    featured: ['selection'],
+  },
+  {
+    id: 'toyota-corolla-selection',
+    type: CASE_TYPES.selection,
+    tag: 'Подбор · седан',
+    model: 'Toyota Corolla',
+    meta: 'Серебристый седан · выездная диагностика',
+    text:
+      'Классический запрос на Corolla: живой кузов, понятная история, проверка на месте и торг с продавцом. В галерее — экстерьер и салон выбранного экземпляра.',
+    image: imgCorolla1,
+    featured: ['selection'],
+  },
+  {
+    id: 'toyota-chr-blue-selection',
+    type: CASE_TYPES.selection,
+    tag: 'Подбор · кроссовер',
+    model: 'Toyota C-HR',
+    meta: 'Синий кузов · чёрная крыша · осмотр салона',
+    text:
+      'Яркий C-HR в двухцветной схеме: проверили ЛКП, электронику и состояние салона, подтвердили отсутствие критичных рисков и согласовали покупку.',
+    image: imgChr2,
+    featured: ['selection'],
+  },
 ];
 
 const DETAIL_FIELDS = {
@@ -210,7 +320,7 @@ const CASE_DETAILS = {
       { label: 'Пробег', value: '41 200 км' },
       { label: 'Стоимость автомобиля', value: '4 180 000 ₽' },
     ],
-    gallery: [imgPrivoz5, imgPrivoz6, imgPrivoz1],
+    gallery: [imgPrivoz5, imgCupra2, imgCupra3],
   },
   'mercedes-g-class-germany-used': {
     description:
@@ -224,7 +334,21 @@ const CASE_DETAILS = {
       { label: 'Пробег', value: '67 400 км' },
       { label: 'Стоимость автомобиля', value: '13 650 000 ₽' },
     ],
-    gallery: [imgPrivoz6, imgPrivoz5, imgPrivoz2],
+    gallery: [imgPrivoz6, imgGClass2, imgGClass3],
+  },
+  'bmw-x2-m35i-korea': {
+    description:
+      'Нужна была именно M35i с полным приводом и живым экстерьером. Проверили корейский контур, согласовали лот и закрыли поставку под ключ с документами.',
+    specs: [
+      { label: 'Год выпуска', value: '2024' },
+      { label: 'Двигатель', value: '2.0 л (300+ л.с.)' },
+      { label: 'Коробка передач', value: 'Автоматическая КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: '1' },
+      { label: 'Пробег', value: 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [imgBmwX2_2, imgBmwX2_1, imgBmwX2_3, imgBmwX2_4, imgBmwX2_5],
   },
   'volvo-xc60-d4-2013-twenty-checked': {
     description:
@@ -238,7 +362,7 @@ const CASE_DETAILS = {
       { label: 'Пробег', value: '164 000 км' },
       { label: 'Стоимость автомобиля', value: '1 420 000 ₽' },
     ],
-    gallery: [imgPodbor1, imgPodbor6, imgPodbor5],
+    gallery: [imgPodbor1],
   },
   'vw-id4-crozz-lite-pro-2022': {
     description:
@@ -252,7 +376,7 @@ const CASE_DETAILS = {
       { label: 'Пробег', value: '2 139 км' },
       { label: 'Стоимость автомобиля', value: '2 910 000 ₽' },
     ],
-    gallery: [imgPodbor2, imgPodbor4, imgPodbor1],
+    gallery: [imgPodbor2],
   },
   'lexus-lx570-2012-twelve-variants': {
     description:
@@ -266,7 +390,77 @@ const CASE_DETAILS = {
       { label: 'Пробег', value: '210 000 км' },
       { label: 'Стоимость автомобиля', value: '3 550 000 ₽' },
     ],
-    gallery: [imgPodbor5, imgPodbor3, imgPodbor6],
+    gallery: [imgPodbor5],
+  },
+  'bmw-m8-competition-selection': {
+    description:
+      'Запрос на M8 Competition: важны были состояние кузова, комплектация салона и прозрачная история. Провели детальный осмотр, сверили базы и закрыли сделку после согласования цены.',
+    specs: [
+      { label: 'Год выпуска', value: '2021' },
+      { label: 'Двигатель', value: '4.4 л V8 (Competition)' },
+      { label: 'Коробка передач', value: 'Автоматическая КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: '1' },
+      { label: 'Пробег', value: 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [imgBmwM8_2, imgBmwM8_1, imgBmwM8_3, imgBmwM8_4, imgBmwM8_5],
+  },
+  'lexus-rx330-selection': {
+    description:
+      'Нужен был RX без сюрпризов по кузову и юридической чистоте. Осмотрели экземпляр на месте, проверили историю и согласовали покупку под бюджет клиента.',
+    specs: [
+      { label: 'Год выпуска', value: '2006' },
+      { label: 'Двигатель', value: '3.3 л' },
+      { label: 'Коробка передач', value: 'Автоматическая КПП' },
+      { label: 'Привод', value: 'Полный' },
+      { label: 'Владельцы', value: 'Уточняется' },
+      { label: 'Пробег', value: 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [imgLexusRx1, imgLexusRx2, imgLexusRx3, imgLexusRx4, imgLexusRx5, imgLexusRx6, imgLexusRx7],
+  },
+  'nissan-juke-selection': {
+    description:
+      'Городской кроссовер под ежедневную езду: проверили кузов, салон и техническое состояние, отсеяли рискованные варианты и оставили один сильный Juke.',
+    specs: [
+      { label: 'Год выпуска', value: 'Уточняется' },
+      { label: 'Двигатель', value: 'Уточняется' },
+      { label: 'Коробка передач', value: 'Уточняется' },
+      { label: 'Привод', value: 'Передний' },
+      { label: 'Владельцы', value: 'Уточняется' },
+      { label: 'Пробег', value: 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [imgNissan2, imgNissan1, imgNissan3, imgNissan4],
+  },
+  'toyota-corolla-selection': {
+    description:
+      'Практичный седан без скрытых вложений: выездная диагностика, сверка по базам и торг. Клиент получил понятный отчёт и рекомендованный к покупке экземпляр.',
+    specs: [
+      { label: 'Год выпуска', value: 'Уточняется' },
+      { label: 'Двигатель', value: 'Уточняется' },
+      { label: 'Коробка передач', value: 'Уточняется' },
+      { label: 'Привод', value: 'Передний' },
+      { label: 'Владельцы', value: 'Уточняется' },
+      { label: 'Пробег', value: 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [imgCorolla1, imgCorolla2, imgCorolla3, imgCorolla4, imgCorolla5, imgCorolla6, imgCorolla7, imgCorolla8],
+  },
+  'toyota-chr-blue-selection': {
+    description:
+      'Нужен был C-HR в ярком цвете и живом состоянии. Проверили ЛКП, электронику и салон, подтвердили рекомендацию к покупке и закрыли сделку.',
+    specs: [
+      { label: 'Год выпуска', value: 'Уточняется' },
+      { label: 'Двигатель', value: 'Уточняется' },
+      { label: 'Коробка передач', value: 'Вариатор' },
+      { label: 'Привод', value: 'Передний' },
+      { label: 'Владельцы', value: 'Уточняется' },
+      { label: 'Пробег', value: 'Уточняется' },
+      { label: 'Стоимость автомобиля', value: 'По согласованной смете' },
+    ],
+    gallery: [imgChr2, imgChr1, imgChr3, imgChr4],
   },
 };
 
