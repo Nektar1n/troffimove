@@ -324,15 +324,17 @@ onBeforeUnmount(() => {
   overflow: visible;
 }
 
-/* Заголовок + ghost: под машиной (z ниже .hero__car-wrap) */
+/* Заголовок: отступ сверху явный (absolute-сцена игнорирует padding stage).
+   Иначе в Safari (меньше vh из‑за тулбара) title липнет к шапке. */
 .hero__masthead {
   position: relative;
   z-index: 4;
   display: flex;
   justify-content: center;
-  padding: 0 max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
+  padding: calc(7.25rem + env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) 0
+    max(1rem, env(safe-area-inset-left, 0px));
   margin-bottom: 0;
-  min-height: clamp(12rem, 31vh, 20.5rem);
+  min-height: clamp(14.5rem, 34vh, 23rem);
   overflow: visible;
 }
 
@@ -353,7 +355,7 @@ onBeforeUnmount(() => {
   --hero-ghost-opacity-two: 0.05;
 
   position: relative;
-  margin: clamp(0.75rem, 3.5vh, 3rem) 0 0;
+  margin: 0;
   text-align: center;
   max-width: min(98vw, 88rem);
   overflow: visible;
@@ -997,7 +999,7 @@ onBeforeUnmount(() => {
 
 @media (min-width: 1920px) {
   .hero__masthead {
-    min-height: clamp(11rem, 24vh, 17rem);
+    min-height: clamp(16.5rem, 30vh, 21rem);
   }
 
   .hero__title {
