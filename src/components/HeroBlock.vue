@@ -2,7 +2,6 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import desktopHeroPhoto from '../assets/главнаяПрод.jpg';
 import trofimCutout from '../assets/вырезаныйТроффим.png';
-import mobileHeroPhoto from '../assets/trofim.jpeg';
 import SocialLinks from './SocialLinks.vue';
 import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
@@ -121,79 +120,78 @@ onBeforeUnmount(() => {
     <div ref="heroStage" class="hero__stage" :class="{ 'is-in': mounted }">
       <div class="hero__wash" aria-hidden="true" />
 
-      <!-- z: заголовок и ghost под машиной и фигурой (макет Figma) -->
-      <div class="hero__masthead">
-        <div class="hero__head">
-          <h1
-            ref="heroTitle"
-            class="hero__title"
-            :class="{ 'is-in': mounted }"
-          >
-            <span class="hero__title-ghost hero__title-ghost--one" aria-hidden="true">
-              <span class="hero__title-line hero__title-line--1">
-                <span
-                  v-for="letter in ghostLineOneLetters"
-                  :key="`one-1-${letter.id}`"
-                  class="hero__ghost-letter"
-                  :style="{ '--letter-speed': letter.speed }"
-                >{{ letter.char }}</span>
+      <div class="hero__scene">
+        <!-- z: заголовок и ghost под машиной и фигурой (макет Figma) -->
+        <div class="hero__masthead">
+          <div class="hero__head">
+            <h1
+              ref="heroTitle"
+              class="hero__title"
+              :class="{ 'is-in': mounted }"
+            >
+              <span class="hero__title-ghost hero__title-ghost--one" aria-hidden="true">
+                <span class="hero__title-line hero__title-line--1">
+                  <span
+                    v-for="letter in ghostLineOneLetters"
+                    :key="`one-1-${letter.id}`"
+                    class="hero__ghost-letter"
+                    :style="{ '--letter-speed': letter.speed }"
+                  >{{ letter.char }}</span>
+                </span>
+                <span class="hero__title-line hero__title-line--2">
+                  <span
+                    v-for="letter in ghostLineTwoLetters"
+                    :key="`one-2-${letter.id}`"
+                    class="hero__ghost-letter"
+                    :style="{ '--letter-speed': letter.speed }"
+                  >{{ letter.char }}</span>
+                </span>
               </span>
-              <span class="hero__title-line hero__title-line--2">
-                <span
-                  v-for="letter in ghostLineTwoLetters"
-                  :key="`one-2-${letter.id}`"
-                  class="hero__ghost-letter"
-                  :style="{ '--letter-speed': letter.speed }"
-                >{{ letter.char }}</span>
+              <span class="hero__title-ghost hero__title-ghost--two" aria-hidden="true">
+                <span class="hero__title-line hero__title-line--1">
+                  <span
+                    v-for="letter in ghostLineOneLetters"
+                    :key="`two-1-${letter.id}`"
+                    class="hero__ghost-letter"
+                    :style="{ '--letter-speed': letter.speed }"
+                  >{{ letter.char }}</span>
+                </span>
+                <span class="hero__title-line hero__title-line--2">
+                  <span
+                    v-for="letter in ghostLineTwoLetters"
+                    :key="`two-2-${letter.id}`"
+                    class="hero__ghost-letter"
+                    :style="{ '--letter-speed': letter.speed }"
+                  >{{ letter.char }}</span>
+                </span>
               </span>
-            </span>
-            <span class="hero__title-ghost hero__title-ghost--two" aria-hidden="true">
-              <span class="hero__title-line hero__title-line--1">
-                <span
-                  v-for="letter in ghostLineOneLetters"
-                  :key="`two-1-${letter.id}`"
-                  class="hero__ghost-letter"
-                  :style="{ '--letter-speed': letter.speed }"
-                >{{ letter.char }}</span>
+              <span class="hero__title-live">
+                <span class="hero__title-line hero__title-line--1">Подбор, выкуп и привоз</span>
+                <span class="hero__title-line hero__title-line--2">
+                  <span class="hero__title-auto">авто</span>
+                  <span class="hero__title-key">под ключ</span>
+                </span>
               </span>
-              <span class="hero__title-line hero__title-line--2">
-                <span
-                  v-for="letter in ghostLineTwoLetters"
-                  :key="`two-2-${letter.id}`"
-                  class="hero__ghost-letter"
-                  :style="{ '--letter-speed': letter.speed }"
-                >{{ letter.char }}</span>
+              <span class="hero__title-mobile">
+                <span class="hero__title-mobile-l1">Подбор, выкуп и привоз</span>
+                <span class="hero__title-mobile-l2">
+                  авто
+                  <TitleKeyTypewriter
+                    class="hero__title-accent"
+                    phrase="под ключ"
+                    once
+                    once-id="home-hero-mobile-title-accent"
+                    :start-delay-ms="210"
+                    :char-delay-ms="46"
+                    :caret-hide-delay-ms="260"
+                  />
+                </span>
               </span>
-            </span>
-            <span class="hero__title-live">
-              <span class="hero__title-line hero__title-line--1">Подбор, выкуп и привоз</span>
-              <span class="hero__title-line hero__title-line--2">
-                <span class="hero__title-auto">авто</span>
-                <span class="hero__title-key">под ключ</span>
-              </span>
-            </span>
-            <span class="hero__title-mobile">
-              <span class="hero__title-mobile-l1">Подбор, выкуп и привоз</span>
-              <span class="hero__title-mobile-l2">
-                авто
-                <TitleKeyTypewriter
-                  class="hero__title-accent"
-                  phrase="под ключ"
-                  once
-                  once-id="home-hero-mobile-title-accent"
-                  :start-delay-ms="210"
-                  :char-delay-ms="46"
-                  :caret-hide-delay-ms="260"
-                />
-              </span>
-            </span>
-          </h1>
+            </h1>
+          </div>
         </div>
-      </div>
 
-      <div class="hero__car-wrap" aria-hidden="true">
-        <picture>
-          <source :srcset="mobileHeroPhoto" media="(max-width: 899px)" />
+        <div class="hero__car-wrap" aria-hidden="true">
           <img
             :src="desktopHeroPhoto"
             class="hero__car"
@@ -204,25 +202,25 @@ onBeforeUnmount(() => {
             decoding="async"
             fetchpriority="high"
           />
-        </picture>
-        <div class="hero__car-mist" />
+          <div class="hero__car-mist" />
+        </div>
+
+        <img
+          class="hero__cutout"
+          :src="trofimCutout"
+          width="288"
+          height="469"
+          alt=""
+          loading="eager"
+          decoding="async"
+          fetchpriority="low"
+          aria-hidden="true"
+        />
+
+        <p class="hero__eyebrow" :class="{ 'is-in': mounted }">
+          Troffimove Auto · Корея · Европа · Япония
+        </p>
       </div>
-
-      <img
-        class="hero__cutout"
-        :src="trofimCutout"
-        width="288"
-        height="469"
-        alt=""
-        loading="eager"
-        decoding="async"
-        fetchpriority="low"
-        aria-hidden="true"
-      />
-
-      <p class="hero__eyebrow" :class="{ 'is-in': mounted }">
-        Troffimove Auto · Корея · Европа · Япония
-      </p>
 
       <div class="hero__quote" :class="{ 'is-in': mounted }">
         <span class="hero__quote-mark" aria-hidden="true">“</span>
@@ -316,6 +314,14 @@ onBeforeUnmount(() => {
     radial-gradient(ellipse at 50% 62%, rgb(var(--color-milk-rgb) / 0.07) 0%, rgb(var(--color-milk-rgb) / 0.035) 30%, rgb(var(--color-milk-rgb) / 0) 62%),
     linear-gradient(180deg, var(--hero-top) 0%, var(--hero-warm) 34%, var(--hero-warm-deep) 100%);
   pointer-events: none;
+}
+
+/* Общая сцена: машина + фигура + заголовок в одном композиционном слое */
+.hero__scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: visible;
 }
 
 /* Заголовок + ghost: под машиной (z ниже .hero__car-wrap) */
@@ -701,18 +707,15 @@ onBeforeUnmount(() => {
 
 @media (max-width: 899px) {
   .hero {
-    background: var(--color-graphite);
+    background: var(--hero-top);
   }
 
   .hero__stage {
     min-height: auto;
-    padding: calc(5.85rem + env(safe-area-inset-top, 0px)) max(1.35rem, env(safe-area-inset-right, 0px)) 1.5rem
-      max(1.35rem, env(safe-area-inset-left, 0px));
+    padding: 0;
     display: flex;
     flex-direction: column;
-    background:
-      radial-gradient(circle at top right, rgba(233, 190, 95, 0.16), transparent 34%),
-      linear-gradient(180deg, var(--color-graphite) 0%, var(--color-graphite) 100%);
+    background: var(--hero-top);
   }
 
   .hero__stage::before {
@@ -720,15 +723,56 @@ onBeforeUnmount(() => {
   }
 
   .hero__wash {
-    display: none;
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  /* Сцена: полноэкранная композиция как на десктопе */
+  .hero__scene {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    order: 1;
+    width: 100%;
+    min-height: min(88dvh, 44rem);
+    height: min(88dvh, 44rem);
+    overflow: hidden;
+    background: var(--hero-top);
+  }
+
+  /* Верхний вуаль — заголовок читается поверх машины */
+  .hero__scene::before {
+    content: '';
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(9rem, 32vh, 14rem);
+    background: linear-gradient(
+      180deg,
+      rgba(118, 112, 103, 0.82) 0%,
+      rgba(118, 112, 103, 0.48) 48%,
+      rgba(118, 112, 103, 0) 100%
+    );
+    pointer-events: none;
   }
 
   .hero__masthead {
-    position: relative;
-    order: 1;
-    margin-bottom: 0.85rem;
+    position: absolute;
+    top: calc(4.85rem + env(safe-area-inset-top, 0px));
+    left: 0;
+    right: 0;
+    z-index: 6;
+    order: unset;
+    margin: 0;
     min-height: 0;
-    padding: 0;
+    padding: 0 1.35rem;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
   }
 
   .hero__title-ghost {
@@ -736,16 +780,17 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    max-width: 100%;
-    text-align: left;
-    margin: 0 0 0.55rem;
+    max-width: 18ch;
+    text-align: center;
+    margin: 0 auto;
     font-weight: 700;
-    font-size: clamp(1.9rem, 7.4vw, 2.45rem);
-    line-height: 1.16;
-    letter-spacing: -0.025em;
+    font-size: clamp(1.95rem, 7.6vw, 2.55rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
     color: var(--color-milk);
     overflow-wrap: normal;
     word-break: normal;
+    text-shadow: 0 12px 32px rgb(var(--color-graphite-rgb) / 0.42);
   }
 
   .hero__title-live {
@@ -757,7 +802,8 @@ onBeforeUnmount(() => {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 0.08em;
+    align-items: center;
+    gap: 0.06em;
     max-width: 100%;
     min-width: 0;
     font-weight: 700;
@@ -766,6 +812,7 @@ onBeforeUnmount(() => {
   .hero__title-mobile-l1,
   .hero__title-mobile-l2 {
     display: block;
+    text-align: center;
   }
 
   .hero__title-mobile-l2 {
@@ -787,45 +834,59 @@ onBeforeUnmount(() => {
     margin-top: 0;
   }
 
-  .hero__lead {
-    font-size: clamp(0.92rem, 3.6vw, 1.02rem);
-    line-height: 1.5;
-    font-weight: 500;
-  }
-
-  .hero__lead-attrib {
-    font-size: 0.85rem;
-  }
-
   .hero__car-wrap {
-    position: relative;
-    inset: auto;
-    order: 2;
-    align-self: center;
-    width: min(100%, 28rem);
-    max-width: 100%;
-    aspect-ratio: 16 / 10;
-    height: auto;
-    margin: 0.6rem 0 0;
-    border: 1px solid rgb(var(--color-milk-rgb) / 0.14);
-    border-radius: 1.5rem;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    order: unset;
+    align-self: auto;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    aspect-ratio: auto;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
     overflow: hidden;
-    z-index: 3;
+    pointer-events: none;
   }
 
   .hero__car {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 24%;
-    transform: none;
-    filter: none;
+    object-position: 48% 68%;
+    transform: scale(1.22) translateY(6%);
+    transform-origin: 50% 100%;
+    filter: saturate(0.86) contrast(0.96) brightness(0.98);
   }
 
   .hero__car-mist {
     background:
-      linear-gradient(180deg, rgb(var(--color-graphite-rgb) / 0.08) 0%, rgb(var(--color-graphite-rgb) / 0.1) 44%, rgb(var(--color-graphite-rgb) / 0.46) 100%),
-      linear-gradient(90deg, rgb(var(--color-graphite-rgb) / 0.08) 0%, rgb(var(--color-graphite-rgb) / 0) 30%, rgb(var(--color-graphite-rgb) / 0.14) 100%);
+      linear-gradient(
+        180deg,
+        rgba(118, 112, 103, 0.55) 0%,
+        rgba(118, 112, 103, 0.28) 24%,
+        rgba(90, 84, 76, 0.08) 52%,
+        rgba(28, 25, 22, 0.48) 100%
+      ),
+      linear-gradient(90deg, rgba(90, 84, 76, 0.22) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.18) 100%);
+  }
+
+  .hero__cutout {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: auto;
+    height: min(62vh, 30rem);
+    max-width: min(90vw, 23rem);
+    object-fit: contain;
+    object-position: bottom center;
+    filter: brightness(0.94) saturate(0.96);
+    pointer-events: none;
   }
 
   .hero__eyebrow {
@@ -833,13 +894,18 @@ onBeforeUnmount(() => {
   }
 
   .hero__quote {
-    position: static;
+    position: relative;
+    z-index: 2;
+    order: 2;
+    left: auto;
+    top: auto;
     transform: none;
-    order: 3;
     width: 100%;
     max-width: 100%;
-    margin-top: 0.85rem;
-    top: auto;
+    margin: 0;
+    padding: 1.15rem 1.35rem 0;
+    text-align: left;
+    background: var(--color-graphite);
   }
 
   .hero__quote-mark {
@@ -851,22 +917,32 @@ onBeforeUnmount(() => {
     margin: 0 0 0.2rem;
   }
 
-  .hero__cutout {
-    display: none;
+  .hero__lead {
+    font-size: clamp(0.92rem, 3.6vw, 1.02rem);
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--color-milk);
+  }
+
+  .hero__lead-attrib {
+    font-size: 0.85rem;
+    color: rgb(var(--color-milk-rgb) / 0.78);
   }
 
   .hero__bar {
     position: relative;
-    order: 4;
+    z-index: 2;
+    order: 3;
     left: auto;
     right: auto;
     bottom: auto;
-    padding: 0;
-    margin-top: 1.1rem;
+    margin: 0;
+    padding: 1.1rem 1.35rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
     flex-direction: column;
     align-items: stretch;
     opacity: 1;
     transform: none;
+    background: var(--color-graphite);
   }
 
   .hero__bar.is-in {
@@ -895,16 +971,27 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 520px) {
-  .hero__stage {
-    padding-top: calc(5.6rem + env(safe-area-inset-top, 0px));
+  .hero__scene {
+    min-height: min(86dvh, 38rem);
+    height: min(86dvh, 38rem);
+  }
+
+  .hero__masthead {
+    top: calc(4.55rem + env(safe-area-inset-top, 0px));
+    padding: 0 1.15rem;
   }
 
   .hero__title {
-    font-size: clamp(1.75rem, 7.6vw, 2.2rem);
+    font-size: clamp(1.8rem, 7.8vw, 2.25rem);
+  }
+
+  .hero__cutout {
+    height: min(58vh, 26rem);
+    max-width: min(94vw, 21rem);
   }
 
   .hero__title-mobile-l2 {
-    white-space: normal;
+    white-space: nowrap;
   }
 }
 

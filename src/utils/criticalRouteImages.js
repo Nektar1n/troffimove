@@ -1,11 +1,10 @@
 import desktopHeroPhoto from '../assets/главнаяПрод.jpg';
 import trofimCutout from '../assets/вырезаныйТроффим.png';
-import mobileHeroPhoto from '../assets/trofim.jpeg';
 import imgTruck from '../assets/фура.png';
 import { selectionHeroUrl } from './selectionHeroImage.js';
 
 const ROUTE_IMAGES = {
-  home: [desktopHeroPhoto, mobileHeroPhoto, trofimCutout],
+  home: [desktopHeroPhoto, trofimCutout],
   selection: [selectionHeroUrl],
   import: [imgTruck],
 };

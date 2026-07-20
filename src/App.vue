@@ -1,21 +1,31 @@
 <script setup>
-import { RouterView, useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { RouterView, useRoute, useRouter } from 'vue-router';
 import SeoJsonLd from './components/SeoJsonLd.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import AppBreadcrumbs from './components/AppBreadcrumbs.vue';
 import { isNavigationLoading } from './state/navigationLoading.js';
 import { scrollToTopInstant } from './utils/scrollToTopInstant.js';
+import { dismissSiteBoot, waitForAppReady } from './utils/siteBoot.js';
 
 const route = useRoute();
+const router = useRouter();
+const appReady = ref(false);
 
 function onPageEntering() {
   if (!route.hash) scrollToTopInstant();
 }
+
+onMounted(async () => {
+  const startedAt = await waitForAppReady(router);
+  await dismissSiteBoot({ startedAt });
+  appReady.value = true;
+});
 </script>
 
 <template>
-  <div class="page">
+  <div class="page" :class="{ 'page--booting': !appReady }">
     <div class="page__top-progress" :class="{ 'page__top-progress--active': isNavigationLoading }" aria-hidden="true" />
     <SeoJsonLd />
     <SiteHeader />
@@ -38,6 +48,12 @@ function onPageEntering() {
   background: var(--bg);
   color: var(--text);
   overflow-x: clip;
+}
+
+/* Пока HTML-лоадер висит — страница невидима, чтобы не мелькал футер */
+.page--booting {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .page__top-progress {
