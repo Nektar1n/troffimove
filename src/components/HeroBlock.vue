@@ -857,8 +857,9 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 48% 68%;
-    transform: scale(1.22) translateY(6%);
+    /* Машина как фон за фигурой, не на весь кадр */
+    object-position: 50% 58%;
+    transform: scale(1.02) translateY(22%);
     transform-origin: 50% 100%;
     filter: saturate(0.86) contrast(0.96) brightness(0.98);
   }
@@ -990,6 +991,11 @@ onBeforeUnmount(() => {
   .hero__cutout {
     height: min(58vh, 26rem);
     max-width: min(94vw, 21rem);
+  }
+
+  .hero__car {
+    object-position: 50% 55%;
+    transform: scale(1) translateY(26%);
   }
 
   .hero__title-mobile-l2 {
