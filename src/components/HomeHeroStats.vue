@@ -154,13 +154,27 @@ watch(
     margin-top: -1px;
     padding-top: 0;
     padding-bottom: 0;
-    /* без щели со светлым --bg страницы между героем и блоком */
     background: var(--color-graphite);
   }
 
   .home-hero-stats__grid {
     margin-top: 0;
-    padding-top: 1.25rem;
+    margin-bottom: 1rem;
+    padding-top: 0.65rem;
+    padding-bottom: 1.15rem;
+    gap: 0.85rem 0.85rem;
+  }
+
+  .home-hero-stats__item {
+    padding: 0.35rem 0;
+  }
+
+  .home-hero-stats__n {
+    font-size: clamp(1.55rem, 6.2vw, 1.9rem);
+  }
+
+  .home-hero-stats__t {
+    font-size: 0.75rem;
   }
 
   .home-hero-stats__grid::before {

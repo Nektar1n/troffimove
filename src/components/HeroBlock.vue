@@ -725,56 +725,45 @@ onBeforeUnmount(() => {
   }
 
   .hero__wash {
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+    display: none;
   }
 
-  /* Сцена ниже — кнопки сразу в первом экране */
+  /*
+   * Мобильная композиция:
+   * заголовок СВЕРХУ (не на голове) → компактное фото → кнопки → цифры влезают
+   */
   .hero__scene {
     position: relative;
     inset: auto;
     z-index: 1;
     order: 1;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    min-height: min(72dvh, 34rem);
-    height: min(72dvh, 34rem);
+    height: auto;
+    min-height: 0;
     overflow: hidden;
     background: var(--hero-top);
   }
 
-  /* Мягкий верх: без тёмной «полосы» над фото */
   .hero__scene::before {
-    content: '';
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: clamp(7rem, 26vh, 11rem);
-    background: linear-gradient(
-      180deg,
-      rgba(118, 112, 103, 0.5) 0%,
-      rgba(118, 112, 103, 0.18) 48%,
-      rgba(118, 112, 103, 0) 100%
-    );
-    pointer-events: none;
+    display: none;
   }
 
   .hero__masthead {
-    position: absolute;
-    top: calc(4.65rem + env(safe-area-inset-top, 0px));
-    left: 0;
-    right: 0;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
     z-index: 6;
-    order: unset;
+    order: 1;
     margin: 0;
     min-height: 0;
-    padding: 0 1.35rem;
+    padding: calc(4.55rem + env(safe-area-inset-top, 0px)) 1.25rem 0.55rem;
     display: flex;
     justify-content: center;
     pointer-events: none;
+    background: var(--hero-top);
   }
 
   .hero__title-ghost {
@@ -786,13 +775,13 @@ onBeforeUnmount(() => {
     text-align: center;
     margin: 0 auto;
     font-weight: 700;
-    font-size: clamp(1.95rem, 7.6vw, 2.55rem);
-    line-height: 1.1;
+    font-size: clamp(1.7rem, 6.8vw, 2.15rem);
+    line-height: 1.12;
     letter-spacing: -0.03em;
     color: var(--color-milk);
     overflow-wrap: normal;
     word-break: normal;
-    text-shadow: 0 12px 32px rgb(var(--color-graphite-rgb) / 0.42);
+    text-shadow: none;
   }
 
   .hero__title-live {
@@ -805,7 +794,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.06em;
+    gap: 0.04em;
     max-width: 100%;
     min-width: 0;
     font-weight: 700;
@@ -837,14 +826,14 @@ onBeforeUnmount(() => {
   }
 
   .hero__car-wrap {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    inset: auto;
     z-index: 2;
-    order: unset;
-    align-self: auto;
+    order: 2;
+    align-self: stretch;
     width: 100%;
     max-width: none;
-    height: 100%;
+    height: min(42dvh, 19.5rem);
     aspect-ratio: auto;
     margin: 0;
     border: 0;
@@ -857,10 +846,9 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Фото поднято под заголовок — без пустой полосы сверху */
-    object-position: 50% 42%;
-    transform: scale(1.06) translateY(4%);
-    transform-origin: 50% 40%;
+    object-position: 50% 48%;
+    transform: scale(1.08) translateY(6%);
+    transform-origin: 50% 100%;
     filter: saturate(0.86) contrast(0.96) brightness(0.98);
   }
 
@@ -868,12 +856,11 @@ onBeforeUnmount(() => {
     background:
       linear-gradient(
         180deg,
-        rgba(118, 112, 103, 0.28) 0%,
-        rgba(118, 112, 103, 0.1) 28%,
-        rgba(90, 84, 76, 0.06) 55%,
-        rgba(28, 25, 22, 0.4) 100%
+        rgba(118, 112, 103, 0.2) 0%,
+        rgba(118, 112, 103, 0.06) 36%,
+        rgba(28, 25, 22, 0.38) 100%
       ),
-      linear-gradient(90deg, rgba(90, 84, 76, 0.18) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.14) 100%);
+      linear-gradient(90deg, rgba(90, 84, 76, 0.16) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.12) 100%);
   }
 
   .hero__cutout {
@@ -884,8 +871,8 @@ onBeforeUnmount(() => {
     bottom: 0;
     transform: translateX(-50%);
     width: auto;
-    height: min(54vh, 24rem);
-    max-width: min(90vw, 21rem);
+    height: min(40vh, 17.5rem);
+    max-width: min(78vw, 16.5rem);
     object-fit: contain;
     object-position: bottom center;
     filter: brightness(0.94) saturate(0.96);
@@ -908,13 +895,12 @@ onBeforeUnmount(() => {
     right: auto;
     bottom: auto;
     margin: 0;
-    padding: 1rem 1.35rem calc(1.15rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.85rem 1.25rem 0.75rem;
     flex-direction: column;
     align-items: stretch;
     opacity: 1;
     transform: none;
-    /* Тот же тон, что сцена — без резкого прыжка в графит */
-    background: var(--hero-warm-deep);
+    background: var(--color-graphite);
   }
 
   .hero__bar.is-in {
@@ -928,43 +914,40 @@ onBeforeUnmount(() => {
   .hero__actions {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
     margin-left: 0;
   }
 
   .btn {
     width: 100%;
     min-width: 0;
-    min-height: 3.25rem;
-    padding: 0.8rem 1.1rem;
-    border-radius: 1rem;
-    font-size: 1rem;
+    min-height: 2.95rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.9rem;
+    font-size: 0.98rem;
   }
 }
 
 @media (max-width: 520px) {
-  .hero__scene {
-    min-height: min(68dvh, 30rem);
-    height: min(68dvh, 30rem);
-  }
-
   .hero__masthead {
-    top: calc(4.45rem + env(safe-area-inset-top, 0px));
-    padding: 0 1.15rem;
+    padding: calc(4.35rem + env(safe-area-inset-top, 0px)) 1.15rem 0.45rem;
   }
 
   .hero__title {
-    font-size: clamp(1.8rem, 7.8vw, 2.25rem);
+    font-size: clamp(1.55rem, 6.6vw, 1.95rem);
+  }
+
+  .hero__car-wrap {
+    height: min(40dvh, 17.5rem);
   }
 
   .hero__cutout {
-    height: min(52vh, 22rem);
-    max-width: min(94vw, 20rem);
+    height: min(36vh, 15.5rem);
+    max-width: min(82vw, 15rem);
   }
 
-  .hero__car {
-    object-position: 50% 40%;
-    transform: scale(1.04) translateY(2%);
+  .hero__bar {
+    padding: 0.75rem 1.15rem 0.65rem;
   }
 
   .hero__title-mobile-l2 {
