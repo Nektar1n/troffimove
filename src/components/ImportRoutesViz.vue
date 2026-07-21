@@ -658,11 +658,14 @@ const jpBrands = computed(() => brandSets.jp);
     position: relative;
     inset: auto;
     order: 1;
+    display: flex;
+    flex-direction: column;
     padding: calc(8.35rem + env(safe-area-inset-top, 0px)) max(1.35rem, env(safe-area-inset-right, 0px)) 0.95rem
       max(1.35rem, env(safe-area-inset-left, 0px));
   }
 
   .routes__truck-heading {
+    order: 1;
     max-width: 100%;
     margin-bottom: 0.65rem;
     font-size: clamp(1.85rem, 7.2vw, 2.4rem);
@@ -690,10 +693,11 @@ const jpBrands = computed(() => brandSets.jp);
   .routes__truck-inline-media {
     position: relative;
     display: block;
+    order: 2;
     width: 100%;
     max-width: min(28rem, 100%);
     aspect-ratio: 16 / 10;
-    margin: 1rem 0 1rem;
+    margin: 1rem 0 0.9rem;
     border: 1px solid rgb(var(--color-milk-rgb) / 0.14);
     border-radius: 1.5rem;
     box-shadow: 0 28px 56px -36px rgb(var(--color-graphite-rgb) / 0.92);
@@ -710,20 +714,30 @@ const jpBrands = computed(() => brandSets.jp);
   }
 
   .routes__truck-deck {
+    order: 4;
     max-width: 100%;
-    margin-bottom: 1rem;
+    margin: 0.85rem 0 0;
     font-size: clamp(0.9rem, 3.6vw, 1rem);
     line-height: 1.48;
   }
 
   .routes__truck-actions {
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     gap: 0.75rem;
-    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+    flex-wrap: nowrap;
   }
 
   .btn {
+    width: 100%;
+    min-width: 0;
     min-height: 3.25rem;
     padding: 0.8rem 1.1rem;
+    border-radius: 1rem;
     font-size: 1rem;
   }
 }

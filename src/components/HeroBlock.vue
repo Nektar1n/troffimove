@@ -731,20 +731,20 @@ onBeforeUnmount(() => {
     z-index: 0;
   }
 
-  /* Сцена: полноэкранная композиция как на десктопе */
+  /* Сцена ниже — кнопки сразу в первом экране */
   .hero__scene {
     position: relative;
     inset: auto;
     z-index: 1;
     order: 1;
     width: 100%;
-    min-height: min(88dvh, 44rem);
-    height: min(88dvh, 44rem);
+    min-height: min(72dvh, 34rem);
+    height: min(72dvh, 34rem);
     overflow: hidden;
     background: var(--hero-top);
   }
 
-  /* Верхний вуаль — заголовок читается поверх машины */
+  /* Мягкий верх: без тёмной «полосы» над фото */
   .hero__scene::before {
     content: '';
     position: absolute;
@@ -752,11 +752,11 @@ onBeforeUnmount(() => {
     top: 0;
     left: 0;
     right: 0;
-    height: clamp(9rem, 32vh, 14rem);
+    height: clamp(7rem, 26vh, 11rem);
     background: linear-gradient(
       180deg,
-      rgba(118, 112, 103, 0.82) 0%,
-      rgba(118, 112, 103, 0.48) 48%,
+      rgba(118, 112, 103, 0.5) 0%,
+      rgba(118, 112, 103, 0.18) 48%,
       rgba(118, 112, 103, 0) 100%
     );
     pointer-events: none;
@@ -764,7 +764,7 @@ onBeforeUnmount(() => {
 
   .hero__masthead {
     position: absolute;
-    top: calc(4.85rem + env(safe-area-inset-top, 0px));
+    top: calc(4.65rem + env(safe-area-inset-top, 0px));
     left: 0;
     right: 0;
     z-index: 6;
@@ -857,10 +857,10 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Машина как фон за фигурой, не на весь кадр */
-    object-position: 50% 58%;
-    transform: scale(1.02) translateY(22%);
-    transform-origin: 50% 100%;
+    /* Фото поднято под заголовок — без пустой полосы сверху */
+    object-position: 50% 42%;
+    transform: scale(1.06) translateY(4%);
+    transform-origin: 50% 40%;
     filter: saturate(0.86) contrast(0.96) brightness(0.98);
   }
 
@@ -868,12 +868,12 @@ onBeforeUnmount(() => {
     background:
       linear-gradient(
         180deg,
-        rgba(118, 112, 103, 0.55) 0%,
-        rgba(118, 112, 103, 0.28) 24%,
-        rgba(90, 84, 76, 0.08) 52%,
-        rgba(28, 25, 22, 0.48) 100%
+        rgba(118, 112, 103, 0.28) 0%,
+        rgba(118, 112, 103, 0.1) 28%,
+        rgba(90, 84, 76, 0.06) 55%,
+        rgba(28, 25, 22, 0.4) 100%
       ),
-      linear-gradient(90deg, rgba(90, 84, 76, 0.22) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.18) 100%);
+      linear-gradient(90deg, rgba(90, 84, 76, 0.18) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.14) 100%);
   }
 
   .hero__cutout {
@@ -884,8 +884,8 @@ onBeforeUnmount(() => {
     bottom: 0;
     transform: translateX(-50%);
     width: auto;
-    height: min(62vh, 30rem);
-    max-width: min(90vw, 23rem);
+    height: min(54vh, 24rem);
+    max-width: min(90vw, 21rem);
     object-fit: contain;
     object-position: bottom center;
     filter: brightness(0.94) saturate(0.96);
@@ -897,55 +897,24 @@ onBeforeUnmount(() => {
   }
 
   .hero__quote {
-    position: relative;
-    z-index: 2;
-    order: 2;
-    left: auto;
-    top: auto;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 1.15rem 1.35rem 0;
-    text-align: left;
-    background: var(--color-graphite);
-  }
-
-  .hero__quote-mark {
-    display: block;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.75rem;
-    line-height: 0.7;
-    color: var(--yellow);
-    margin: 0 0 0.2rem;
-  }
-
-  .hero__lead {
-    font-size: clamp(0.92rem, 3.6vw, 1.02rem);
-    line-height: 1.5;
-    font-weight: 500;
-    color: var(--color-milk);
-  }
-
-  .hero__lead-attrib {
-    font-size: 0.85rem;
-    color: rgb(var(--color-milk-rgb) / 0.78);
+    display: none;
   }
 
   .hero__bar {
     position: relative;
     z-index: 2;
-    order: 3;
+    order: 2;
     left: auto;
     right: auto;
     bottom: auto;
     margin: 0;
-    padding: 1.1rem 1.35rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    padding: 1rem 1.35rem calc(1.15rem + env(safe-area-inset-bottom, 0px));
     flex-direction: column;
     align-items: stretch;
     opacity: 1;
     transform: none;
-    background: var(--color-graphite);
+    /* Тот же тон, что сцена — без резкого прыжка в графит */
+    background: var(--hero-warm-deep);
   }
 
   .hero__bar.is-in {
@@ -975,12 +944,12 @@ onBeforeUnmount(() => {
 
 @media (max-width: 520px) {
   .hero__scene {
-    min-height: min(86dvh, 38rem);
-    height: min(86dvh, 38rem);
+    min-height: min(68dvh, 30rem);
+    height: min(68dvh, 30rem);
   }
 
   .hero__masthead {
-    top: calc(4.55rem + env(safe-area-inset-top, 0px));
+    top: calc(4.45rem + env(safe-area-inset-top, 0px));
     padding: 0 1.15rem;
   }
 
@@ -989,13 +958,13 @@ onBeforeUnmount(() => {
   }
 
   .hero__cutout {
-    height: min(58vh, 26rem);
-    max-width: min(94vw, 21rem);
+    height: min(52vh, 22rem);
+    max-width: min(94vw, 20rem);
   }
 
   .hero__car {
-    object-position: 50% 55%;
-    transform: scale(1) translateY(26%);
+    object-position: 50% 40%;
+    transform: scale(1.04) translateY(2%);
   }
 
   .hero__title-mobile-l2 {
