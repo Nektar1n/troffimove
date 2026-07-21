@@ -107,7 +107,7 @@ function openCase(id) {
 }
 
 .cases-page__hero {
-  padding: 8.35rem max(1.35rem, env(safe-area-inset-left, 0px)) 2rem max(1.35rem, env(safe-area-inset-right, 0px));
+  padding: 8.85rem max(1.35rem, env(safe-area-inset-left, 0px)) 2rem max(1.35rem, env(safe-area-inset-right, 0px));
   background: var(--surface-dark);
   border-bottom: 1px solid var(--border-dark);
   color: var(--text-on-dark);

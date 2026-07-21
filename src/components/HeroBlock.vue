@@ -761,7 +761,7 @@ onBeforeUnmount(() => {
     min-height: 0;
     padding: calc(4.55rem + env(safe-area-inset-top, 0px)) 1.25rem 0.55rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     pointer-events: none;
     background: var(--hero-top);
   }
@@ -771,12 +771,12 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    max-width: 18ch;
-    text-align: center;
-    margin: 0 auto;
+    max-width: 16ch;
+    text-align: left;
+    margin: 0;
     font-weight: 700;
-    font-size: clamp(1.7rem, 6.8vw, 2.15rem);
-    line-height: 1.12;
+    font-size: clamp(1.95rem, 7.6vw, 2.45rem);
+    line-height: 1.1;
     letter-spacing: -0.03em;
     color: var(--color-milk);
     overflow-wrap: normal;
@@ -793,7 +793,7 @@ onBeforeUnmount(() => {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.04em;
     max-width: 100%;
     min-width: 0;
@@ -803,7 +803,7 @@ onBeforeUnmount(() => {
   .hero__title-mobile-l1,
   .hero__title-mobile-l2 {
     display: block;
-    text-align: center;
+    text-align: left;
   }
 
   .hero__title-mobile-l2 {
@@ -934,7 +934,7 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    font-size: clamp(1.55rem, 6.6vw, 1.95rem);
+    font-size: clamp(1.8rem, 7.4vw, 2.2rem);
   }
 
   .hero__car-wrap {

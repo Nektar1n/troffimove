@@ -106,6 +106,7 @@ const trail = computed(() => {
 @media (max-width: 899px) {
   .crumbs {
     top: calc(3.65rem + env(safe-area-inset-top, 0px));
+    padding-bottom: 0.55rem;
   }
 }
 </style>

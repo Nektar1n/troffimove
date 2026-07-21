@@ -385,7 +385,8 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
     order: 1;
     display: flex;
     flex-direction: column;
-    padding: calc(7.85rem + env(safe-area-inset-top, 0px)) max(1.25rem, env(safe-area-inset-right, 0px)) 0
+    /* Шапка + крошки + зазор до заголовка */
+    padding: calc(8.65rem + env(safe-area-inset-top, 0px)) max(1.25rem, env(safe-area-inset-right, 0px)) 0
       max(1.25rem, env(safe-area-inset-left, 0px));
   }
 
@@ -471,7 +472,7 @@ import TitleKeyTypewriter from './TitleKeyTypewriter.vue';
 
 @media (max-width: 380px) {
   .pick-hero__cap {
-    padding-top: calc(7.5rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(8.3rem + env(safe-area-inset-top, 0px));
   }
 
   .pick-hero__title {
