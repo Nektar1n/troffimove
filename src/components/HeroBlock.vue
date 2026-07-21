@@ -741,8 +741,8 @@ onBeforeUnmount(() => {
     order: 1;
     display: block;
     width: 100%;
-    height: min(72dvh, 32.5rem);
-    min-height: 26.5rem;
+    height: min(84dvh, 37rem);
+    min-height: 30rem;
     overflow: hidden;
     background: var(--hero-top);
   }
@@ -790,11 +790,17 @@ onBeforeUnmount(() => {
     order: unset;
     margin: 0;
     min-height: 0;
-    padding: 0 1.25rem;
+    /* силовая линия = stats / остальные секции */
+    padding: 0 max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
     display: flex;
     justify-content: flex-start;
     pointer-events: none;
     background: transparent;
+  }
+
+  .hero__head {
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .hero__title-ghost {
@@ -802,13 +808,13 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    max-width: 13ch;
+    max-width: 15ch;
     text-align: left;
     margin: 0;
     font-weight: 700;
-    font-size: clamp(1.8rem, 7vw, 2.2rem);
-    line-height: 1.08;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.45rem, 9.6vw, 3rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
     color: var(--color-milk);
     overflow-wrap: normal;
     word-break: normal;
@@ -899,8 +905,8 @@ onBeforeUnmount(() => {
     position: absolute;
     z-index: 5;
     /* слот строго под заголовком (~2 строки) и над кнопками */
-    top: calc(4.15rem + env(safe-area-inset-top, 0px) + 5.35rem);
-    bottom: 7.05rem;
+    top: calc(4.15rem + env(safe-area-inset-top, 0px) + 7.1rem);
+    bottom: 5.55rem;
     left: 50%;
     transform: translateX(-50%);
     width: auto;
@@ -929,7 +935,7 @@ onBeforeUnmount(() => {
     right: 0;
     bottom: 0;
     margin: 0;
-    padding: 0.65rem 1.25rem 0.8rem;
+    padding: 0.15rem max(1rem, env(safe-area-inset-right, 0px)) 0.35rem max(1rem, env(safe-area-inset-left, 0px));
     flex-direction: column;
     align-items: stretch;
     opacity: 1;
@@ -948,43 +954,43 @@ onBeforeUnmount(() => {
   .hero__actions {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.45rem;
     margin-left: 0;
   }
 
   .btn {
     width: 100%;
     min-width: 0;
-    min-height: 2.75rem;
-    padding: 0.6rem 1rem;
+    min-height: 2.6rem;
+    padding: 0.55rem 1rem;
     border-radius: 0.9rem;
-    font-size: 0.96rem;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 520px) {
   .hero__scene {
-    height: min(70dvh, 30.5rem);
-    min-height: 25rem;
+    height: min(82dvh, 35rem);
+    min-height: 28.5rem;
   }
 
   .hero__masthead {
     top: calc(4.05rem + env(safe-area-inset-top, 0px));
-    padding: 0 1.15rem;
+    padding: 0 max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
   }
 
   .hero__title {
-    font-size: clamp(1.7rem, 7vw, 2.05rem);
+    font-size: clamp(2.35rem, 10vw, 2.85rem);
   }
 
   .hero__cutout {
-    top: calc(4.05rem + env(safe-area-inset-top, 0px) + 5.1rem);
-    bottom: 6.75rem;
+    top: calc(4.05rem + env(safe-area-inset-top, 0px) + 6.85rem);
+    bottom: 5.25rem;
     max-width: min(82vw, 14.75rem);
   }
 
   .hero__bar {
-    padding: 0.55rem 1.15rem 0.7rem;
+    padding: 0.1rem max(1rem, env(safe-area-inset-right, 0px)) 0.3rem max(1rem, env(safe-area-inset-left, 0px));
   }
 
   .hero__title-mobile-l2 {
