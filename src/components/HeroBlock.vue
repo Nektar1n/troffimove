@@ -709,7 +709,7 @@ onBeforeUnmount(() => {
 
 @media (max-width: 899px) {
   .hero {
-    background: var(--hero-top);
+    background: var(--color-graphite);
   }
 
   .hero__stage {
@@ -717,7 +717,7 @@ onBeforeUnmount(() => {
     padding: 0;
     display: flex;
     flex-direction: column;
-    background: var(--hero-top);
+    background: var(--color-graphite);
   }
 
   .hero__stage::before {
@@ -729,41 +729,72 @@ onBeforeUnmount(() => {
   }
 
   /*
-   * Мобильная композиция:
-   * заголовок СВЕРХУ (не на голове) → компактное фото → кнопки → цифры влезают
+   * Один кадр: фото full-bleed.
+   * Заголовок слева поверх фото.
+   * Фигура в прямоугольнике top→bottom строго ПОД заголовком —
+   * голова физически не может залезть под текст.
    */
   .hero__scene {
     position: relative;
     inset: auto;
     z-index: 1;
     order: 1;
-    display: flex;
-    flex-direction: column;
+    display: block;
     width: 100%;
-    height: auto;
-    min-height: 0;
+    height: min(72dvh, 32.5rem);
+    min-height: 26.5rem;
     overflow: hidden;
     background: var(--hero-top);
   }
 
   .hero__scene::before {
-    display: none;
+    content: '';
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(7.5rem, 26vh, 11rem);
+    background: linear-gradient(
+      180deg,
+      rgba(70, 64, 56, 0.55) 0%,
+      rgba(118, 112, 103, 0.22) 52%,
+      rgba(118, 112, 103, 0) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero__scene::after {
+    content: '';
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(9rem, 30vh, 12.5rem);
+    background: linear-gradient(
+      180deg,
+      rgb(var(--color-graphite-rgb) / 0) 0%,
+      rgb(var(--color-graphite-rgb) / 0.55) 42%,
+      var(--color-graphite) 100%
+    );
+    pointer-events: none;
   }
 
   .hero__masthead {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
+    position: absolute;
+    top: calc(4.15rem + env(safe-area-inset-top, 0px));
+    left: 0;
+    right: 0;
     z-index: 6;
-    order: 1;
+    order: unset;
     margin: 0;
     min-height: 0;
-    padding: calc(4.55rem + env(safe-area-inset-top, 0px)) 1.25rem 0.55rem;
+    padding: 0 1.25rem;
     display: flex;
     justify-content: flex-start;
     pointer-events: none;
-    background: var(--hero-top);
+    background: transparent;
   }
 
   .hero__title-ghost {
@@ -771,17 +802,17 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    max-width: 16ch;
+    max-width: 13ch;
     text-align: left;
     margin: 0;
     font-weight: 700;
-    font-size: clamp(1.95rem, 7.6vw, 2.45rem);
-    line-height: 1.1;
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+    line-height: 1.08;
     letter-spacing: -0.03em;
     color: var(--color-milk);
     overflow-wrap: normal;
     word-break: normal;
-    text-shadow: none;
+    text-shadow: 0 10px 28px rgb(var(--color-graphite-rgb) / 0.45);
   }
 
   .hero__title-live {
@@ -826,14 +857,14 @@ onBeforeUnmount(() => {
   }
 
   .hero__car-wrap {
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     z-index: 2;
-    order: 2;
-    align-self: stretch;
+    order: unset;
+    align-self: auto;
     width: 100%;
     max-width: none;
-    height: min(42dvh, 19.5rem);
+    height: 100%;
     aspect-ratio: auto;
     margin: 0;
     border: 0;
@@ -846,8 +877,8 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 48%;
-    transform: scale(1.08) translateY(6%);
+    object-position: 48% 52%;
+    transform: scale(1.14) translateY(2%);
     transform-origin: 50% 100%;
     filter: saturate(0.86) contrast(0.96) brightness(0.98);
   }
@@ -856,23 +887,26 @@ onBeforeUnmount(() => {
     background:
       linear-gradient(
         180deg,
-        rgba(118, 112, 103, 0.2) 0%,
-        rgba(118, 112, 103, 0.06) 36%,
-        rgba(28, 25, 22, 0.38) 100%
+        rgba(118, 112, 103, 0.14) 0%,
+        rgba(118, 112, 103, 0.04) 40%,
+        rgba(28, 25, 22, 0.18) 100%
       ),
-      linear-gradient(90deg, rgba(90, 84, 76, 0.16) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.12) 100%);
+      linear-gradient(90deg, rgba(90, 84, 76, 0.12) 0%, rgb(var(--color-graphite-rgb) / 0) 50%, rgba(90, 84, 76, 0.08) 100%);
   }
 
   .hero__cutout {
     display: block;
     position: absolute;
     z-index: 5;
+    /* слот строго под заголовком (~2 строки) и над кнопками */
+    top: calc(4.15rem + env(safe-area-inset-top, 0px) + 5.35rem);
+    bottom: 7.05rem;
     left: 50%;
-    bottom: 0;
     transform: translateX(-50%);
     width: auto;
-    height: min(40vh, 17.5rem);
-    max-width: min(78vw, 16.5rem);
+    height: auto;
+    max-width: min(78vw, 16rem);
+    margin: 0;
     object-fit: contain;
     object-position: bottom center;
     filter: brightness(0.94) saturate(0.96);
@@ -888,19 +922,19 @@ onBeforeUnmount(() => {
   }
 
   .hero__bar {
-    position: relative;
-    z-index: 2;
-    order: 2;
-    left: auto;
-    right: auto;
-    bottom: auto;
+    position: absolute;
+    z-index: 7;
+    order: unset;
+    left: 0;
+    right: 0;
+    bottom: 0;
     margin: 0;
-    padding: 0.85rem 1.25rem 0.75rem;
+    padding: 0.65rem 1.25rem 0.8rem;
     flex-direction: column;
     align-items: stretch;
     opacity: 1;
     transform: none;
-    background: var(--color-graphite);
+    background: transparent;
   }
 
   .hero__bar.is-in {
@@ -914,40 +948,43 @@ onBeforeUnmount(() => {
   .hero__actions {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.5rem;
     margin-left: 0;
   }
 
   .btn {
     width: 100%;
     min-width: 0;
-    min-height: 2.95rem;
-    padding: 0.7rem 1rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
     border-radius: 0.9rem;
-    font-size: 0.98rem;
+    font-size: 0.96rem;
   }
 }
 
 @media (max-width: 520px) {
+  .hero__scene {
+    height: min(70dvh, 30.5rem);
+    min-height: 25rem;
+  }
+
   .hero__masthead {
-    padding: calc(4.35rem + env(safe-area-inset-top, 0px)) 1.15rem 0.45rem;
+    top: calc(4.05rem + env(safe-area-inset-top, 0px));
+    padding: 0 1.15rem;
   }
 
   .hero__title {
-    font-size: clamp(1.8rem, 7.4vw, 2.2rem);
-  }
-
-  .hero__car-wrap {
-    height: min(40dvh, 17.5rem);
+    font-size: clamp(1.7rem, 7vw, 2.05rem);
   }
 
   .hero__cutout {
-    height: min(36vh, 15.5rem);
-    max-width: min(82vw, 15rem);
+    top: calc(4.05rem + env(safe-area-inset-top, 0px) + 5.1rem);
+    bottom: 6.75rem;
+    max-width: min(82vw, 14.75rem);
   }
 
   .hero__bar {
-    padding: 0.75rem 1.15rem 0.65rem;
+    padding: 0.55rem 1.15rem 0.7rem;
   }
 
   .hero__title-mobile-l2 {

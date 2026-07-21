@@ -159,10 +159,10 @@ watch(
 
   .home-hero-stats__grid {
     margin-top: 0;
-    margin-bottom: 1rem;
-    padding-top: 0.65rem;
-    padding-bottom: 1.15rem;
-    gap: 0.85rem 0.85rem;
+    margin-bottom: 0.85rem;
+    padding-top: 0.35rem;
+    padding-bottom: 1rem;
+    gap: 0.75rem 0.85rem;
   }
 
   .home-hero-stats__item {
