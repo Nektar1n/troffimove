@@ -812,8 +812,8 @@ onBeforeUnmount(() => {
     text-align: left;
     margin: 0;
     font-weight: 700;
-    font-size: clamp(2.45rem, 9.6vw, 3rem);
-    line-height: 1.04;
+    font-size: clamp(2.55rem, 10vw, 3.15rem);
+    line-height: 1.02;
     letter-spacing: -0.035em;
     color: var(--color-milk);
     overflow-wrap: normal;
@@ -828,22 +828,25 @@ onBeforeUnmount(() => {
   .hero__title-mobile {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.04em;
+    display: block;
     max-width: 100%;
     min-width: 0;
     font-weight: 700;
+    line-height: inherit;
   }
 
   .hero__title-mobile-l1,
   .hero__title-mobile-l2 {
     display: block;
     text-align: left;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
   }
 
+  /* убрать «дырку» между переносом l1 и строкой «авто под ключ» */
   .hero__title-mobile-l2 {
+    margin-top: -0.06em;
     white-space: nowrap;
   }
 
@@ -853,13 +856,24 @@ onBeforeUnmount(() => {
     font-family: var(--font-hero);
     font-weight: 700;
     font-size: 1em;
-    line-height: inherit;
+    line-height: 1;
     letter-spacing: inherit;
     color: var(--color-milk);
   }
 
   .hero__title-accent {
-    margin-top: 0;
+    margin: 0;
+    vertical-align: baseline;
+  }
+
+  .hero__title-accent :deep(.title-key-tw) {
+    vertical-align: baseline;
+  }
+
+  .hero__title-accent :deep(.title-key-tw__measure::after),
+  .hero__title-accent :deep(.title-key-tw__caret) {
+    height: 0.68em;
+    vertical-align: -0.06em;
   }
 
   .hero__car-wrap {
@@ -905,7 +919,7 @@ onBeforeUnmount(() => {
     position: absolute;
     z-index: 5;
     /* слот строго под заголовком (~2 строки) и над кнопками */
-    top: calc(4.15rem + env(safe-area-inset-top, 0px) + 7.1rem);
+    top: calc(4.15rem + env(safe-area-inset-top, 0px) + 7.45rem);
     bottom: 5.55rem;
     left: 50%;
     transform: translateX(-50%);
@@ -980,11 +994,11 @@ onBeforeUnmount(() => {
   }
 
   .hero__title {
-    font-size: clamp(2.35rem, 10vw, 2.85rem);
+    font-size: clamp(2.45rem, 10.4vw, 3rem);
   }
 
   .hero__cutout {
-    top: calc(4.05rem + env(safe-area-inset-top, 0px) + 6.85rem);
+    top: calc(4.05rem + env(safe-area-inset-top, 0px) + 7.2rem);
     bottom: 5.25rem;
     max-width: min(82vw, 14.75rem);
   }
