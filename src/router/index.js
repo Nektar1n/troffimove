@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { DEFAULT_DESCRIPTION, PAGE_DESCRIPTIONS, applyPageMeta } from '../seo/siteMeta.js';
 import { preloadCriticalImagesForRoute } from '../utils/criticalRouteImages.js';
 import { setNavigationLoading } from '../state/navigationLoading.js';
+import { trackYandexMetrikaPageView } from '../utils/yandexMetrika.js';
 import HomeView from '../views/HomeView.vue';
 import ImportView from '../views/ImportView.vue';
 import LegalView from '../views/LegalView.vue';
@@ -89,7 +90,7 @@ router.beforeEach(async (to) => {
   await preloadCriticalImagesForRoute(String(to.name || ''));
 });
 
-router.afterEach((to) => {
+router.afterEach((to, from) => {
   setNavigationLoading(false);
   const base = 'Troffimove Auto';
   const t = to.meta?.title;
@@ -104,6 +105,11 @@ router.afterEach((to) => {
     ogImageUrl = rawOg || `${window.location.origin}${baseUrl}favicon.svg`.replace(/([^:]\/)\/+/g, '$1');
   }
   applyPageMeta(desc, fullTitle, pathUrl || undefined, ogImageUrl);
+
+  // SPA: первый просмотр — через init в index.html, дальше — вручную.
+  if (from.name) {
+    trackYandexMetrikaPageView(window.location.href, fullTitle);
+  }
 });
 
 router.onError(() => {
