@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { useInView } from '../composables/useInView.js';
 import { contactEmail, web3formsAccessKey } from '../config/site.js';
@@ -61,9 +61,46 @@ onMounted(() => {
   if (route.hash === '#contact') applyPendingPrefill();
 });
 
+onBeforeUnmount(() => {
+  clearFeedbackTimer();
+});
+
+let feedbackTimer = 0;
+
+function clearFeedbackTimer() {
+  if (feedbackTimer) {
+    clearTimeout(feedbackTimer);
+    feedbackTimer = 0;
+  }
+}
+
+function showSuccess() {
+  clearFeedbackTimer();
+  error.value = '';
+  sent.value = true;
+  // Фиксированный оверлей всегда в зоне видимости; дополнительно подскроллим к форме.
+  nextTick(() => {
+    el.value?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  feedbackTimer = window.setTimeout(() => {
+    sent.value = false;
+    feedbackTimer = 0;
+  }, 7000);
+}
+
+function dismissFeedback() {
+  clearFeedbackTimer();
+  sent.value = false;
+  error.value = '';
+}
+
 async function onSubmit(e) {
   e.preventDefault();
+  if (sending.value) return;
+
+  clearFeedbackTimer();
   error.value = '';
+  sent.value = false;
 
   if (!web3formsAccessKey.trim()) {
     error.value =
@@ -92,16 +129,14 @@ async function onSubmit(e) {
       throw new Error(data.message || `Ошибка ${res.status}`);
     }
 
-    sent.value = true;
     form.name = '';
     form.phone = '';
     form.message = '';
     form.topic = 'import';
-    setTimeout(() => {
-      sent.value = false;
-    }, 5000);
+    showSuccess();
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Не удалось отправить. Попробуйте позже или напишите в мессенджер.';
+    error.value =
+      err instanceof Error ? err.message : 'Не удалось отправить. Попробуйте позже или напишите в мессенджер.';
   } finally {
     sending.value = false;
   }
@@ -125,16 +160,30 @@ async function onSubmit(e) {
         </ul>
       </div>
 
-      <form class="form" :class="{ 'is-in': visible }" @submit="onSubmit">
-        <Transition name="pop">
-          <div v-if="sent" class="toast toast--ok" role="status">Заявка отправлена на почту. Мы свяжемся с вами.</div>
-        </Transition>
-        <Transition name="pop">
-          <div v-if="error && !sent" class="toast toast--err" role="alert">
-            <p class="toast__text">{{ error }}</p>
-            <a v-if="mailtoHref" class="toast__link" :href="mailtoHref">Написать на почту вручную</a>
+      <Teleport to="body">
+        <Transition name="feedback">
+          <div
+            v-if="sent"
+            class="feedback"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-feedback-title"
+            @click.self="dismissFeedback"
+          >
+            <div class="feedback__card feedback__card--ok">
+              <p id="contact-feedback-title" class="feedback__title">Заявка отправлена</p>
+              <p class="feedback__text">Сообщение ушло на почту. Мы свяжемся с вами.</p>
+              <button type="button" class="feedback__btn" @click="dismissFeedback">Понятно</button>
+            </div>
           </div>
         </Transition>
+      </Teleport>
+
+      <form class="form" :class="{ 'is-in': visible }" @submit="onSubmit">
+        <div v-if="error && !sent" class="toast toast--err" role="alert">
+          <p class="toast__text">{{ error }}</p>
+          <a v-if="mailtoHref" class="toast__link" :href="mailtoHref">Написать на почту вручную</a>
+        </div>
 
         <label class="field">
           <span>Имя</span>
@@ -370,17 +419,13 @@ async function onSubmit(e) {
 }
 
 .toast {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -0.25rem;
-  transform: translateY(-100%);
   padding: 0.75rem 0.85rem;
   font-size: 0.875rem;
   line-height: 1.4;
-  border: 1px solid var(--text);
+  border: 1px solid #fecaca;
   border-radius: 8px;
-  background: var(--color-milk);
+  color: var(--text);
+  background: #fff5f5;
 }
 
 .toast__text {
@@ -392,27 +437,80 @@ async function onSubmit(e) {
   font-weight: 600;
 }
 
-.toast--ok {
-  color: var(--text);
+/* Фиксированный оверлей — всегда виден на телефоне и десктопе */
+.feedback {
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  display: grid;
+  place-items: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  background: rgb(var(--color-graphite-rgb) / 0.48);
+}
+
+.feedback__card {
+  width: min(100%, 22rem);
+  padding: 1.35rem 1.25rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--text);
   background: var(--color-milk);
-}
-
-.toast--err {
   color: var(--text);
-  background: #fff5f5;
-  border-color: #fecaca;
+  box-shadow: 0 18px 48px rgb(var(--color-graphite-rgb) / 0.28);
+  text-align: center;
 }
 
-.pop-enter-active,
-.pop-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+.feedback__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
 }
-.pop-enter-from,
-.pop-leave-to {
+
+.feedback__text {
+  margin: 0 0 1.15rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.feedback__btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  border: 1px solid var(--yellow);
+  border-radius: 980px;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.5rem;
+  color: var(--yellow-ink);
+  background: var(--yellow);
+}
+
+.feedback__btn:hover {
+  opacity: 0.9;
+}
+
+.feedback-enter-active,
+.feedback-leave-active {
+  transition: opacity 0.22s ease;
+}
+
+.feedback-enter-active .feedback__card,
+.feedback-leave-active .feedback__card {
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.feedback-enter-from,
+.feedback-leave-to {
   opacity: 0;
-  transform: translateY(-100%) translateY(-6px);
+}
+
+.feedback-enter-from .feedback__card,
+.feedback-leave-to .feedback__card {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -420,6 +518,13 @@ async function onSubmit(e) {
   .form {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .feedback-enter-active,
+  .feedback-leave-active,
+  .feedback-enter-active .feedback__card,
+  .feedback-leave-active .feedback__card {
     transition: none;
   }
 }
